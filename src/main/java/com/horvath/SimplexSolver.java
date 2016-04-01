@@ -19,6 +19,8 @@
 
 package com.horvath;
 
+import org.apache.commons.math3.util.MathUtils;
+
 /**
  * Solves a {@link LinearModel} using the Two-Phase Simplex Method.
  * 

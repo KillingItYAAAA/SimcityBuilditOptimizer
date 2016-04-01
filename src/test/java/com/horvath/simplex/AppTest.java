@@ -1,4 +1,4 @@
-package com.horvath.simplex;
+package com.horvath;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
