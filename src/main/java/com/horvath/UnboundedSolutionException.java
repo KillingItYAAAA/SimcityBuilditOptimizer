@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package org.apache.commons.math.optimization;
+package com.horvath;
 
 /**
  * @author <a href="http://www.benmccann.com">Ben McCann</a>

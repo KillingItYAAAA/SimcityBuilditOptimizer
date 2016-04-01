@@ -17,10 +17,11 @@
  * limitations under the License.
  */
 
-package org.apache.commons.math.optimization;
+package com.horvath;
 
-import org.apache.commons.math.linear.RealVector;
-import org.apache.commons.math.linear.RealVectorImpl;
+import org.apache.commons.math3.linear.RealVector;
+import org.apache.commons.math3.linear.ArrayRealVector;
+import org.apache.commons.math3.optimization.GoalType;
 
 /**
  * An objective function for a {@link LinearModel}.
@@ -39,7 +40,7 @@ public class LinearObjectiveFunction {
    * @param goalType The type of optimization to perform
    */
   public LinearObjectiveFunction(double[] coefficients, double constantTerm, GoalType goalType) {
-    this(new RealVectorImpl(coefficients), constantTerm, goalType);
+    this(new ArrayRealVector(coefficients), constantTerm, goalType);
   }
   
   /**

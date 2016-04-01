@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package org.apache.commons.math.optimization;
+package com.horvath;
 
 import org.apache.commons.math.linear.RealVector;
 import org.apache.commons.math.linear.RealVectorImpl;

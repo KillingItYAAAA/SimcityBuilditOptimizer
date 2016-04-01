@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package org.apache.commons.math.optimization;
+package com.horvath;
 
 /**
  * Types of relationships between two cells in a Solver {@link LinearEquation}.
