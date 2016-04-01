@@ -19,8 +19,8 @@
 
 package com.horvath;
 
-import org.apache.commons.math.linear.RealVector;
-import org.apache.commons.math.linear.RealVectorImpl;
+import org.apache.commons.math3.linear.RealVector;
+import org.apache.commons.math3.linear.ArrayRealVector;
 
 
 /**
@@ -35,7 +35,7 @@ public class LinearEquation {
   private final double rightHandSide;
   
   public LinearEquation(double[] coefficients, Relationship relationship, double rightHandSide) {
-    this(new RealVectorImpl(coefficients), relationship, rightHandSide);
+    this(new ArrayRealVector(coefficients), relationship, rightHandSide);
   }
   
   public LinearEquation(RealVector leftHandSide, Relationship relationship, double rightHandSide) {

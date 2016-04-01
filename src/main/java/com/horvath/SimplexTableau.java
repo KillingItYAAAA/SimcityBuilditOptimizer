@@ -23,9 +23,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.math.linear.RealMatrix;
-import org.apache.commons.math.linear.RealMatrixImpl;
-import org.apache.commons.math.linear.RealVector;
+import org.apache.commons.math3.linear.RealMatrix;
+import org.apache.commons.math3.linear.RealVector;
 
 /**
  * A tableau for use in the Simplex method.
