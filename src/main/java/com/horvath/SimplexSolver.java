@@ -20,6 +20,7 @@
 package com.horvath;
 
 import org.apache.commons.math3.util.MathUtils;
+import org.apache.commons.math3.util.Precision;
 
 /**
  * Solves a {@link LinearModel} using the Two-Phase Simplex Method.
@@ -171,7 +172,7 @@ public class SimplexSolver {
     }
 
     // if W is not zero then we have no feasible solution
-    if (!MathUtils.equals(tableau.getEntry(0, tableau.getRhsOffset()), 0, epsilon)) {
+    if (Precision.compareTo(tableau.getEntry(0, tableau.getRhsOffset()), (double)0, epsilon) != 0) {
       throw new NoFeasibleSolutionException();
     }
   }

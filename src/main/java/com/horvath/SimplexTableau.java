@@ -23,8 +23,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealMatrix;
+import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.optimization.GoalType;
 
 /**
  * A tableau for use in the Simplex method.
@@ -66,7 +69,7 @@ class SimplexTableau {
     this.numDecisionVariables = model.getNumVariables() + (nonNegative ? 0 : 1);
     this.numSlackVariables = counts.get(Relationship.LEQ) + counts.get(Relationship.GEQ);
     this.numArtificialVariables = counts.get(Relationship.EQ) + counts.get(Relationship.GEQ);
-    this.tableau = new RealMatrixImpl(createTableau(model));
+    this.tableau = new Array2DRowRealMatrix(createTableau(model));
     initialize();
   }
 
@@ -204,7 +207,7 @@ class SimplexTableau {
       }
       matrix[i][width - 1] = getEntry(i + 1, getRhsOffset());
     }
-    this.tableau = new RealMatrixImpl(matrix);
+    this.tableau = new Array2DRowRealMatrix(matrix);
     this.numArtificialVariables = 0;
   }
 

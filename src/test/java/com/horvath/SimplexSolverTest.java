@@ -21,8 +21,10 @@ package com.horvath;
 
 import junit.framework.TestCase;
 
-import org.apache.commons.math.linear.RealVector;
-import org.apache.commons.math.linear.RealVectorImpl;
+import org.apache.commons.math3.linear.RealVector;
+import org.apache.commons.math3.linear.ArrayRealVector;
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.optimization.GoalType;
 
 /**
  * @author <a href="http://www.benmccann.com">Ben McCann</a>
@@ -291,7 +293,7 @@ public class SimplexSolverTest extends TestCase {
     String[] equationParts = s.split("[>|<]?=");
     double rhs = Double.parseDouble(equationParts[1].trim());
     
-    RealVector lhs = new RealVectorImpl(numCoefficients);
+    RealVector lhs = new Array2DRowRealMatrix(numCoefficients);
     String left = equationParts[0].replaceAll(" ?x", "");
     String[] coefficients = left.split(" ");
     for (String coefficient : coefficients) {
