@@ -48,5 +48,4 @@ public enum Relationship {
     }
     return EQ;
   }
-  
 }

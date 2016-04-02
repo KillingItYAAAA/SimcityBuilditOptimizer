@@ -19,7 +19,6 @@
 
 package com.horvath;
 
-import org.apache.commons.math3.util.MathUtils;
 import org.apache.commons.math3.util.Precision;
 
 /**
