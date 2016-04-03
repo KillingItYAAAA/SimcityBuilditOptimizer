@@ -84,9 +84,9 @@ public class LinearModel {
 	 */
 	private LinearEquation normalize(LinearEquation constraint) {
 		if (constraint.getRightHandSide() < 0) {
-			ArrayRealVector arg1 = (ArrayRealVector)(constraint.getCoefficients().mapMultiply(-1));
-			return new LinearEquation(arg1,
-					constraint.getRelationship().oppositeRelationship(), -1 * constraint.getRightHandSide());
+			ArrayRealVector arg1 = (ArrayRealVector) (constraint.getCoefficients().mapMultiply(-1));
+			return new LinearEquation(arg1, constraint.getRelationship().oppositeRelationship(),
+					-1 * constraint.getRightHandSide());
 		}
 		return new LinearEquation(constraint.getCoefficients(), constraint.getRelationship(),
 				constraint.getRightHandSide());
