@@ -46,7 +46,7 @@ public enum Relationship {
       case LEQ: return GEQ;
       case GEQ: return LEQ;
       default:
-    	  return EQ;
+          return EQ;
     }
   }
 }

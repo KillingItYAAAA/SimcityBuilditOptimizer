@@ -67,7 +67,7 @@ public class SimplexTableTest extends TestCase {
   }
   
   public void testTableWithNoArtificialVars() {
-	LinearObjectiveFunction objectiveFunction = new LinearObjectiveFunction(new double[] {15, 10}, (double)0, GoalType.MAXIMIZE);
+    LinearObjectiveFunction objectiveFunction = new LinearObjectiveFunction(new double[] {15, 10}, (double)0, GoalType.MAXIMIZE);
     LinearModel model = new LinearModel(objectiveFunction);
     model.addConstraint(new LinearEquation(new double[] {1, 0}, Relationship.LEQ, 2));
     model.addConstraint(new LinearEquation(new double[] {0, 1}, Relationship.LEQ, 3));
