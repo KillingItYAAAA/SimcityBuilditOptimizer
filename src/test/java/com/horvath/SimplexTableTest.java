@@ -26,62 +26,62 @@ import junit.framework.TestCase;
 /**
  * @author <a href="http://www.benmccann.com">Ben McCann</a>
  */
-public class SimplexTableauTest extends TestCase {
+public class SimplexTableTest extends TestCase {
     
-  public void testCreateTableau() {
+  public void testCreateTable() {
     LinearModel model = createModel();  
-    SimplexTable tableau = new SimplexTable(model);
-    tableau.createTable(model);
-    double[][] expectedInitialTableau = {
+    SimplexTable table = new SimplexTable(model);
+    table.createTable(model);
+    double[][] expectedInitialTable = {
         {-1, 0,   0,   0,  0, 0, 0, 1, 0},
         { 0, 1, -15, -10, 25, 0, 0, 0, 0},
         { 0, 0,   1,   0, -1, 1, 0, 0, 2},
         { 0, 0,   0,   1, -1, 0, 1, 0, 3},
         { 0, 0,   1,   1, -2, 0, 0, 1, 4}
     };
-    assertMatrixEquals(expectedInitialTableau, tableau.createTable(model));
+    assertMatrixEquals(expectedInitialTable, table.createTable(model));
   }
 
   public void testInitialization() {    
     LinearModel model = createModel();
-    SimplexTable tableau = new SimplexTable(model);
-    double[][] expectedInitialTableau = {
+    SimplexTable table = new SimplexTable(model);
+    double[][] expectedInitialTable = {
         {-1, 0,  -1,  -1,  2, 0, 0, 0, -4},
         { 0, 1, -15, -10, 25, 0, 0, 0,  0},
         { 0, 0,   1,   0, -1, 1, 0, 0,  2},
         { 0, 0,   0,   1, -1, 0, 1, 0,  3},
         { 0, 0,   1,   1, -2, 0, 0, 1,  4}
     };
-    assertMatrixEquals(expectedInitialTableau, tableau.getData());
+    assertMatrixEquals(expectedInitialTable, table.getData());
   }
 
   public void testdiscardArtificialVariables() {    
     LinearModel model = createModel();
-    SimplexTable tableau = new SimplexTable(model);
-    double[][] expectedTableau = {
+    SimplexTable table = new SimplexTable(model);
+    double[][] expectedTable = {
         { 1, -15, -10, 25, 0, 0, 0},
         { 0,   1,   0, -1, 1, 0, 2},
         { 0,   0,   1, -1, 0, 1, 3},
         { 0,   1,   1, -2, 0, 0, 4}
     };
-    tableau.discardArtificialVariables();
-    assertMatrixEquals(expectedTableau, tableau.getData());
+    table.discardArtificialVariables();
+    assertMatrixEquals(expectedTable, table.getData());
   }
   
-  public void testTableauWithNoArtificialVars() {
+  public void testTableWithNoArtificialVars() {
 	LinearObjectiveFunction objectiveFunction = new LinearObjectiveFunction(new double[] {15, 10}, (double)0, GoalType.MAXIMIZE);
     LinearModel model = new LinearModel(objectiveFunction);
     model.addConstraint(new LinearEquation(new double[] {1, 0}, Relationship.LEQ, 2));
     model.addConstraint(new LinearEquation(new double[] {0, 1}, Relationship.LEQ, 3));
     model.addConstraint(new LinearEquation(new double[] {1, 1}, Relationship.LEQ, 4));    
-    SimplexTable tableau = new SimplexTable(model);
-    double[][] initialTableau = {
+    SimplexTable table = new SimplexTable(model);
+    double[][] initialTable = {
         {1, -15, -10, 25, 0, 0, 0, 0},
         {0,   1,   0, -1, 1, 0, 0, 2},
         {0,   0,   1, -1, 0, 1, 0, 3},
         {0,   1,   1, -2, 0, 0, 1, 4}
     };
-    assertMatrixEquals(initialTableau, tableau.getData());
+    assertMatrixEquals(initialTable, table.getData());
   }
   
   private LinearModel createModel() {
