@@ -29,7 +29,7 @@ import org.apache.commons.math3.util.Precision;
 public class SimplexSolver {
 
   private static final double DEFAULT_EPSILON = 0.0000000001;
-  protected final SimplexTableau tableau;
+  protected final SimplexTable table;
   protected final double epsilon;  
   
   /**
@@ -53,7 +53,7 @@ public class SimplexSolver {
    * @param epsilon the amount of error to accept in floating point comparisons
    */
   public SimplexSolver(LinearModel model, boolean restrictToNonNegative, double epsilon) {
-    this.tableau = new SimplexTableau(model, restrictToNonNegative);
+    this.table = new SimplexTable(model, restrictToNonNegative);
     this.epsilon = epsilon;
   }
   
@@ -63,9 +63,9 @@ public class SimplexSolver {
   private Integer getPivotColumn() {
     double minValue = 0;
     Integer minPos = null;
-    for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {
-      if (tableau.getEntry(0, i) < minValue) {
-        minValue = tableau.getEntry(0, i);
+    for (int i = table.getNumObjectiveFunctions(); i < table.getWidth() - 1; i++) {
+      if (table.getEntry(0, i) < minValue) {
+        minValue = table.getEntry(0, i);
         minPos = i;
       }
     }
@@ -80,10 +80,10 @@ public class SimplexSolver {
   private Integer getPivotRow(int col) {
     double minRatio = Double.MAX_VALUE;
     Integer minRatioPos = null;
-    for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getHeight(); i++) {
-      double rhs = tableau.getEntry(i, tableau.getWidth() - 1);
-      if (tableau.getEntry(i, col) >= 0) {
-        double ratio = rhs / tableau.getEntry(i, col);
+    for (int i = table.getNumObjectiveFunctions(); i < table.getHeight(); i++) {
+      double rhs = table.getEntry(i, table.getWidth() - 1);
+      if (table.getEntry(i, col) >= 0) {
+        double ratio = rhs / table.getEntry(i, col);
         if (ratio < minRatio) {
           minRatio = ratio;
           minRatioPos = i; 
@@ -107,14 +107,14 @@ public class SimplexSolver {
     }
     
     // set the pivot element to 1
-    double pivotVal = tableau.getEntry(pivotRow, pivotCol);
-    tableau.divideRow(pivotRow, pivotVal);
+    double pivotVal = table.getEntry(pivotRow, pivotCol);
+    table.divideRow(pivotRow, pivotVal);
 
     // set the rest of the pivot column to 0
-    for (int i = 0; i < tableau.getHeight(); i++) {
+    for (int i = 0; i < table.getHeight(); i++) {
       if (i != pivotRow) {
-        double multiplier = tableau.getEntry(i, pivotCol);
-        tableau.subtractRow(i, pivotRow, multiplier);
+        double multiplier = table.getEntry(i, pivotCol);
+        table.subtractRow(i, pivotRow, multiplier);
       }
     }
   }
@@ -125,11 +125,11 @@ public class SimplexSolver {
    * @return whether Phase 1 is solved
    */
   private boolean isPhase1Solved() {
-    if (tableau.getNumArtificialVariables() == 0) {
+    if (table.getNumArtificialVariables() == 0) {
       return true;
     }
-    for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {
-      if (tableau.getEntry(0, i) < 0) {
+    for (int i = table.getNumObjectiveFunctions(); i < table.getWidth() - 1; i++) {
+      if (table.getEntry(0, i) < 0) {
         return false;
       }
     }
@@ -142,11 +142,11 @@ public class SimplexSolver {
    * @return whether the model has been solved
    */
   public boolean isOptimal() {
-    if (tableau.getNumArtificialVariables() > 0) {
+    if (table.getNumArtificialVariables() > 0) {
       return false;
     }
-    for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getWidth() - 1; i++) {
-      if (tableau.getEntry(0, i) < 0) {
+    for (int i = table.getNumObjectiveFunctions(); i < table.getWidth() - 1; i++) {
+      if (table.getEntry(0, i) < 0) {
         return false;
       }
     }
@@ -162,7 +162,7 @@ public class SimplexSolver {
    */
   protected void solvePhase1() throws UnboundedSolutionException, NoFeasibleSolutionException {
     // make sure we're in Phase 1
-    if (tableau.getNumArtificialVariables() == 0) {
+    if (table.getNumArtificialVariables() == 0) {
       return;
     }
     
@@ -171,7 +171,7 @@ public class SimplexSolver {
     }
 
     // if W is not zero then we have no feasible solution
-    if (Precision.compareTo(tableau.getEntry(0, tableau.getRhsOffset()), (double)0, epsilon) != 0) {
+    if (Precision.compareTo(table.getEntry(0, table.getRhsOffset()), (double)0, epsilon) != 0) {
       throw new NoFeasibleSolutionException();
     }
   }
@@ -185,11 +185,11 @@ public class SimplexSolver {
    */
   public LinearEquation solve() throws UnboundedSolutionException, NoFeasibleSolutionException {
     solvePhase1();
-    tableau.discardArtificialVariables();
+    table.discardArtificialVariables();
     while (!isOptimal()) {
       doIteration();
     }
-    return tableau.getSolution();
+    return table.getSolution();
   }
   
 }

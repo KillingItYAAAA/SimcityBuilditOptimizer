@@ -30,8 +30,8 @@ public class SimplexTableauTest extends TestCase {
     
   public void testCreateTableau() {
     LinearModel model = createModel();  
-    SimplexTableau tableau = new SimplexTableau(model);
-    tableau.createTableau(model);
+    SimplexTable tableau = new SimplexTable(model);
+    tableau.createTable(model);
     double[][] expectedInitialTableau = {
         {-1, 0,   0,   0,  0, 0, 0, 1, 0},
         { 0, 1, -15, -10, 25, 0, 0, 0, 0},
@@ -39,12 +39,12 @@ public class SimplexTableauTest extends TestCase {
         { 0, 0,   0,   1, -1, 0, 1, 0, 3},
         { 0, 0,   1,   1, -2, 0, 0, 1, 4}
     };
-    assertMatrixEquals(expectedInitialTableau, tableau.createTableau(model));
+    assertMatrixEquals(expectedInitialTableau, tableau.createTable(model));
   }
 
   public void testInitialization() {    
     LinearModel model = createModel();
-    SimplexTableau tableau = new SimplexTableau(model);
+    SimplexTable tableau = new SimplexTable(model);
     double[][] expectedInitialTableau = {
         {-1, 0,  -1,  -1,  2, 0, 0, 0, -4},
         { 0, 1, -15, -10, 25, 0, 0, 0,  0},
@@ -57,7 +57,7 @@ public class SimplexTableauTest extends TestCase {
 
   public void testdiscardArtificialVariables() {    
     LinearModel model = createModel();
-    SimplexTableau tableau = new SimplexTableau(model);
+    SimplexTable tableau = new SimplexTable(model);
     double[][] expectedTableau = {
         { 1, -15, -10, 25, 0, 0, 0},
         { 0,   1,   0, -1, 1, 0, 2},
@@ -74,7 +74,7 @@ public class SimplexTableauTest extends TestCase {
     model.addConstraint(new LinearEquation(new double[] {1, 0}, Relationship.LEQ, 2));
     model.addConstraint(new LinearEquation(new double[] {0, 1}, Relationship.LEQ, 3));
     model.addConstraint(new LinearEquation(new double[] {1, 1}, Relationship.LEQ, 4));    
-    SimplexTableau tableau = new SimplexTableau(model);
+    SimplexTable tableau = new SimplexTable(model);
     double[][] initialTableau = {
         {1, -15, -10, 25, 0, 0, 0, 0},
         {0,   1,   0, -1, 1, 0, 0, 2},

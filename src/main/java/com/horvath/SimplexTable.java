@@ -29,7 +29,7 @@ import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.optimization.GoalType;
 
 /**
- * A tableau for use in the Simplex method.
+ * A table for use in the Simplex method.
  * 
  * Example:
  *   W |  Z |  x1 |  x2 |  x- | s1 |  s2 |  a1 |  RHS
@@ -50,29 +50,29 @@ import org.apache.commons.math3.optimization.GoalType;
  * 
  * @author <a href="http://www.benmccann.com">Ben McCann</a>
  */
-class SimplexTableau {
+class SimplexTable {
 
-  protected RealMatrix tableau;
+  protected RealMatrix table;
   protected final boolean nonNegative;
   protected final int numDecisionVariables;
   protected final int numSlackVariables;
   protected int numArtificialVariables;
 
-  SimplexTableau(LinearModel model) {
+  SimplexTable(LinearModel model) {
     this(model, false);
   }
   
-  SimplexTableau(LinearModel model, boolean restrictToNonNegative) {
+  SimplexTable(LinearModel model, boolean restrictToNonNegative) {
     Map<Relationship,Integer> counts = model.getConstraintTypeCounts();
     this.nonNegative = restrictToNonNegative;
     this.numDecisionVariables = model.getNumVariables() + (nonNegative ? 0 : 1);
     this.numSlackVariables = counts.get(Relationship.LEQ) + counts.get(Relationship.GEQ);
     this.numArtificialVariables = counts.get(Relationship.EQ) + counts.get(Relationship.GEQ);
-    this.tableau = new Array2DRowRealMatrix(createTableau(model));
+    this.table = new Array2DRowRealMatrix(createTable(model));
     initialize();
   }
 
-  protected double[][] createTableau(LinearModel model) {
+  protected double[][] createTable(LinearModel model) {
     
     // create a matrix of the correct size
     List<LinearEquation> constraints = model.getNormalizedConstraints();
@@ -141,7 +141,7 @@ class SimplexTableau {
   }
   
   /**
-   * Returns the number of objective functions in this tableau.
+   * Returns the number of objective functions in this table.
    * 
    * @return 2 for Phase 1.  1 for Phase 2.
    */
@@ -150,7 +150,7 @@ class SimplexTableau {
   }
   
   /**
-   * Puts the tableau in proper form by zeroing out the artificial variables
+   * Puts the table in proper form by zeroing out the artificial variables
    * in the objective function via elementary row operations.
    */
   private void initialize() {
@@ -191,7 +191,7 @@ class SimplexTableau {
   }
   
   /**
-   * Removes the phase 1 objective function and artificial variables from this tableau.
+   * Removes the phase 1 objective function and artificial variables from this table.
    */
   protected void discardArtificialVariables() {
     if (numArtificialVariables == 0) {
@@ -206,7 +206,7 @@ class SimplexTableau {
       }
       matrix[i][width - 1] = getEntry(i + 1, getRhsOffset());
     }
-    this.tableau = new Array2DRowRealMatrix(matrix);
+    this.table = new Array2DRowRealMatrix(matrix);
     this.numArtificialVariables = 0;
   }
 
@@ -232,7 +232,7 @@ class SimplexTableau {
           : getDecisionVariableValue(i) - mostNegative; 
     }
     return new LinearEquation(coefficients, Relationship.EQ,
-        tableau.getEntry(0, 0) * tableau.getEntry(0, getRhsOffset()));
+        table.getEntry(0, 0) * table.getEntry(0, getRhsOffset()));
   }
 
   /**
@@ -255,7 +255,7 @@ class SimplexTableau {
    */
   protected void divideRow(int dividendRow, double divisor) {
     for (int j = 0; j < getWidth(); j++) {
-      tableau.setEntry(dividendRow, j, tableau.getEntry(dividendRow, j) / divisor);
+      table.setEntry(dividendRow, j, table.getEntry(dividendRow, j) / divisor);
     }
   }
   
@@ -266,25 +266,25 @@ class SimplexTableau {
    */
   protected void subtractRow(int minuendRow, int subtrahendRow, double multiple) {
     for (int j = 0; j < getWidth(); j++) {
-      tableau.setEntry(minuendRow, j, tableau.getEntry(minuendRow, j)
-          - multiple * tableau.getEntry(subtrahendRow, j));
+      table.setEntry(minuendRow, j, table.getEntry(minuendRow, j)
+          - multiple * table.getEntry(subtrahendRow, j));
     }
   }
   
   protected final int getWidth() {
-    return tableau.getColumnDimension();
+    return table.getColumnDimension();
   }
   
   protected final int getHeight() {
-    return tableau.getRowDimension();
+    return table.getRowDimension();
   }
   
   protected final double getEntry(int row, int column) {
-    return tableau.getEntry(row, column);
+    return table.getEntry(row, column);
   }
 
   protected final void setEntry(int row, int column, double value) {
-    tableau.setEntry(row, column, value);
+    table.setEntry(row, column, value);
   }
 
   protected final int getDecisionVariableOffset() {
@@ -325,7 +325,7 @@ class SimplexTableau {
   }
 
   protected final double[][] getData() {
-    return tableau.getData();
+    return table.getData();
   }
   
 }
