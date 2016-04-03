@@ -26,27 +26,27 @@ package com.horvath;
  */
 public enum Relationship {
 
-  EQ("="),
-  LEQ("<="),
-  GEQ(">=");
-  
+  EQ("="), LEQ("<="), GEQ(">=");
+
   private String stringValue;
-  
+
   private Relationship(String stringValue) {
     this.stringValue = stringValue;
   }
-  
+
   @Override
   public String toString() {
     return stringValue;
   }
-  
+
   public Relationship oppositeRelationship() {
     switch (this) {
-      case LEQ: return GEQ;
-      case GEQ: return LEQ;
-      default:
-          return EQ;
+    case LEQ:
+      return GEQ;
+    case GEQ:
+      return LEQ;
+    default:
+      return EQ;
     }
   }
 }

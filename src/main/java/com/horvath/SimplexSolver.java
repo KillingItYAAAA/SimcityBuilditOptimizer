@@ -30,35 +30,42 @@ public class SimplexSolver {
 
   private static final double DEFAULT_EPSILON = 0.0000000001;
   protected final SimplexTable table;
-  protected final double epsilon;  
-  
+  protected final double epsilon;
+
   /**
-   * @param model the {@link LinearModel} to solve.
+   * @param model
+   *          the {@link LinearModel} to solve.
    */
   public SimplexSolver(LinearModel model) {
     this(model, false);
   }
 
   /**
-   * @param model the {@link LinearModel} to solve
-   * @param restrictToNonNegative whether to restrict the variables to non-negative values
+   * @param model
+   *          the {@link LinearModel} to solve
+   * @param restrictToNonNegative
+   *          whether to restrict the variables to non-negative values
    */
   public SimplexSolver(LinearModel model, boolean restrictToNonNegative) {
     this(model, restrictToNonNegative, DEFAULT_EPSILON);
   }
 
   /**
-   * @param model the {@link LinearModel} to solve
-   * @param restrictToNonNegative whether to restrict the variables to non-negative values
-   * @param epsilon the amount of error to accept in floating point comparisons
+   * @param model
+   *          the {@link LinearModel} to solve
+   * @param restrictToNonNegative
+   *          whether to restrict the variables to non-negative values
+   * @param epsilon
+   *          the amount of error to accept in floating point comparisons
    */
   public SimplexSolver(LinearModel model, boolean restrictToNonNegative, double epsilon) {
     this.table = new SimplexTable(model, restrictToNonNegative);
     this.epsilon = epsilon;
   }
-  
+
   /**
-   * Returns the column with the most negative coefficient in the objective function row.
+   * Returns the column with the most negative coefficient in the objective
+   * function row.
    */
   private Integer getPivotColumn() {
     double minValue = 0;
@@ -71,11 +78,13 @@ public class SimplexSolver {
     }
     return minPos;
   }
-  
+
   /**
-   * Returns the row with the minimum ratio as given by the minimum ratio test (MRT).
+   * Returns the row with the minimum ratio as given by the minimum ratio test
+   * (MRT).
    * 
-   * @param col the column to test the ratio of.  See {@link #getPivotColumn()}
+   * @param col
+   *          the column to test the ratio of. See {@link #getPivotColumn()}
    */
   private Integer getPivotRow(int col) {
     double minRatio = Double.MAX_VALUE;
@@ -86,18 +95,18 @@ public class SimplexSolver {
         double ratio = rhs / table.getEntry(i, col);
         if (ratio < minRatio) {
           minRatio = ratio;
-          minRatioPos = i; 
+          minRatioPos = i;
         }
       }
     }
     return minRatioPos;
   }
 
-  
   /**
    * Runs one iteration of the Simplex method on the given model.
-   * @throws UnboundedSolutionException if the model is found not to have a
-   *     bounded solution
+   * 
+   * @throws UnboundedSolutionException
+   *           if the model is found not to have a bounded solution
    */
   protected void doIteration() throws UnboundedSolutionException {
     Integer pivotCol = getPivotColumn();
@@ -105,7 +114,7 @@ public class SimplexSolver {
     if (pivotRow == null) {
       throw new UnboundedSolutionException();
     }
-    
+
     // set the pivot element to 1
     double pivotVal = table.getEntry(pivotRow, pivotCol);
     table.divideRow(pivotRow, pivotVal);
@@ -118,7 +127,7 @@ public class SimplexSolver {
       }
     }
   }
-  
+
   /**
    * Checks whether Phase 1 is solved.
    * 
@@ -135,7 +144,7 @@ public class SimplexSolver {
     }
     return true;
   }
-  
+
   /**
    * Returns whether the problem is at an optimal state.
    * 
@@ -152,36 +161,38 @@ public class SimplexSolver {
     }
     return true;
   }
-  
+
   /**
    * Solves Phase 1 of the Simplex method.
    * 
-   * @throws UnboundedSolutionException if the model is found not to have a
-   *     bounded solution
-   * @throws NoFeasibleSolutionException if there is no feasible solution
+   * @throws UnboundedSolutionException
+   *           if the model is found not to have a bounded solution
+   * @throws NoFeasibleSolutionException
+   *           if there is no feasible solution
    */
   protected void solvePhase1() throws UnboundedSolutionException, NoFeasibleSolutionException {
     // make sure we're in Phase 1
     if (table.getNumArtificialVariables() == 0) {
       return;
     }
-    
+
     while (!isPhase1Solved()) {
       doIteration();
     }
 
     // if W is not zero then we have no feasible solution
-    if (Precision.compareTo(table.getEntry(0, table.getRhsOffset()), (double)0, epsilon) != 0) {
+    if (Precision.compareTo(table.getEntry(0, table.getRhsOffset()), (double) 0, epsilon) != 0) {
       throw new NoFeasibleSolutionException();
     }
   }
-  
+
   /**
    * Iterates until the optimal solution is arrived at.
    * 
-   * @throws UnboundedSolutionException if the model is found not to have a
-   *     bounded solution
-   * @throws NoFeasibleSolutionException if there is no feasible solution
+   * @throws UnboundedSolutionException
+   *           if the model is found not to have a bounded solution
+   * @throws NoFeasibleSolutionException
+   *           if there is no feasible solution
    */
   public LinearEquation solve() throws UnboundedSolutionException, NoFeasibleSolutionException {
     solvePhase1();
@@ -191,5 +202,5 @@ public class SimplexSolver {
     }
     return table.getSolution();
   }
-  
+
 }

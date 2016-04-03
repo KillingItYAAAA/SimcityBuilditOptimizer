@@ -20,16 +20,17 @@ package com.horvath;
 import java.io.Serializable;
 
 /**
- * Goal type for an optimization problem. Deprecated in commons.math3, saved into here only for this project.
+ * Goal type for an optimization problem. Deprecated in commons.math3, saved
+ * into here only for this project.
  * 
  * @since 2.0
  */
 public enum GoalType implements Serializable {
 
-    /** Maximization goal. */
-    MAXIMIZE,
+  /** Maximization goal. */
+  MAXIMIZE,
 
-    /** Minimization goal. */
-    MINIMIZE
+  /** Minimization goal. */
+  MINIMIZE
 
 }

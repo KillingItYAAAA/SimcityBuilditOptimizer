@@ -22,7 +22,6 @@ package com.horvath;
 import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.linear.ArrayRealVector;
 
-
 /**
  * A constraint for a {@link LinearModel}.
  * 
@@ -33,11 +32,11 @@ public class LinearEquation {
   private final ArrayRealVector leftHandSide;
   private final Relationship relationship;
   private final double rightHandSide;
-  
+
   public LinearEquation(double[] coefficients, Relationship relationship, double rightHandSide) {
     this(new ArrayRealVector(coefficients), relationship, rightHandSide);
   }
-  
+
   public LinearEquation(ArrayRealVector leftHandSide, Relationship relationship, double rightHandSide) {
     this.leftHandSide = leftHandSide;
     this.relationship = relationship;
@@ -49,11 +48,11 @@ public class LinearEquation {
     this.relationship = relationship;
     this.rightHandSide = 0;
   }
-    
+
   public ArrayRealVector getCoefficients() {
     return leftHandSide;
   }
-  
+
   public Relationship getRelationship() {
     return relationship;
   }
@@ -61,5 +60,5 @@ public class LinearEquation {
   public double getRightHandSide() {
     return rightHandSide;
   }
-  
+
 }

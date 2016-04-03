@@ -32,27 +32,33 @@ public class LinearObjectiveFunction {
   private final RealVector coefficients;
   private final GoalType goalType;
   private final double constantTerm;
-  
+
   /**
-   * @param coefficients The coefficients for the linear equation being optimized
-   * @param constantTerm The constant term of the linear equation
-   * @param goalType The type of optimization to perform
+   * @param coefficients
+   *          The coefficients for the linear equation being optimized
+   * @param constantTerm
+   *          The constant term of the linear equation
+   * @param goalType
+   *          The type of optimization to perform
    */
   public LinearObjectiveFunction(double[] coefficients, double constantTerm, GoalType goalType) {
     this(new ArrayRealVector(coefficients), constantTerm, goalType);
   }
-  
+
   /**
-   * @param coefficients The coefficients for the linear equation being optimized
-   * @param constantTerm The constant term of the linear equation
-   * @param goalType The type of optimization to perform
+   * @param coefficients
+   *          The coefficients for the linear equation being optimized
+   * @param constantTerm
+   *          The constant term of the linear equation
+   * @param goalType
+   *          The type of optimization to perform
    */
   public LinearObjectiveFunction(RealVector coefficients, double constantTerm, GoalType goalType) {
     this.coefficients = coefficients;
     this.constantTerm = constantTerm;
     this.goalType = goalType;
   }
-  
+
   public RealVector getCoefficients() {
     return coefficients;
   }
@@ -64,5 +70,5 @@ public class LinearObjectiveFunction {
   public double getConstantTerm() {
     return constantTerm;
   }
-  
+
 }

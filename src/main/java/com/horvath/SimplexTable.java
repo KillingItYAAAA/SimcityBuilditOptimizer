@@ -30,22 +30,15 @@ import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 /**
  * A table for use in the Simplex method.
  * 
- * Example:
- *   W |  Z |  x1 |  x2 |  x- | s1 |  s2 |  a1 |  RHS
- * ---------------------------------------------------
- *  -1    0    0     0     0     0     0     1     0   <= phase 1 objective
- *   0    1   -15   -10    0     0     0     0     0   <= phase 2 objective
- *   0    0    1     0     0     1     0     0     2   <= constraint 1
- *   0    0    0     1     0     0     1     0     3   <= constraint 2
- *   0    0    1     1     0     0     0     1     4   <= constraint 3
+ * Example: W | Z | x1 | x2 | x- | s1 | s2 | a1 | RHS
+ * --------------------------------------------------- -1 0 0 0 0 0 0 1 0 <=
+ * phase 1 objective 0 1 -15 -10 0 0 0 0 0 <= phase 2 objective 0 0 1 0 0 1 0 0
+ * 2 <= constraint 1 0 0 0 1 0 0 1 0 3 <= constraint 2 0 0 1 1 0 0 0 1 4 <=
+ * constraint 3
  * 
- * W: Phase 1 objective function
- * Z: Phase 2 objective function
- * x1 & x2: Decision variables
- * x-: Extra decision variable to allow for negative values 
- * s1 & s2: Slack/Surplus variables
- * a1: Artificial variable
- * RHS: Right hand side
+ * W: Phase 1 objective function Z: Phase 2 objective function x1 & x2: Decision
+ * variables x-: Extra decision variable to allow for negative values s1 & s2:
+ * Slack/Surplus variables a1: Artificial variable RHS: Right hand side
  * 
  * @author <a href="http://www.benmccann.com">Ben McCann</a>
  */
@@ -60,9 +53,9 @@ class SimplexTable {
   SimplexTable(LinearModel model) {
     this(model, false);
   }
-  
+
   SimplexTable(LinearModel model, boolean restrictToNonNegative) {
-    Map<Relationship,Integer> counts = model.getConstraintTypeCounts();
+    Map<Relationship, Integer> counts = model.getConstraintTypeCounts();
     this.nonNegative = restrictToNonNegative;
     this.numDecisionVariables = model.getNumVariables() + (nonNegative ? 0 : 1);
     this.numSlackVariables = counts.get(Relationship.LEQ) + counts.get(Relationship.GEQ);
@@ -72,85 +65,83 @@ class SimplexTable {
   }
 
   protected double[][] createTable(LinearModel model) {
-    
+
     // create a matrix of the correct size
     List<LinearEquation> constraints = model.getNormalizedConstraints();
-    int width = this.numDecisionVariables + this.numSlackVariables
-        + this.numArtificialVariables + getNumObjectiveFunctions() + 1; // + 1 is for RHS
+    int width = this.numDecisionVariables + this.numSlackVariables + this.numArtificialVariables
+        + getNumObjectiveFunctions() + 1; // + 1 is for RHS
     int height = model.getConstraints().size() + getNumObjectiveFunctions();
     double[][] matrix = new double[height][width];
     for (int i = 1; i < height; i++) {
       Arrays.fill(matrix[i], 0);
     }
-        
+
     // initialize the objective function rows
     LinearObjectiveFunction objectiveFunction = model.getObjectiveFunction();
     if (getNumObjectiveFunctions() == 2) {
       matrix[0][0] = -1;
     }
     int zIndex = getNumObjectiveFunctions() == 1 ? 0 : 1;
-    boolean maximize = objectiveFunction.getGoalType() == GoalType.MAXIMIZE;    
+    boolean maximize = objectiveFunction.getGoalType() == GoalType.MAXIMIZE;
     matrix[zIndex][zIndex] = maximize ? 1 : -1;
     ArrayRealVector objectiveCoefficients = maximize
-        ? (ArrayRealVector)model.getObjectiveFunction().getCoefficients().mapMultiply(-1)
-        : (ArrayRealVector)model.getObjectiveFunction().getCoefficients();
+        ? (ArrayRealVector) model.getObjectiveFunction().getCoefficients().mapMultiply(-1)
+        : (ArrayRealVector) model.getObjectiveFunction().getCoefficients();
     copyArray(objectiveCoefficients.getDataRef(), matrix[zIndex], getDecisionVariableOffset());
     matrix[zIndex][width - 1] = maximize ? model.getObjectiveFunction().getConstantTerm()
         : -1 * model.getObjectiveFunction().getConstantTerm();
-    
+
     if (!nonNegative) {
       matrix[zIndex][getSlackVariableOffset() - 1] = getInvertedCoeffiecientSum(objectiveCoefficients);
     }
-    
+
     // initialize the constraint rows
     int slackVar = 0;
     int artificialVar = 0;
     for (int i = 0; i < constraints.size(); i++) {
       LinearEquation constraint = constraints.get(i);
       int row = getNumObjectiveFunctions() + i;
-      
+
       // decision variable coefficients
       copyArray(constraint.getCoefficients().getDataRef(), matrix[row], 1);
 
       // x-
       if (!nonNegative) {
-        matrix[row][getSlackVariableOffset() - 1] =
-            getInvertedCoeffiecientSum(constraint.getCoefficients());
+        matrix[row][getSlackVariableOffset() - 1] = getInvertedCoeffiecientSum(constraint.getCoefficients());
       }
-      
+
       // RHS
       matrix[row][width - 1] = constraint.getRightHandSide();
-            
+
       // slack variables
       if (constraint.getRelationship() == Relationship.LEQ) {
-        matrix[row][getSlackVariableOffset() + slackVar++] = 1;  // slack
+        matrix[row][getSlackVariableOffset() + slackVar++] = 1; // slack
       } else if (constraint.getRelationship() == Relationship.GEQ) {
         matrix[row][getSlackVariableOffset() + slackVar++] = -1; // excess
       }
-      
+
       // artificial variables
-      if (constraint.getRelationship() == Relationship.EQ
-          || constraint.getRelationship() == Relationship.GEQ) {
-        matrix[0][getArtificialVariableOffset() + artificialVar] = 1; 
-        matrix[row][getArtificialVariableOffset() + artificialVar++] = 1; 
+      if (constraint.getRelationship() == Relationship.EQ || constraint.getRelationship() == Relationship.GEQ) {
+        matrix[0][getArtificialVariableOffset() + artificialVar] = 1;
+        matrix[row][getArtificialVariableOffset() + artificialVar++] = 1;
       }
     }
-    
+
     return matrix;
   }
-  
+
   /**
    * Returns the number of objective functions in this table.
    * 
-   * @return 2 for Phase 1.  1 for Phase 2.
+   * @return 2 for Phase 1. 1 for Phase 2.
    */
   protected final int getNumObjectiveFunctions() {
     return this.numArtificialVariables > 0 ? 2 : 1;
   }
-  
+
   /**
-   * Puts the table in proper form by zeroing out the artificial variables
-   * in the objective function via elementary row operations.
+   * Puts the table in proper form by zeroing out the artificial variables in
+   * the objective function via elementary row operations.
    */
   private void initialize() {
     for (int artificialVar = 0; artificialVar < numArtificialVariables; artificialVar++) {
@@ -169,11 +160,12 @@ class SimplexTable {
     }
     return sum;
   }
-  
+
   /**
    * Checks whether the given column is basic.
    * 
-   * @return the row that the variable is basic in.  null if the column is not basic
+   * @return the row that the variable is basic in. null if the column is not
+   *         basic
    */
   private Integer getBasicRow(int col) {
     Integer row = null;
@@ -188,9 +180,10 @@ class SimplexTable {
     }
     return row;
   }
-  
+
   /**
-   * Removes the phase 1 objective function and artificial variables from this table.
+   * Removes the phase 1 objective function and artificial variables from this
+   * table.
    */
   protected void discardArtificialVariables() {
     if (numArtificialVariables == 0) {
@@ -209,75 +202,75 @@ class SimplexTable {
     this.numArtificialVariables = 0;
   }
 
-  
   /**
-   * @param src the source array
-   * @param dest the destination array
-   * @param destPos the destination position
+   * @param src
+   *          the source array
+   * @param dest
+   *          the destination array
+   * @param destPos
+   *          the destination position
    */
   private void copyArray(double[] src, double[] dest, int destPos) {
-    System.arraycopy(src, 0, dest, getNumObjectiveFunctions(), src.length); 
+    System.arraycopy(src, 0, dest, getNumObjectiveFunctions(), src.length);
   }
-    
+
   /**
-   * Returns the current solution.
-   * {@link #solve} should be called first for this to be the optimal solution.
+   * Returns the current solution. {@link #solve} should be called first for
+   * this to be the optimal solution.
    */
   protected LinearEquation getSolution() {
     double[] coefficients = new double[getOriginalNumDecisionVariables()];
     double mostNegative = getDecisionVariableValue(getOriginalNumDecisionVariables());
     for (int i = 0; i < coefficients.length; i++) {
-      coefficients[i] = nonNegative ? getDecisionVariableValue(i)
-          : getDecisionVariableValue(i) - mostNegative; 
+      coefficients[i] = nonNegative ? getDecisionVariableValue(i) : getDecisionVariableValue(i) - mostNegative;
     }
-    return new LinearEquation(coefficients, Relationship.EQ,
-        table.getEntry(0, 0) * table.getEntry(0, getRhsOffset()));
+    return new LinearEquation(coefficients, Relationship.EQ, table.getEntry(0, 0) * table.getEntry(0, getRhsOffset()));
   }
 
   /**
-   * Returns the value of the given decision variable.  This is not the actual
+   * Returns the value of the given decision variable. This is not the actual
    * value as it is guaranteed to be >= 0 and thus must be corrected before
    * being returned to the user.
    * 
-   * @param decisionVariable The index of the decision variable
+   * @param decisionVariable
+   *          The index of the decision variable
    * @return The value of the given decision variable.
    */
   protected double getDecisionVariableValue(int decisionVariable) {
     Integer basicRow = getBasicRow(getNumObjectiveFunctions() + decisionVariable);
-    return basicRow == null ? 0 : getEntry(basicRow, getRhsOffset()); 
+    return basicRow == null ? 0 : getEntry(basicRow, getRhsOffset());
   }
-  
+
   /**
-   * Subtracts a multiple of one row from another.
-   * After application of this operation, the following will hold:
-   *   minuendRow = minuendRow - multiple * subtrahendRow
+   * Subtracts a multiple of one row from another. After application of this
+   * operation, the following will hold: minuendRow = minuendRow - multiple *
+   * subtrahendRow
    */
   protected void divideRow(int dividendRow, double divisor) {
     for (int j = 0; j < getWidth(); j++) {
       table.setEntry(dividendRow, j, table.getEntry(dividendRow, j) / divisor);
     }
   }
-  
+
   /**
-   * Subtracts a multiple of one row from another.
-   * After application of this operation, the following will hold:
-   *   minuendRow = minuendRow - multiple * subtrahendRow
+   * Subtracts a multiple of one row from another. After application of this
+   * operation, the following will hold: minuendRow = minuendRow - multiple *
+   * subtrahendRow
    */
   protected void subtractRow(int minuendRow, int subtrahendRow, double multiple) {
     for (int j = 0; j < getWidth(); j++) {
-      table.setEntry(minuendRow, j, table.getEntry(minuendRow, j)
-          - multiple * table.getEntry(subtrahendRow, j));
+      table.setEntry(minuendRow, j, table.getEntry(minuendRow, j) - multiple * table.getEntry(subtrahendRow, j));
     }
   }
-  
+
   protected final int getWidth() {
     return table.getColumnDimension();
   }
-  
+
   protected final int getHeight() {
     return table.getRowDimension();
   }
-  
+
   protected final double getEntry(int row, int column) {
     return table.getEntry(row, column);
   }
@@ -297,11 +290,11 @@ class SimplexTable {
   protected final int getArtificialVariableOffset() {
     return getNumObjectiveFunctions() + numDecisionVariables + numSlackVariables;
   }
-  
+
   protected final int getRhsOffset() {
     return getWidth() - 1;
   }
-  
+
   /**
    * If variables are not restricted to positive values, this will include 1
    * extra decision variable to represent the absolute value of the most
@@ -314,7 +307,7 @@ class SimplexTable {
   protected final int getOriginalNumDecisionVariables() {
     return nonNegative ? numDecisionVariables : numDecisionVariables - 1;
   }
-  
+
   protected final int getNumSlackVariables() {
     return numSlackVariables;
   }
@@ -326,5 +319,5 @@ class SimplexTable {
   protected final double[][] getData() {
     return table.getData();
   }
-  
+
 }
