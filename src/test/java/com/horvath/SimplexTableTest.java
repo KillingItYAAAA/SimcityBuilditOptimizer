@@ -19,8 +19,6 @@
 
 package com.horvath;
 
-import org.apache.commons.math3.optimization.GoalType;
-
 import junit.framework.TestCase;
 
 /**

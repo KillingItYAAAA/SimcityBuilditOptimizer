@@ -22,7 +22,6 @@ package com.horvath;
 import junit.framework.TestCase;
 
 import org.apache.commons.math3.linear.ArrayRealVector;
-import org.apache.commons.math3.optimization.GoalType;
 
 /**
  * @author <a href="http://www.benmccann.com">Ben McCann</a>
