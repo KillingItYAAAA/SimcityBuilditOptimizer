@@ -24,6 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.math3.linear.ArrayRealVector;
+
 /**
  * A model for linear optimization.
  * 
@@ -31,77 +33,82 @@ import java.util.Map;
  */
 public class LinearModel {
 
-  private final LinearObjectiveFunction objectiveFunction;
-  private final List<LinearEquation> constraints;
-  
-  /**
-   * @param numVariables The number of decision variables in the model.
-   */
-  public LinearModel(LinearObjectiveFunction objectiveFunction) {
-    this.objectiveFunction = objectiveFunction;
-    this.constraints = new ArrayList<LinearEquation>();
-  }
-  
-  /**
-   * Adds the given constraint to the model.
-   * 
-   * @param constraint The {@link LinearEquation} to add to the model.
-   */
-  public void addConstraint(LinearEquation constraint) {
-    if (constraint.getCoefficients().getDimension() != getNumVariables()) {
-      throw new IndexOutOfBoundsException();
-    }
-    constraints.add(constraint);
-  }
-  
-  public int getNumVariables() {
-    return objectiveFunction.getCoefficients().getDimension();
-  }
+	private final LinearObjectiveFunction objectiveFunction;
+	private final List<LinearEquation> constraints;
 
-  public List<LinearEquation> getConstraints() {
-    return constraints;
-  }
+	/**
+	 * @param numVariables
+	 *            The number of decision variables in the model.
+	 */
+	public LinearModel(LinearObjectiveFunction objectiveFunction) {
+		this.objectiveFunction = objectiveFunction;
+		this.constraints = new ArrayList<LinearEquation>();
+	}
 
-  /**
-   * Returns new versions of the constraints which have positive right hand sides.
-   */
-  public List<LinearEquation> getNormalizedConstraints() {
-    List<LinearEquation> normalized = new ArrayList<LinearEquation>();
-    for (LinearEquation constraint : constraints) {
-      normalized.add(normalize(constraint));
-    }
-    return normalized;
-  }
-  
-  /**
-   * Returns a new equation equivalent to this one with a positive right hand side.
-   */
-  private LinearEquation normalize(LinearEquation constraint) {
-    if (constraint.getRightHandSide() < 0) {
-      return new LinearEquation(constraint.getCoefficients().mapMultiply(-1),
-          constraint.getRelationship().oppositeRelationship(),
-          -1 * constraint.getRightHandSide());
-    }
-    return new LinearEquation(constraint.getCoefficients(), 
-        constraint.getRelationship(), constraint.getRightHandSide());
-  }
-  
-  public LinearObjectiveFunction getObjectiveFunction() {
-    return objectiveFunction;
-  }
-  
-  /**
-   * Returns a map from constraint type to count of the corresponding constraint type.
-   */
-  public Map<Relationship,Integer> getConstraintTypeCounts() {
-    Map<Relationship,Integer> counts = new HashMap<Relationship,Integer>();
-    for (Relationship relationship : Relationship.values()) {
-      counts.put(relationship, 0);
-    }
-    for (LinearEquation constraint : getConstraints()) {
-      counts.put(constraint.getRelationship(), counts.get(constraint.getRelationship()) + 1);
-    }
-    return counts;
-  }
-  
+	/**
+	 * Adds the given constraint to the model.
+	 * 
+	 * @param constraint
+	 *            The {@link LinearEquation} to add to the model.
+	 */
+	public void addConstraint(LinearEquation constraint) {
+		if (constraint.getCoefficients().getDimension() != getNumVariables()) {
+			throw new IndexOutOfBoundsException();
+		}
+		constraints.add(constraint);
+	}
+
+	public int getNumVariables() {
+		return objectiveFunction.getCoefficients().getDimension();
+	}
+
+	public List<LinearEquation> getConstraints() {
+		return constraints;
+	}
+
+	/**
+	 * Returns new versions of the constraints which have positive right hand
+	 * sides.
+	 */
+	public List<LinearEquation> getNormalizedConstraints() {
+		List<LinearEquation> normalized = new ArrayList<LinearEquation>();
+		for (LinearEquation constraint : constraints) {
+			normalized.add(normalize(constraint));
+		}
+		return normalized;
+	}
+
+	/**
+	 * Returns a new equation equivalent to this one with a positive right hand
+	 * side.
+	 */
+	private LinearEquation normalize(LinearEquation constraint) {
+		if (constraint.getRightHandSide() < 0) {
+			ArrayRealVector arg1 = (ArrayRealVector)(constraint.getCoefficients().mapMultiply(-1));
+			return new LinearEquation(arg1,
+					constraint.getRelationship().oppositeRelationship(), -1 * constraint.getRightHandSide());
+		}
+		return new LinearEquation(constraint.getCoefficients(), constraint.getRelationship(),
+				constraint.getRightHandSide());
+	}
+
+	public LinearObjectiveFunction getObjectiveFunction() {
+		return objectiveFunction;
+	}
+
+	/**
+	 * Returns a map from constraint type to count of the corresponding
+	 * constraint type.
+	 */
+	public Map<Relationship, Integer> getConstraintTypeCounts() {
+		Map<Relationship, Integer> counts = new HashMap<Relationship, Integer>();
+		for (Relationship relationship : Relationship.values()) {
+			counts.put(relationship, 0);
+		}
+		for (LinearEquation constraint : getConstraints()) {
+			counts.put(constraint.getRelationship(), counts.get(constraint.getRelationship()) + 1);
+		}
+		return counts;
+	}
+
 }

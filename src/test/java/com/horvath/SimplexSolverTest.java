@@ -292,7 +292,7 @@ public class SimplexSolverTest extends TestCase {
     String[] equationParts = s.split("[>|<]?=");
     double rhs = Double.parseDouble(equationParts[1].trim());
     
-    RealVector lhs = new ArrayRealVector(numCoefficients);
+    ArrayRealVector lhs = new ArrayRealVector(numCoefficients);
     String left = equationParts[0].replaceAll(" ?x", "");
     String[] coefficients = left.split(" ");
     for (String coefficient : coefficients) {

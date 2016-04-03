@@ -94,8 +94,8 @@ class SimplexTableau {
     boolean maximize = objectiveFunction.getGoalType() == GoalType.MAXIMIZE;    
     matrix[zIndex][zIndex] = maximize ? 1 : -1;
     ArrayRealVector objectiveCoefficients = maximize
-        ? model.getObjectiveFunction().getCoefficients().mapMultiply(-1)
-        : model.getObjectiveFunction().getCoefficients();
+        ? (ArrayRealVector)model.getObjectiveFunction().getCoefficients().mapMultiply(-1)
+        : (ArrayRealVector)model.getObjectiveFunction().getCoefficients();
     copyArray(objectiveCoefficients.getDataRef(), matrix[zIndex], getDecisionVariableOffset());
     matrix[zIndex][width - 1] = maximize ? model.getObjectiveFunction().getConstantTerm()
         : -1 * model.getObjectiveFunction().getConstantTerm();
