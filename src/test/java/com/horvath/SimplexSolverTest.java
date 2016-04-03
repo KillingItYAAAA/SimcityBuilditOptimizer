@@ -21,7 +21,6 @@ package com.horvath;
 
 import junit.framework.TestCase;
 
-import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.optimization.GoalType;
 
