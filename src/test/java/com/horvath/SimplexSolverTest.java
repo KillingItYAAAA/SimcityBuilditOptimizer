@@ -30,7 +30,8 @@ public class SimplexSolverTest extends TestCase {
 
   public void testSimplexSolver() throws UnboundedSolutionException, NoFeasibleSolutionException {
 
-    LinearModel model = new LinearModel(new LinearObjectiveFunction(new double[] { 15, 10 }, 7, GoalType.MAXIMIZE));
+    LinearModel model = new LinearModel(
+        new LinearObjectiveFunction(new double[] { 15, 10 }, 7, GoalType.MAXIMIZE));
     model.addConstraint(new LinearEquation(new double[] { 1, 0 }, Relationship.LEQ, 2));
     model.addConstraint(new LinearEquation(new double[] { 0, 1 }, Relationship.LEQ, 3));
     model.addConstraint(new LinearEquation(new double[] { 1, 1 }, Relationship.EQ, 4));
@@ -46,8 +47,10 @@ public class SimplexSolverTest extends TestCase {
    * With no artificial variables needed (no equals and no greater than
    * constraints) we can go straight to Phase 2.
    */
-  public void testModelWithNoArtificialVars() throws UnboundedSolutionException, NoFeasibleSolutionException {
-    LinearModel model = new LinearModel(new LinearObjectiveFunction(new double[] { 15, 10 }, 0, GoalType.MAXIMIZE));
+  public void testModelWithNoArtificialVars()
+      throws UnboundedSolutionException, NoFeasibleSolutionException {
+    LinearModel model = new LinearModel(
+        new LinearObjectiveFunction(new double[] { 15, 10 }, 0, GoalType.MAXIMIZE));
     model.addConstraint(new LinearEquation(new double[] { 1, 0 }, Relationship.LEQ, 2));
     model.addConstraint(new LinearEquation(new double[] { 0, 1 }, Relationship.LEQ, 3));
     model.addConstraint(new LinearEquation(new double[] { 1, 1 }, Relationship.LEQ, 4));
@@ -60,7 +63,8 @@ public class SimplexSolverTest extends TestCase {
   }
 
   public void testMinimization() throws UnboundedSolutionException, NoFeasibleSolutionException {
-    LinearModel model = new LinearModel(new LinearObjectiveFunction(new double[] { -2, 1 }, -5, GoalType.MINIMIZE));
+    LinearModel model = new LinearModel(
+        new LinearObjectiveFunction(new double[] { -2, 1 }, -5, GoalType.MINIMIZE));
     model.addConstraint(new LinearEquation(new double[] { 1, 2 }, Relationship.LEQ, 6));
     model.addConstraint(new LinearEquation(new double[] { 3, 2 }, Relationship.LEQ, 12));
     model.addConstraint(new LinearEquation(new double[] { 0, 1 }, Relationship.GEQ, 0));
@@ -74,7 +78,8 @@ public class SimplexSolverTest extends TestCase {
 
   public void testSolutionWithNegativeDecisionVariable()
       throws UnboundedSolutionException, NoFeasibleSolutionException {
-    LinearModel model = new LinearModel(new LinearObjectiveFunction(new double[] { -2, 1 }, 0, GoalType.MAXIMIZE));
+    LinearModel model = new LinearModel(
+        new LinearObjectiveFunction(new double[] { -2, 1 }, 0, GoalType.MAXIMIZE));
     model.addConstraint(new LinearEquation(new double[] { 1, 1 }, Relationship.GEQ, 6));
     model.addConstraint(new LinearEquation(new double[] { 1, 2 }, Relationship.LEQ, 14));
 
@@ -86,7 +91,8 @@ public class SimplexSolverTest extends TestCase {
   }
 
   public void testInfeasibleSolution() throws UnboundedSolutionException {
-    LinearModel model = new LinearModel(new LinearObjectiveFunction(new double[] { 15 }, 0, GoalType.MAXIMIZE));
+    LinearModel model = new LinearModel(
+        new LinearObjectiveFunction(new double[] { 15 }, 0, GoalType.MAXIMIZE));
     model.addConstraint(new LinearEquation(new double[] { 1 }, Relationship.LEQ, 1));
     model.addConstraint(new LinearEquation(new double[] { 1 }, Relationship.GEQ, 3));
 
@@ -95,11 +101,13 @@ public class SimplexSolverTest extends TestCase {
       solver.solve();
       fail("An exception should have been thrown.");
     } catch (NoFeasibleSolutionException exception) {
+      //
     }
   }
 
   public void testUnboundedSolution() throws NoFeasibleSolutionException {
-    LinearModel model = new LinearModel(new LinearObjectiveFunction(new double[] { 15, 10 }, 0, GoalType.MAXIMIZE));
+    LinearModel model = new LinearModel(
+        new LinearObjectiveFunction(new double[] { 15, 10 }, 0, GoalType.MAXIMIZE));
     model.addConstraint(new LinearEquation(new double[] { 1, 0 }, Relationship.EQ, 2));
 
     SimplexSolver solver = new SimplexSolver(model);
@@ -107,17 +115,24 @@ public class SimplexSolverTest extends TestCase {
       solver.solve();
       fail("An exception should have been thrown.");
     } catch (UnboundedSolutionException exception) {
+      //
     }
   }
 
-  public void testRestrictVariablesToNonNegative() throws UnboundedSolutionException, NoFeasibleSolutionException {
-    LinearModel model = new LinearModel(
-        new LinearObjectiveFunction(new double[] { 409, 523, 70, 204, 339 }, 0, GoalType.MAXIMIZE));
-    model.addConstraint(new LinearEquation(new double[] { 43, 56, 345, 56, 5 }, Relationship.LEQ, 4567456));
-    model.addConstraint(new LinearEquation(new double[] { 12, 45, 7, 56, 23 }, Relationship.LEQ, 56454));
-    model.addConstraint(new LinearEquation(new double[] { 8, 768, 0, 34, 7456 }, Relationship.LEQ, 1923421));
-    model.addConstraint(new LinearEquation(new double[] { 12342, 2342, 34, 678, 2342 }, Relationship.GEQ, 4356));
-    model.addConstraint(new LinearEquation(new double[] { 45, 678, 76, 52, 23 }, Relationship.EQ, 456356));
+  public void testRestrictVariablesToNonNegative()
+      throws UnboundedSolutionException, NoFeasibleSolutionException {
+    LinearModel model = new LinearModel(new LinearObjectiveFunction(
+        new double[] { 409, 523, 70, 204, 339 }, 0, GoalType.MAXIMIZE));
+    model.addConstraint(
+        new LinearEquation(new double[] { 43, 56, 345, 56, 5 }, Relationship.LEQ, 4567456));
+    model.addConstraint(
+        new LinearEquation(new double[] { 12, 45, 7, 56, 23 }, Relationship.LEQ, 56454));
+    model.addConstraint(
+        new LinearEquation(new double[] { 8, 768, 0, 34, 7456 }, Relationship.LEQ, 1923421));
+    model.addConstraint(
+        new LinearEquation(new double[] { 12342, 2342, 34, 678, 2342 }, Relationship.GEQ, 4356));
+    model.addConstraint(
+        new LinearEquation(new double[] { 45, 678, 76, 52, 23 }, Relationship.EQ, 456356));
 
     SimplexSolver solver = new SimplexSolver(model, true);
     LinearEquation solution = solver.solve();
@@ -130,7 +145,8 @@ public class SimplexSolverTest extends TestCase {
   }
 
   public void testSomething() throws UnboundedSolutionException, NoFeasibleSolutionException {
-    LinearModel model = new LinearModel(new LinearObjectiveFunction(new double[] { 1, 1 }, 0, GoalType.MAXIMIZE));
+    LinearModel model = new LinearModel(
+        new LinearObjectiveFunction(new double[] { 1, 1 }, 0, GoalType.MAXIMIZE));
     model.addConstraint(new LinearEquation(new double[] { 1, 1 }, Relationship.EQ, 0));
 
     SimplexSolver solver = new SimplexSolver(model, true);
@@ -139,82 +155,96 @@ public class SimplexSolverTest extends TestCase {
   }
 
   public void testLargeModel() throws UnboundedSolutionException, NoFeasibleSolutionException {
-    double[] objective = new double[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 1, 1, 1, 1, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 12, 1, 1, 1,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 1, 1, 1, 1 };
+    double[] objective = new double[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 12, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 12, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
-    LinearModel model = new LinearModel(new LinearObjectiveFunction(objective, 0, GoalType.MINIMIZE));
+    LinearModel model = new LinearModel(
+        new LinearObjectiveFunction(objective, 0, GoalType.MINIMIZE));
     model.addConstraint(equationFromString(objective.length, "x0 + x1 + x2 + x3 - x12 = 0"));
-    model.addConstraint(equationFromString(objective.length, "x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11 - x13 = 0"));
-    model.addConstraint(equationFromString(objective.length, "x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11 >= 49"));
+    model.addConstraint(
+        equationFromString(objective.length, "x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11 - x13 = 0"));
+    model.addConstraint(
+        equationFromString(objective.length, "x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11 >= 49"));
     model.addConstraint(equationFromString(objective.length, "x0 + x1 + x2 + x3 >= 42"));
     model.addConstraint(equationFromString(objective.length, "x14 + x15 + x16 + x17 - x26 = 0"));
-    model
-        .addConstraint(equationFromString(objective.length, "x18 + x19 + x20 + x21 + x22 + x23 + x24 + x25 - x27 = 0"));
+    model.addConstraint(equationFromString(objective.length,
+        "x18 + x19 + x20 + x21 + x22 + x23 + x24 + x25 - x27 = 0"));
     model.addConstraint(equationFromString(objective.length, "x14 + x15 + x16 + x17 - x12 = 0"));
-    model
-        .addConstraint(equationFromString(objective.length, "x18 + x19 + x20 + x21 + x22 + x23 + x24 + x25 - x13 = 0"));
+    model.addConstraint(equationFromString(objective.length,
+        "x18 + x19 + x20 + x21 + x22 + x23 + x24 + x25 - x13 = 0"));
     model.addConstraint(equationFromString(objective.length, "x28 + x29 + x30 + x31 - x40 = 0"));
-    model
-        .addConstraint(equationFromString(objective.length, "x32 + x33 + x34 + x35 + x36 + x37 + x38 + x39 - x41 = 0"));
-    model.addConstraint(equationFromString(objective.length, "x32 + x33 + x34 + x35 + x36 + x37 + x38 + x39 >= 49"));
+    model.addConstraint(equationFromString(objective.length,
+        "x32 + x33 + x34 + x35 + x36 + x37 + x38 + x39 - x41 = 0"));
+    model.addConstraint(equationFromString(objective.length,
+        "x32 + x33 + x34 + x35 + x36 + x37 + x38 + x39 >= 49"));
     model.addConstraint(equationFromString(objective.length, "x28 + x29 + x30 + x31 >= 42"));
     model.addConstraint(equationFromString(objective.length, "x42 + x43 + x44 + x45 - x54 = 0"));
-    model
-        .addConstraint(equationFromString(objective.length, "x46 + x47 + x48 + x49 + x50 + x51 + x52 + x53 - x55 = 0"));
+    model.addConstraint(equationFromString(objective.length,
+        "x46 + x47 + x48 + x49 + x50 + x51 + x52 + x53 - x55 = 0"));
     model.addConstraint(equationFromString(objective.length, "x42 + x43 + x44 + x45 - x40 = 0"));
-    model
-        .addConstraint(equationFromString(objective.length, "x46 + x47 + x48 + x49 + x50 + x51 + x52 + x53 - x41 = 0"));
+    model.addConstraint(equationFromString(objective.length,
+        "x46 + x47 + x48 + x49 + x50 + x51 + x52 + x53 - x41 = 0"));
     model.addConstraint(equationFromString(objective.length, "x56 + x57 + x58 + x59 - x68 = 0"));
-    model
-        .addConstraint(equationFromString(objective.length, "x60 + x61 + x62 + x63 + x64 + x65 + x66 + x67 - x69 = 0"));
-    model.addConstraint(equationFromString(objective.length, "x60 + x61 + x62 + x63 + x64 + x65 + x66 + x67 >= 51"));
+    model.addConstraint(equationFromString(objective.length,
+        "x60 + x61 + x62 + x63 + x64 + x65 + x66 + x67 - x69 = 0"));
+    model.addConstraint(equationFromString(objective.length,
+        "x60 + x61 + x62 + x63 + x64 + x65 + x66 + x67 >= 51"));
     model.addConstraint(equationFromString(objective.length, "x56 + x57 + x58 + x59 >= 44"));
     model.addConstraint(equationFromString(objective.length, "x70 + x71 + x72 + x73 - x82 = 0"));
-    model
-        .addConstraint(equationFromString(objective.length, "x74 + x75 + x76 + x77 + x78 + x79 + x80 + x81 - x83 = 0"));
+    model.addConstraint(equationFromString(objective.length,
+        "x74 + x75 + x76 + x77 + x78 + x79 + x80 + x81 - x83 = 0"));
     model.addConstraint(equationFromString(objective.length, "x70 + x71 + x72 + x73 - x68 = 0"));
-    model
-        .addConstraint(equationFromString(objective.length, "x74 + x75 + x76 + x77 + x78 + x79 + x80 + x81 - x69 = 0"));
+    model.addConstraint(equationFromString(objective.length,
+        "x74 + x75 + x76 + x77 + x78 + x79 + x80 + x81 - x69 = 0"));
     model.addConstraint(equationFromString(objective.length, "x84 + x85 + x86 + x87 - x96 = 0"));
-    model
-        .addConstraint(equationFromString(objective.length, "x88 + x89 + x90 + x91 + x92 + x93 + x94 + x95 - x97 = 0"));
-    model.addConstraint(equationFromString(objective.length, "x88 + x89 + x90 + x91 + x92 + x93 + x94 + x95 >= 51"));
+    model.addConstraint(equationFromString(objective.length,
+        "x88 + x89 + x90 + x91 + x92 + x93 + x94 + x95 - x97 = 0"));
+    model.addConstraint(equationFromString(objective.length,
+        "x88 + x89 + x90 + x91 + x92 + x93 + x94 + x95 >= 51"));
     model.addConstraint(equationFromString(objective.length, "x84 + x85 + x86 + x87 >= 44"));
-    model.addConstraint(equationFromString(objective.length, "x98 + x99 + x100 + x101 - x110 = 0"));
-    model.addConstraint(
-        equationFromString(objective.length, "x102 + x103 + x104 + x105 + x106 + x107 + x108 + x109 - x111 = 0"));
+    model
+        .addConstraint(equationFromString(objective.length, "x98 + x99 + x100 + x101 - x110 = 0"));
+    model.addConstraint(equationFromString(objective.length,
+        "x102 + x103 + x104 + x105 + x106 + x107 + x108 + x109 - x111 = 0"));
     model.addConstraint(equationFromString(objective.length, "x98 + x99 + x100 + x101 - x96 = 0"));
+    model.addConstraint(equationFromString(objective.length,
+        "x102 + x103 + x104 + x105 + x106 + x107 + x108 + x109 - x97 = 0"));
     model.addConstraint(
-        equationFromString(objective.length, "x102 + x103 + x104 + x105 + x106 + x107 + x108 + x109 - x97 = 0"));
-    model.addConstraint(equationFromString(objective.length, "x112 + x113 + x114 + x115 - x124 = 0"));
-    model.addConstraint(
-        equationFromString(objective.length, "x116 + x117 + x118 + x119 + x120 + x121 + x122 + x123 - x125 = 0"));
-    model.addConstraint(
-        equationFromString(objective.length, "x116 + x117 + x118 + x119 + x120 + x121 + x122 + x123 >= 49"));
+        equationFromString(objective.length, "x112 + x113 + x114 + x115 - x124 = 0"));
+    model.addConstraint(equationFromString(objective.length,
+        "x116 + x117 + x118 + x119 + x120 + x121 + x122 + x123 - x125 = 0"));
+    model.addConstraint(equationFromString(objective.length,
+        "x116 + x117 + x118 + x119 + x120 + x121 + x122 + x123 >= 49"));
     model.addConstraint(equationFromString(objective.length, "x112 + x113 + x114 + x115 >= 42"));
-    model.addConstraint(equationFromString(objective.length, "x126 + x127 + x128 + x129 - x138 = 0"));
     model.addConstraint(
-        equationFromString(objective.length, "x130 + x131 + x132 + x133 + x134 + x135 + x136 + x137 - x139 = 0"));
-    model.addConstraint(equationFromString(objective.length, "x126 + x127 + x128 + x129 - x124 = 0"));
+        equationFromString(objective.length, "x126 + x127 + x128 + x129 - x138 = 0"));
+    model.addConstraint(equationFromString(objective.length,
+        "x130 + x131 + x132 + x133 + x134 + x135 + x136 + x137 - x139 = 0"));
     model.addConstraint(
-        equationFromString(objective.length, "x130 + x131 + x132 + x133 + x134 + x135 + x136 + x137 - x125 = 0"));
-    model.addConstraint(equationFromString(objective.length, "x140 + x141 + x142 + x143 - x152 = 0"));
+        equationFromString(objective.length, "x126 + x127 + x128 + x129 - x124 = 0"));
+    model.addConstraint(equationFromString(objective.length,
+        "x130 + x131 + x132 + x133 + x134 + x135 + x136 + x137 - x125 = 0"));
     model.addConstraint(
-        equationFromString(objective.length, "x144 + x145 + x146 + x147 + x148 + x149 + x150 + x151 - x153 = 0"));
-    model.addConstraint(
-        equationFromString(objective.length, "x144 + x145 + x146 + x147 + x148 + x149 + x150 + x151 >= 59"));
+        equationFromString(objective.length, "x140 + x141 + x142 + x143 - x152 = 0"));
+    model.addConstraint(equationFromString(objective.length,
+        "x144 + x145 + x146 + x147 + x148 + x149 + x150 + x151 - x153 = 0"));
+    model.addConstraint(equationFromString(objective.length,
+        "x144 + x145 + x146 + x147 + x148 + x149 + x150 + x151 >= 59"));
     model.addConstraint(equationFromString(objective.length, "x140 + x141 + x142 + x143 >= 42"));
-    model.addConstraint(equationFromString(objective.length, "x154 + x155 + x156 + x157 - x166 = 0"));
     model.addConstraint(
-        equationFromString(objective.length, "x158 + x159 + x160 + x161 + x162 + x163 + x164 + x165 - x167 = 0"));
-    model.addConstraint(equationFromString(objective.length, "x154 + x155 + x156 + x157 - x152 = 0"));
+        equationFromString(objective.length, "x154 + x155 + x156 + x157 - x166 = 0"));
+    model.addConstraint(equationFromString(objective.length,
+        "x158 + x159 + x160 + x161 + x162 + x163 + x164 + x165 - x167 = 0"));
     model.addConstraint(
-        equationFromString(objective.length, "x158 + x159 + x160 + x161 + x162 + x163 + x164 + x165 - x153 = 0"));
+        equationFromString(objective.length, "x154 + x155 + x156 + x157 - x152 = 0"));
+    model.addConstraint(equationFromString(objective.length,
+        "x158 + x159 + x160 + x161 + x162 + x163 + x164 + x165 - x153 = 0"));
     model.addConstraint(equationFromString(objective.length, "x83 + x82 - x168 = 0"));
     model.addConstraint(equationFromString(objective.length, "x111 + x110 - x169 = 0"));
     model.addConstraint(equationFromString(objective.length, "x170 - x182 = 0"));
@@ -270,19 +300,19 @@ public class SimplexSolverTest extends TestCase {
    * Converts a test string to a {@link LinearEquation}. Ex: x0 + x1 + x2 + x3 -
    * x12 = 0
    */
-  private LinearEquation equationFromString(int numCoefficients, String s) {
+  private LinearEquation equationFromString(int numCoefficients, String str) {
     Relationship relationship;
-    if (s.contains(">=")) {
+    if (str.contains(">=")) {
       relationship = Relationship.GEQ;
-    } else if (s.contains("<=")) {
+    } else if (str.contains("<=")) {
       relationship = Relationship.LEQ;
-    } else if (s.contains("=")) {
+    } else if (str.contains("=")) {
       relationship = Relationship.EQ;
     } else {
       throw new IllegalArgumentException();
     }
 
-    String[] equationParts = s.split("[>|<]?=");
+    String[] equationParts = str.split("[>|<]?=");
     double rhs = Double.parseDouble(equationParts[1].trim());
 
     ArrayRealVector lhs = new ArrayRealVector(numCoefficients);

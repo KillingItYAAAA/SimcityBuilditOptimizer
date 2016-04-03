@@ -19,8 +19,8 @@
 
 package com.horvath;
 
-import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.linear.ArrayRealVector;
+import org.apache.commons.math3.linear.RealVector;
 
 /**
  * A constraint for a {@link LinearModel}.
@@ -37,13 +37,15 @@ public class LinearEquation {
     this(new ArrayRealVector(coefficients), relationship, rightHandSide);
   }
 
-  public LinearEquation(ArrayRealVector leftHandSide, Relationship relationship, double rightHandSide) {
+  public LinearEquation(ArrayRealVector leftHandSide, Relationship relationship,
+      double rightHandSide) {
     this.leftHandSide = leftHandSide;
     this.relationship = relationship;
     this.rightHandSide = rightHandSide;
   }
 
-  public LinearEquation(ArrayRealVector leftHandSide, Relationship relationship, RealVector rightHandSide) {
+  public LinearEquation(ArrayRealVector leftHandSide, Relationship relationship,
+      RealVector rightHandSide) {
     this.leftHandSide = leftHandSide.subtract(rightHandSide);
     this.relationship = relationship;
     this.rightHandSide = 0;

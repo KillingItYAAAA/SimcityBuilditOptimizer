@@ -30,31 +30,33 @@ public class SimplexTableTest extends TestCase {
     LinearModel model = createModel();
     SimplexTable table = new SimplexTable(model);
     table.createTable(model);
-    double[][] expectedInitialTable = { { -1, 0, 0, 0, 0, 0, 0, 1, 0 }, { 0, 1, -15, -10, 25, 0, 0, 0, 0 },
-        { 0, 0, 1, 0, -1, 1, 0, 0, 2 }, { 0, 0, 0, 1, -1, 0, 1, 0, 3 }, { 0, 0, 1, 1, -2, 0, 0, 1, 4 } };
+    double[][] expectedInitialTable = { { -1, 0, 0, 0, 0, 0, 0, 1, 0 },
+        { 0, 1, -15, -10, 25, 0, 0, 0, 0 }, { 0, 0, 1, 0, -1, 1, 0, 0, 2 },
+        { 0, 0, 0, 1, -1, 0, 1, 0, 3 }, { 0, 0, 1, 1, -2, 0, 0, 1, 4 } };
     assertMatrixEquals(expectedInitialTable, table.createTable(model));
   }
 
   public void testInitialization() {
     LinearModel model = createModel();
     SimplexTable table = new SimplexTable(model);
-    double[][] expectedInitialTable = { { -1, 0, -1, -1, 2, 0, 0, 0, -4 }, { 0, 1, -15, -10, 25, 0, 0, 0, 0 },
-        { 0, 0, 1, 0, -1, 1, 0, 0, 2 }, { 0, 0, 0, 1, -1, 0, 1, 0, 3 }, { 0, 0, 1, 1, -2, 0, 0, 1, 4 } };
+    double[][] expectedInitialTable = { { -1, 0, -1, -1, 2, 0, 0, 0, -4 },
+        { 0, 1, -15, -10, 25, 0, 0, 0, 0 }, { 0, 0, 1, 0, -1, 1, 0, 0, 2 },
+        { 0, 0, 0, 1, -1, 0, 1, 0, 3 }, { 0, 0, 1, 1, -2, 0, 0, 1, 4 } };
     assertMatrixEquals(expectedInitialTable, table.getData());
   }
 
   public void testdiscardArtificialVariables() {
     LinearModel model = createModel();
     SimplexTable table = new SimplexTable(model);
-    double[][] expectedTable = { { 1, -15, -10, 25, 0, 0, 0 }, { 0, 1, 0, -1, 1, 0, 2 }, { 0, 0, 1, -1, 0, 1, 3 },
-        { 0, 1, 1, -2, 0, 0, 4 } };
+    double[][] expectedTable = { { 1, -15, -10, 25, 0, 0, 0 }, { 0, 1, 0, -1, 1, 0, 2 },
+        { 0, 0, 1, -1, 0, 1, 3 }, { 0, 1, 1, -2, 0, 0, 4 } };
     table.discardArtificialVariables();
     assertMatrixEquals(expectedTable, table.getData());
   }
 
   public void testTableWithNoArtificialVars() {
-    LinearObjectiveFunction objectiveFunction = new LinearObjectiveFunction(new double[] { 15, 10 }, (double) 0,
-        GoalType.MAXIMIZE);
+    LinearObjectiveFunction objectiveFunction = new LinearObjectiveFunction(
+        new double[] { 15, 10 }, (double) 0, GoalType.MAXIMIZE);
     LinearModel model = new LinearModel(objectiveFunction);
     model.addConstraint(new LinearEquation(new double[] { 1, 0 }, Relationship.LEQ, 2));
     model.addConstraint(new LinearEquation(new double[] { 0, 1 }, Relationship.LEQ, 3));
@@ -79,7 +81,8 @@ public class SimplexTableTest extends TestCase {
     for (int i = 0; i < expected.length; i++) {
       assertEquals("Wrong number of columns.", expected[i].length, result[i].length);
       for (int j = 0; j < expected[i].length; j++) {
-        assertEquals("Wrong value at position [" + i + "," + j + "]", expected[i][j], result[i][j]);
+        assertEquals("Wrong value at position [" + i + "," + j + "]", expected[i][j],
+            result[i][j]);
       }
     }
   }

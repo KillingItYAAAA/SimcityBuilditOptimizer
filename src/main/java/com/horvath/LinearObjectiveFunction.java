@@ -19,8 +19,8 @@
 
 package com.horvath;
 
-import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.linear.ArrayRealVector;
+import org.apache.commons.math3.linear.RealVector;
 
 /**
  * An objective function for a {@link LinearModel}.

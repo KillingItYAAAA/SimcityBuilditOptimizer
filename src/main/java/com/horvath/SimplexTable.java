@@ -20,25 +20,28 @@
 package com.horvath;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealMatrix;
-import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 
 /**
  * A table for use in the Simplex method.
  * 
+ * <p>
  * Example: W | Z | x1 | x2 | x- | s1 | s2 | a1 | RHS
  * --------------------------------------------------- -1 0 0 0 0 0 0 1 0 <=
  * phase 1 objective 0 1 -15 -10 0 0 0 0 0 <= phase 2 objective 0 0 1 0 0 1 0 0
  * 2 <= constraint 1 0 0 0 1 0 0 1 0 3 <= constraint 2 0 0 1 1 0 0 0 1 4 <=
  * constraint 3
+ * </p>
  * 
+ * <p>
  * W: Phase 1 objective function Z: Phase 2 objective function x1 & x2: Decision
  * variables x-: Extra decision variable to allow for negative values s1 & s2:
  * Slack/Surplus variables a1: Artificial variable RHS: Right hand side
+ * </p>
  * 
  * @author <a href="http://www.benmccann.com">Ben McCann</a>
  */
@@ -67,7 +70,7 @@ class SimplexTable {
   protected double[][] createTable(LinearModel model) {
 
     // create a matrix of the correct size
-    List<LinearEquation> constraints = model.getNormalizedConstraints();
+    // List<LinearEquation> constraints = model.getNormalizedConstraints();
     int width = this.numDecisionVariables + this.numSlackVariables + this.numArtificialVariables
         + getNumObjectiveFunctions() + 1; // + 1 is for RHS
     int height = model.getConstraints().size() + getNumObjectiveFunctions();
@@ -81,18 +84,19 @@ class SimplexTable {
     if (getNumObjectiveFunctions() == 2) {
       matrix[0][0] = -1;
     }
-    int zIndex = getNumObjectiveFunctions() == 1 ? 0 : 1;
+    int zindex = getNumObjectiveFunctions() == 1 ? 0 : 1;
     boolean maximize = objectiveFunction.getGoalType() == GoalType.MAXIMIZE;
-    matrix[zIndex][zIndex] = maximize ? 1 : -1;
+    matrix[zindex][zindex] = maximize ? 1 : -1;
     ArrayRealVector objectiveCoefficients = maximize
         ? (ArrayRealVector) model.getObjectiveFunction().getCoefficients().mapMultiply(-1)
         : (ArrayRealVector) model.getObjectiveFunction().getCoefficients();
-    copyArray(objectiveCoefficients.getDataRef(), matrix[zIndex], getDecisionVariableOffset());
-    matrix[zIndex][width - 1] = maximize ? model.getObjectiveFunction().getConstantTerm()
+    copyArray(objectiveCoefficients.getDataRef(), matrix[zindex], getDecisionVariableOffset());
+    matrix[zindex][width - 1] = maximize ? model.getObjectiveFunction().getConstantTerm()
         : -1 * model.getObjectiveFunction().getConstantTerm();
 
     if (!nonNegative) {
-      matrix[zIndex][getSlackVariableOffset() - 1] = getInvertedCoeffiecientSum(objectiveCoefficients);
+      matrix[zindex][getSlackVariableOffset() - 1] = getInvertedCoeffiecientSum(
+          objectiveCoefficients);
     }
 
     // initialize the constraint rows
@@ -107,7 +111,8 @@ class SimplexTable {
 
       // x-
       if (!nonNegative) {
-        matrix[row][getSlackVariableOffset() - 1] = getInvertedCoeffiecientSum(constraint.getCoefficients());
+        matrix[row][getSlackVariableOffset() - 1] = getInvertedCoeffiecientSum(
+            constraint.getCoefficients());
       }
 
       // RHS
@@ -121,7 +126,8 @@ class SimplexTable {
       }
 
       // artificial variables
-      if (constraint.getRelationship() == Relationship.EQ || constraint.getRelationship() == Relationship.GEQ) {
+      if (constraint.getRelationship() == Relationship.EQ
+          || constraint.getRelationship() == Relationship.GEQ) {
         matrix[0][getArtificialVariableOffset() + artificialVar] = 1;
         matrix[row][getArtificialVariableOffset() + artificialVar++] = 1;
       }
@@ -222,9 +228,11 @@ class SimplexTable {
     double[] coefficients = new double[getOriginalNumDecisionVariables()];
     double mostNegative = getDecisionVariableValue(getOriginalNumDecisionVariables());
     for (int i = 0; i < coefficients.length; i++) {
-      coefficients[i] = nonNegative ? getDecisionVariableValue(i) : getDecisionVariableValue(i) - mostNegative;
+      coefficients[i] = nonNegative ? getDecisionVariableValue(i)
+          : getDecisionVariableValue(i) - mostNegative;
     }
-    return new LinearEquation(coefficients, Relationship.EQ, table.getEntry(0, 0) * table.getEntry(0, getRhsOffset()));
+    return new LinearEquation(coefficients, Relationship.EQ,
+        table.getEntry(0, 0) * table.getEntry(0, getRhsOffset()));
   }
 
   /**
@@ -259,7 +267,8 @@ class SimplexTable {
    */
   protected void subtractRow(int minuendRow, int subtrahendRow, double multiple) {
     for (int j = 0; j < getWidth(); j++) {
-      table.setEntry(minuendRow, j, table.getEntry(minuendRow, j) - multiple * table.getEntry(subtrahendRow, j));
+      table.setEntry(minuendRow, j,
+          table.getEntry(minuendRow, j) - multiple * table.getEntry(subtrahendRow, j));
     }
   }
 
