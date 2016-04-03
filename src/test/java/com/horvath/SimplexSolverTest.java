@@ -28,6 +28,12 @@ import org.apache.commons.math3.linear.ArrayRealVector;
  */
 public class SimplexSolverTest extends TestCase {
 
+  /**
+   * TODO.
+   * 
+   * @throws UnboundedSolutionException TODO
+   * @throws NoFeasibleSolutionException TODO
+   */
   public void testSimplexSolver() throws UnboundedSolutionException, NoFeasibleSolutionException {
 
     LinearModel model = new LinearModel(
@@ -62,6 +68,12 @@ public class SimplexSolverTest extends TestCase {
     assertEquals(50.0, solution.getRightHandSide());
   }
 
+  /**
+   * TODO.
+   * 
+   * @throws UnboundedSolutionException TODO
+   * @throws NoFeasibleSolutionException TODO
+   */
   public void testMinimization() throws UnboundedSolutionException, NoFeasibleSolutionException {
     LinearModel model = new LinearModel(
         new LinearObjectiveFunction(new double[] { -2, 1 }, -5, GoalType.MINIMIZE));
@@ -76,6 +88,12 @@ public class SimplexSolverTest extends TestCase {
     assertEquals(-13.0, solution.getRightHandSide());
   }
 
+  /**
+   * TODO.
+   * 
+   * @throws UnboundedSolutionException TODO
+   * @throws NoFeasibleSolutionException TODO
+   */
   public void testSolutionWithNegativeDecisionVariable()
       throws UnboundedSolutionException, NoFeasibleSolutionException {
     LinearModel model = new LinearModel(
@@ -90,6 +108,11 @@ public class SimplexSolverTest extends TestCase {
     assertEquals(12.0, solution.getRightHandSide());
   }
 
+  /**
+   * TODO.
+   * 
+   * @throws UnboundedSolutionException TODO
+   */
   public void testInfeasibleSolution() throws UnboundedSolutionException {
     LinearModel model = new LinearModel(
         new LinearObjectiveFunction(new double[] { 15 }, 0, GoalType.MAXIMIZE));
@@ -105,6 +128,11 @@ public class SimplexSolverTest extends TestCase {
     }
   }
 
+  /**
+   * TODO.
+   * 
+   * @throws NoFeasibleSolutionException TODO
+   */
   public void testUnboundedSolution() throws NoFeasibleSolutionException {
     LinearModel model = new LinearModel(
         new LinearObjectiveFunction(new double[] { 15, 10 }, 0, GoalType.MAXIMIZE));
@@ -119,6 +147,12 @@ public class SimplexSolverTest extends TestCase {
     }
   }
 
+  /**
+   * TODO.
+   * 
+   * @throws UnboundedSolutionException TODO
+   * @throws NoFeasibleSolutionException TODO
+   */
   public void testRestrictVariablesToNonNegative()
       throws UnboundedSolutionException, NoFeasibleSolutionException {
     LinearModel model = new LinearModel(new LinearObjectiveFunction(
@@ -144,6 +178,12 @@ public class SimplexSolverTest extends TestCase {
     assertEquals(1438556.7491409, solution.getRightHandSide(), .0000001);
   }
 
+  /**
+   * TODO.
+   * 
+   * @throws UnboundedSolutionException TODO
+   * @throws NoFeasibleSolutionException TODO
+   */
   public void testSomething() throws UnboundedSolutionException, NoFeasibleSolutionException {
     LinearModel model = new LinearModel(
         new LinearObjectiveFunction(new double[] { 1, 1 }, 0, GoalType.MAXIMIZE));
@@ -154,6 +194,12 @@ public class SimplexSolverTest extends TestCase {
     assertEquals(0, solution.getRightHandSide(), .0000001);
   }
 
+  /**
+   * TODO.
+   * 
+   * @throws UnboundedSolutionException TODO
+   * @throws NoFeasibleSolutionException TODO
+   */
   public void testLargeModel() throws UnboundedSolutionException, NoFeasibleSolutionException {
     double[] objective = new double[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 12, 1, 1, 1, 1, 1, 1,
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 12, 1, 1, 1, 1, 1, 1, 1, 1,

@@ -37,8 +37,7 @@ public class LinearModel {
   private final List<LinearEquation> constraints;
 
   /**
-   * @param numVariables
-   *          The number of decision variables in the model.
+   * *** @ param numVariables The number of decision variables in the model.
    */
   public LinearModel(LinearObjectiveFunction objectiveFunction) {
     this.objectiveFunction = objectiveFunction;

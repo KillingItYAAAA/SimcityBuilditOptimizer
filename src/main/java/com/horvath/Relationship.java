@@ -39,14 +39,19 @@ public enum Relationship {
     return stringValue;
   }
 
+  /**
+   * TODO.
+   * 
+   * @return TODO
+   */
   public Relationship oppositeRelationship() {
     switch (this) {
-    case LEQ:
-      return GEQ;
-    case GEQ:
-      return LEQ;
-    default:
-      return EQ;
+      case LEQ:
+        return GEQ;
+      case GEQ:
+        return LEQ;
+      default:
+        return EQ;
     }
   }
 }

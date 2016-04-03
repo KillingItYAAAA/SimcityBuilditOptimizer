@@ -26,6 +26,9 @@ import junit.framework.TestCase;
  */
 public class SimplexTableTest extends TestCase {
 
+  /**
+   * TODO.
+   */
   public void testCreateTable() {
     LinearModel model = createModel();
     SimplexTable table = new SimplexTable(model);
@@ -36,6 +39,9 @@ public class SimplexTableTest extends TestCase {
     assertMatrixEquals(expectedInitialTable, table.createTable(model));
   }
 
+  /**
+   * TODO.
+   */
   public void testInitialization() {
     LinearModel model = createModel();
     SimplexTable table = new SimplexTable(model);
@@ -45,6 +51,9 @@ public class SimplexTableTest extends TestCase {
     assertMatrixEquals(expectedInitialTable, table.getData());
   }
 
+  /**
+   * TODO.
+   */
   public void testdiscardArtificialVariables() {
     LinearModel model = createModel();
     SimplexTable table = new SimplexTable(model);
@@ -54,6 +63,9 @@ public class SimplexTableTest extends TestCase {
     assertMatrixEquals(expectedTable, table.getData());
   }
 
+  /**
+   * TODO.
+   */
   public void testTableWithNoArtificialVars() {
     LinearObjectiveFunction objectiveFunction = new LinearObjectiveFunction(
         new double[] { 15, 10 }, (double) 0, GoalType.MAXIMIZE);

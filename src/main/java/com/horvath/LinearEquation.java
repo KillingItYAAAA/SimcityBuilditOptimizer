@@ -37,6 +37,13 @@ public class LinearEquation {
     this(new ArrayRealVector(coefficients), relationship, rightHandSide);
   }
 
+  /**
+   * TODO.
+   * 
+   * @param leftHandSide TODO
+   * @param relationship TODO
+   * @param rightHandSide TODO
+   */
   public LinearEquation(ArrayRealVector leftHandSide, Relationship relationship,
       double rightHandSide) {
     this.leftHandSide = leftHandSide;
@@ -44,6 +51,13 @@ public class LinearEquation {
     this.rightHandSide = rightHandSide;
   }
 
+  /**
+   * TODO.
+   * 
+   * @param leftHandSide TODO
+   * @param relationship TODO
+   * @param rightHandSide TODO
+   */
   public LinearEquation(ArrayRealVector leftHandSide, Relationship relationship,
       RealVector rightHandSide) {
     this.leftHandSide = leftHandSide.subtract(rightHandSide);

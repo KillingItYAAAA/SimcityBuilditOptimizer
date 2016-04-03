@@ -20,6 +20,7 @@
 package com.horvath;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
@@ -70,7 +71,6 @@ class SimplexTable {
   protected double[][] createTable(LinearModel model) {
 
     // create a matrix of the correct size
-    // List<LinearEquation> constraints = model.getNormalizedConstraints();
     int width = this.numDecisionVariables + this.numSlackVariables + this.numArtificialVariables
         + getNumObjectiveFunctions() + 1; // + 1 is for RHS
     int height = model.getConstraints().size() + getNumObjectiveFunctions();
@@ -100,6 +100,7 @@ class SimplexTable {
     }
 
     // initialize the constraint rows
+    List<LinearEquation> constraints = model.getNormalizedConstraints();
     int slackVar = 0;
     int artificialVar = 0;
     for (int i = 0; i < constraints.size(); i++) {
