@@ -112,7 +112,7 @@ class SimplexTableau {
       int row = getNumObjectiveFunctions() + i;
       
       // decision variable coefficients
-      copyArray(constraint.getCoefficients().getData(), matrix[row], 1);
+      copyArray(constraint.getCoefficients().getDataRef(), matrix[row], 1);
 
       // x-
       if (!nonNegative) {
@@ -164,9 +164,9 @@ class SimplexTableau {
   /**
    * Returns the -1 times the sum of all coefficients in the given array.
    */
-  protected static double getInvertedCoeffiecientSum(RealVector coefficients) {
+  protected static double getInvertedCoeffiecientSum(ArrayRealVector coefficients) {
     double sum = 0;
-    for (double coefficient : coefficients.getData()) {
+    for (double coefficient : coefficients.getDataRef()) {
       sum -= coefficient;
     }
     return sum;

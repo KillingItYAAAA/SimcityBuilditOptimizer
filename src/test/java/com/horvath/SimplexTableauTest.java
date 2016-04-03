@@ -19,6 +19,8 @@
 
 package com.horvath;
 
+import org.apache.commons.math3.optimization.GoalType;
+
 import junit.framework.TestCase;
 
 /**
@@ -67,7 +69,8 @@ public class SimplexTableauTest extends TestCase {
   }
   
   public void testTableauWithNoArtificialVars() {
-    LinearModel model = new LinearModel(new LinearObjectiveFunction(new double[] {15, 10}));
+	LinearObjectiveFunction objectiveFunction = new LinearObjectiveFunction(new double[] {15, 10}, (double)0, GoalType.MAXIMIZE);
+    LinearModel model = new LinearModel(objectiveFunction);
     model.addConstraint(new LinearEquation(new double[] {1, 0}, Relationship.LEQ, 2));
     model.addConstraint(new LinearEquation(new double[] {0, 1}, Relationship.LEQ, 3));
     model.addConstraint(new LinearEquation(new double[] {1, 1}, Relationship.LEQ, 4));    
@@ -82,7 +85,7 @@ public class SimplexTableauTest extends TestCase {
   }
   
   private LinearModel createModel() {
-    LinearModel model = new LinearModel(new LinearObjectiveFunction(new double[] {15, 10}));
+    LinearModel model = new LinearModel(new LinearObjectiveFunction(new double[] {15, 10}, (double)0, GoalType.MAXIMIZE));
     model.addConstraint(new LinearEquation(new double[] {1, 0}, Relationship.LEQ, 2));
     model.addConstraint(new LinearEquation(new double[] {0, 1}, Relationship.LEQ, 3));
     model.addConstraint(new LinearEquation(new double[] {1, 1}, Relationship.EQ, 4));
@@ -98,5 +101,4 @@ public class SimplexTableauTest extends TestCase {
       }
     }
   }
-  
 }
