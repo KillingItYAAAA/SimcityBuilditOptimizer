@@ -1,8 +1,9 @@
 package com.horvath;
 
 /**
- * Hello world!
- *
+ * Hello World!
+ * 
+ * @author phorvath
  */
 public class App {
   public static void main(String[] args) {
