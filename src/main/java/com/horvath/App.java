@@ -1,7 +1,7 @@
 package com.horvath;
 
 /**
- * Hello World!
+ * Hello World.
  * 
  * @author phorvath
  */

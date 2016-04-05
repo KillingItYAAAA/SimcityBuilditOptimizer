@@ -34,6 +34,8 @@ public class LinearObjectiveFunction {
   private final double constantTerm;
 
   /**
+   * TODO.
+   * 
    * @param coefficients
    *          The coefficients for the linear equation being optimized
    * @param constantTerm
@@ -46,6 +48,8 @@ public class LinearObjectiveFunction {
   }
 
   /**
+   * TODO.
+   * 
    * @param coefficients
    *          The coefficients for the linear equation being optimized
    * @param constantTerm

@@ -9,7 +9,7 @@ import junit.framework.TestSuite;
  */
 public class AppTest extends TestCase {
   /**
-   * Create the test case
+   * Create the test case.
    *
    * @param testName
    *          name of the test case
@@ -19,6 +19,7 @@ public class AppTest extends TestCase {
   }
 
   /**
+   * TODO.
    * 
    * @return the suite of tests being tested
    */
@@ -27,7 +28,7 @@ public class AppTest extends TestCase {
   }
 
   /**
-   * Rigourous Test :-)
+   * Rigourous Test :-) .
    */
   public void testApp() {
     assertTrue(true);

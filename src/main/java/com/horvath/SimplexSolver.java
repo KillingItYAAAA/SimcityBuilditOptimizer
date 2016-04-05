@@ -41,6 +41,8 @@ public class SimplexSolver {
   }
 
   /**
+   * TODO.
+   * 
    * @param model
    *          the {@link LinearModel} to solve
    * @param restrictToNonNegative
@@ -51,6 +53,8 @@ public class SimplexSolver {
   }
 
   /**
+   * TODO.
+   * 
    * @param model
    *          the {@link LinearModel} to solve
    * @param restrictToNonNegative
