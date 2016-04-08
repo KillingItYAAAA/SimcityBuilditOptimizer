@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.horvath.SimplexMethodSolver</groupId>
+	<groupId>com.horvath.simplexMethodSolver</groupId>
 	<artifactId>App</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
@@ -32,7 +32,7 @@
 						</descriptorRefs>
 						<archive>
 							<manifest>
-								<mainClass>com.horvath.SimplexMethodSolver.App</mainClass>
+								<mainClass>com.horvath.simplexMethodSolver.App</mainClass>
 							</manifest>
 						</archive>
 					</configuration>
@@ -49,7 +49,7 @@
 						</execution>
 					</executions>
 					<configuration>
-						<mainClass>com.horvath.SimplexMethodSolver.App</mainClass>
+						<mainClass>com.horvath.simplexMethodSolver.App</mainClass>
 					</configuration>
 				</plugin>
 			</plugins>

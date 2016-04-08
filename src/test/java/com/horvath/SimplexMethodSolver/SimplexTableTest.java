@@ -19,6 +19,13 @@
 
 package com.horvath.SimplexMethodSolver;
 
+import com.horvath.simplexMethodSolver.GoalType;
+import com.horvath.simplexMethodSolver.LinearEquation;
+import com.horvath.simplexMethodSolver.LinearModel;
+import com.horvath.simplexMethodSolver.LinearObjectiveFunction;
+import com.horvath.simplexMethodSolver.Relationship;
+import com.horvath.simplexMethodSolver.SimplexTable;
+
 import junit.framework.TestCase;
 
 /**

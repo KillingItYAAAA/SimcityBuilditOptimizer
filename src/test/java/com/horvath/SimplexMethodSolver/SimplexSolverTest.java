@@ -23,6 +23,15 @@ import junit.framework.TestCase;
 
 import org.apache.commons.math3.linear.ArrayRealVector;
 
+import com.horvath.simplexMethodSolver.GoalType;
+import com.horvath.simplexMethodSolver.LinearEquation;
+import com.horvath.simplexMethodSolver.LinearModel;
+import com.horvath.simplexMethodSolver.LinearObjectiveFunction;
+import com.horvath.simplexMethodSolver.NoFeasibleSolutionException;
+import com.horvath.simplexMethodSolver.Relationship;
+import com.horvath.simplexMethodSolver.SimplexSolver;
+import com.horvath.simplexMethodSolver.UnboundedSolutionException;
+
 /**
  * @author <a href="http://www.benmccann.com">Ben McCann</a>
  */

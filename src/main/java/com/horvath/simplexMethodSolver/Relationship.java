@@ -1,3 +1,5 @@
+// Copyright 2009 Google Inc.
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -15,22 +17,41 @@
  * limitations under the License.
  */
 
-package com.horvath.SimplexMethodSolver;
-
-import java.io.Serializable;
+package com.horvath.simplexMethodSolver;
 
 /**
- * Goal type for an optimization problem. Deprecated in commons.math3, saved
- * into here only for this project.
+ * Types of relationships between two cells in a Solver {@link LinearEquation}.
  * 
- * @since 2.0
+ * @author <a href="http://www.benmccann.com">Ben McCann</a>
  */
-public enum GoalType implements Serializable {
+public enum Relationship {
 
-  /** Maximization goal. */
-  MAXIMIZE,
+  EQ("="), LEQ("<="), GEQ(">=");
 
-  /** Minimization goal. */
-  MINIMIZE
+  private String stringValue;
 
+  private Relationship(String stringValue) {
+    this.stringValue = stringValue;
+  }
+
+  @Override
+  public String toString() {
+    return stringValue;
+  }
+
+  /**
+   * TODO.
+   * 
+   * @return TODO
+   */
+  public Relationship oppositeRelationship() {
+    switch (this) {
+      case LEQ:
+        return GEQ;
+      case GEQ:
+        return LEQ;
+      default:
+        return EQ;
+    }
+  }
 }
