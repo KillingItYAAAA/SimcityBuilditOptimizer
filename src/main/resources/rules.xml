@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<resources>
+  <resource name="Metal" type="factory" time="1"/>
+  <resource name="Wood" type="factory" time="3"/>
+  <resource name="Plastic" type="factory" time="9"/>
+  <resource name="Seeds" type="factory" time="20"/>
+  <resource name="Minerals" type="factory" time="30"/>
+  <resource name="Chemicals" type="factory" time="120"/>
+  <resource name="Textiles" type="factory" time="180"/>
+  <resource name="Sugar" type="factory" time="240"/>
+  <resource name="Glass" type="factory" time="300"/>
+  <resource name="Animal Feed" type="factory" time="360"/>
+  <resource name="Electronic Components" type="factory" time="420"/>
+  
+  <store name="Building Supply"/>
+  <resource name="Nails" type="store" store="Building Supply" time="5" level="1">
+    <raw resource="Metal" number="2"/>
+  </resource>
+  <resource name="Planks" type="store" store="Building Supply" time="30" level="3">
+    <raw resource="Wood" number="2"/>
+  </resource>
+  <resource name="Bricks" type="store" store="Building Supply" time="20" level="13">
+    <raw resource="Minerals" number="2"/>
+  </resource>
+  <resource name="Cement" type="store" store="Building Supply" time="50" level="14">
+    <raw resource="Minerals" number="2"/>
+    <raw resource="Chemicals" number="1"/>
+  </resource>
+  <resource name="Glue" type="store" store="Building Supply" time="60" level="15">
+    <raw resource="Plastic" number="1"/>
+    <raw resource="Chemicals" number="2"/>
+  </resource>
+  <resource name="Paint" type="store" store="Building Supply" time="60" level="16">
+    <raw resource="Metal" number="2"/>
+    <raw resource="Minerals" number="1"/>
+    <raw resource="Chemicals" number="2"/>
+  </resource>
+  
+  <store name="Hardware Store"/>
+  <resource name="Hammer" type="store" store="Hardware Store" time="14" level="4">
+    <raw resource="Metal" number="1"/>
+    <raw resource="Wood" number="1"/>
+  </resource>
+  <resource name="Measuring Tape" type="store" store="Hardware Store" time="20" level="6">
+    <raw resource="Metal" number="1"/>
+    <raw resource="Plastic" number="1"/>
+  </resource>
+  <resource name="Shovel" type="store" store="Hardware Store" time="30" level="9">
+    <raw resource="Metal" number="1"/>
+    <raw resource="Wood" number="1"/>
+    <raw resource="Plastic" number="1"/>
+  </resource>
+  <resource name="Cooking Utensils" type="store" store="Hardware Store" time="45" level="17">
+    <raw resource="Metal" number="2"/>
+    <raw resource="Wood" number="2"/>
+    <raw resource="Plastic" number="2"/>
+  </resource>
+  <resource name="Ladder" type="store" store="Hardware Store" time="60" level="20"/>
+    <raw resource="Metal" number="2"/>
+    <raw resource="Planks" number="2"/>
+  </resource>
+  <resource name="Drill" type="store" store="Hardware Store" time="120" level="30">
+    <raw resource="Metal" number="2"/>
+    <raw resource="Plastic" number="2"/>
+    <raw resource="Electronic Components" number="1"/>
+  </resource>
+  
+  <store name="Farmer's Market"/>
+  <resource name="Vegetables" type="store" store="Farmer's Market" time="20" level="8"/>
+  <resource name="Flour Bag" type="store" store="Farmer's Market" time="30" level="17"/>
+  <resource name="Fruit & Berries" type="store" store="Farmer's Market" time="90" level="18"/>
+  <resource name="Cream" type="store" store="Farmer's Market" time="75" level="23"/>
+  <resource name="Corn" type="store" store="Farmer's Market" time="60" level="24"/>
+  <resource name="Cheese" type="store" store="Farmer's Market" time="105" level="26"/>
+  <resource name="Beef" type="store" store="Farmer's Market" time="150" level="27"/>
+  
+  <store name="Furniture Store"/>
+  <resource name="Chair" type="store" store="Furniture Store" time="20" level="10"/>
+  <resource name="Tables" type="store" store="Furniture Store" time="30" level="16"/>
+  <resource name="Home Textiles" type="store" store="Furniture Store" time="75" level="25"/>
+  <resource name="Cupboard" type="store" store="Furniture Store" time="45" level="26"/>
+  <resource name="Couch" type="store" store="Furniture Store" time="150" level="33"/>
+  
+  <store name="Gardening Supplies"/>
+  <resource name="Grass" type="store" store="Gardening Supplies" time="45" level="14"/>
+  <resource name="Tree Saplings" type="store" store="Gardening Supplies" time="90" level="16"/>
+  <resource name="Garden Furniture" type="store" store="Gardening Supplies" time="135" level="21"/>
+  <resource name="Fire Pit" type="store" store="Gardening Supplies" time="240" level="28"/>
+  <resource name="Lawn Mower" type="store" store="Gardening Supplies" time="120" level="30"/>
+  <resource name="Garden Gnomes" type="store" store="Gardening Supplies" time="90" level="34"/>
+  
+  <store name="Donut Shop"/>
+  <resource name="Donuts" type="store" store="Donut Shop" time="45"  level="18"/>
+  <resource name="Green Smoothie" type="store" store="Donut Shop" time="30" level="20"/>
+  <resource name="Bread Roll" type="store" store="Donut Shop" time="60" level="24"/>
+  <resource name="Cherry Cheesecake" type="store" store="Donut Shop" time="90" level="27"/>
+  <resource name="Frozen Yoghurt" type="store" store="Donut Shop" time="240" level="28"/>
+  <resource name="Cafee" type="store" store="Donut Shop" time="60" level="33"/>
+
+  <store name="Fashion Store"/>
+  <resource name="Cap" type="store" store="Fashion Store" time="60" level="19"/>
+  <resource name="Shoes" type="store" store="Fashion Store" time="75" level="21"/>
+  <resource name="Watch" type="store" store="Fashion Store" time="90" level="22"/>
+  <resource name="Business Suits" type="store" store="Fashion Store" time="210" level="32"/>
+  <resource name="Backpack" type="store" store="Fashion Store" time="150" level="34"/>
+
+  <store name="Fast Food Restaurant"/>
+  <resource name="Ice Cream Sandwich" type="store" store="Fast Food Restaurant" time="14" level="25"/>
+  <resource name="Pizza" type="store" store="Fast Food Restaurant" time="24" level="28"/>
+  <resource name="Burgers" type="store" store="Fast Food Restaurant" time="35" level="31"/>
+  <resource name="Cheese Fries" type="store" store="Fast Food Restaurant" time="90" level="33"/>
+  <resource name="Lemonade Bottle" type="store" store="Fast Food Restaurant" time="60" level="37"/>
+  <resource name="Popcorn" type="store" store="Fast Food Restaurant" time="30" level="43"/>
+
+  <store name="Home Appliances"/>
+  <resource name="BBQ Grill" type="store" store="Home Appliances" time="165" level="29"/>
+  <resource name="Refrigerator" type="store" store="Home Appliances" time="210" level="35"/>
+  <resource name="Lighting System" type="store" store="Home Appliances" time="105" level="36"/>
+  <resource name="Television" type="store" store="Home Appliances" time="150" level="38"/>
+  <resource name="Microwave Oven" type="store" store="Home Appliances" time="120" level="42"/>
+</resources>
