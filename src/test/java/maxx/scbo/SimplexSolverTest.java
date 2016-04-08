@@ -24,10 +24,10 @@ import junit.framework.TestCase;
 import org.apache.commons.math3.linear.ArrayRealVector;
 
 import maxx.scbo.deprecated.GoalType;
-import maxx.scbo.deprecated.ExLinearObjectiveFunction;
+import maxx.scbo.deprecated.LinearObjectiveFunction;
 import maxx.scbo.deprecated.NoFeasibleSolutionException;
 import maxx.scbo.deprecated.Relationship;
-import maxx.scbo.deprecated.ExSimplexSolver;
+import maxx.scbo.deprecated.SimplexSolver;
 import maxx.scbo.deprecated.LinearEquation;
 import maxx.scbo.deprecated.LinearModel;
 import maxx.scbo.deprecated.UnboundedSolutionException;
@@ -47,12 +47,12 @@ public class SimplexSolverTest extends TestCase {
   public void testSimplexSolver() throws UnboundedSolutionException, NoFeasibleSolutionException {
 
     LinearModel model = new LinearModel(
-        new ExLinearObjectiveFunction(new double[] { 15, 10 }, 7, GoalType.MAXIMIZE));
+        new LinearObjectiveFunction(new double[] { 15, 10 }, 7, GoalType.MAXIMIZE));
     model.addConstraint(new LinearEquation(new double[] { 1, 0 }, Relationship.LEQ, 2));
     model.addConstraint(new LinearEquation(new double[] { 0, 1 }, Relationship.LEQ, 3));
     model.addConstraint(new LinearEquation(new double[] { 1, 1 }, Relationship.EQ, 4));
 
-    ExSimplexSolver solver = new ExSimplexSolver(model);
+    SimplexSolver solver = new SimplexSolver(model);
     LinearEquation solution = solver.solve();
     assertEquals(2.0, solution.getCoefficients().getEntry(0));
     assertEquals(2.0, solution.getCoefficients().getEntry(1));
@@ -66,12 +66,12 @@ public class SimplexSolverTest extends TestCase {
   public void testModelWithNoArtificialVars()
       throws UnboundedSolutionException, NoFeasibleSolutionException {
     LinearModel model = new LinearModel(
-        new ExLinearObjectiveFunction(new double[] { 15, 10 }, 0, GoalType.MAXIMIZE));
+        new LinearObjectiveFunction(new double[] { 15, 10 }, 0, GoalType.MAXIMIZE));
     model.addConstraint(new LinearEquation(new double[] { 1, 0 }, Relationship.LEQ, 2));
     model.addConstraint(new LinearEquation(new double[] { 0, 1 }, Relationship.LEQ, 3));
     model.addConstraint(new LinearEquation(new double[] { 1, 1 }, Relationship.LEQ, 4));
 
-    ExSimplexSolver solver = new ExSimplexSolver(model);
+    SimplexSolver solver = new SimplexSolver(model);
     LinearEquation solution = solver.solve();
     assertEquals(2.0, solution.getCoefficients().getEntry(0));
     assertEquals(2.0, solution.getCoefficients().getEntry(1));
@@ -86,12 +86,12 @@ public class SimplexSolverTest extends TestCase {
    */
   public void testMinimization() throws UnboundedSolutionException, NoFeasibleSolutionException {
     LinearModel model = new LinearModel(
-        new ExLinearObjectiveFunction(new double[] { -2, 1 }, -5, GoalType.MINIMIZE));
+        new LinearObjectiveFunction(new double[] { -2, 1 }, -5, GoalType.MINIMIZE));
     model.addConstraint(new LinearEquation(new double[] { 1, 2 }, Relationship.LEQ, 6));
     model.addConstraint(new LinearEquation(new double[] { 3, 2 }, Relationship.LEQ, 12));
     model.addConstraint(new LinearEquation(new double[] { 0, 1 }, Relationship.GEQ, 0));
 
-    ExSimplexSolver solver = new ExSimplexSolver(model);
+    SimplexSolver solver = new SimplexSolver(model);
     LinearEquation solution = solver.solve();
     assertEquals(4.0, solution.getCoefficients().getEntry(0));
     assertEquals(0.0, solution.getCoefficients().getEntry(1));
@@ -107,11 +107,11 @@ public class SimplexSolverTest extends TestCase {
   public void testSolutionWithNegativeDecisionVariable()
       throws UnboundedSolutionException, NoFeasibleSolutionException {
     LinearModel model = new LinearModel(
-        new ExLinearObjectiveFunction(new double[] { -2, 1 }, 0, GoalType.MAXIMIZE));
+        new LinearObjectiveFunction(new double[] { -2, 1 }, 0, GoalType.MAXIMIZE));
     model.addConstraint(new LinearEquation(new double[] { 1, 1 }, Relationship.GEQ, 6));
     model.addConstraint(new LinearEquation(new double[] { 1, 2 }, Relationship.LEQ, 14));
 
-    ExSimplexSolver solver = new ExSimplexSolver(model);
+    SimplexSolver solver = new SimplexSolver(model);
     LinearEquation solution = solver.solve();
     assertEquals(-2.0, solution.getCoefficients().getEntry(0));
     assertEquals(8.0, solution.getCoefficients().getEntry(1));
@@ -125,11 +125,11 @@ public class SimplexSolverTest extends TestCase {
    */
   public void testInfeasibleSolution() throws UnboundedSolutionException {
     LinearModel model = new LinearModel(
-        new ExLinearObjectiveFunction(new double[] { 15 }, 0, GoalType.MAXIMIZE));
+        new LinearObjectiveFunction(new double[] { 15 }, 0, GoalType.MAXIMIZE));
     model.addConstraint(new LinearEquation(new double[] { 1 }, Relationship.LEQ, 1));
     model.addConstraint(new LinearEquation(new double[] { 1 }, Relationship.GEQ, 3));
 
-    ExSimplexSolver solver = new ExSimplexSolver(model);
+    SimplexSolver solver = new SimplexSolver(model);
     try {
       solver.solve();
       fail("An exception should have been thrown.");
@@ -145,10 +145,10 @@ public class SimplexSolverTest extends TestCase {
    */
   public void testUnboundedSolution() throws NoFeasibleSolutionException {
     LinearModel model = new LinearModel(
-        new ExLinearObjectiveFunction(new double[] { 15, 10 }, 0, GoalType.MAXIMIZE));
+        new LinearObjectiveFunction(new double[] { 15, 10 }, 0, GoalType.MAXIMIZE));
     model.addConstraint(new LinearEquation(new double[] { 1, 0 }, Relationship.EQ, 2));
 
-    ExSimplexSolver solver = new ExSimplexSolver(model);
+    SimplexSolver solver = new SimplexSolver(model);
     try {
       solver.solve();
       fail("An exception should have been thrown.");
@@ -165,7 +165,7 @@ public class SimplexSolverTest extends TestCase {
    */
   public void testRestrictVariablesToNonNegative()
       throws UnboundedSolutionException, NoFeasibleSolutionException {
-    LinearModel model = new LinearModel(new ExLinearObjectiveFunction(
+    LinearModel model = new LinearModel(new LinearObjectiveFunction(
         new double[] { 409, 523, 70, 204, 339 }, 0, GoalType.MAXIMIZE));
     model.addConstraint(
         new LinearEquation(new double[] { 43, 56, 345, 56, 5 }, Relationship.LEQ, 4567456));
@@ -178,7 +178,7 @@ public class SimplexSolverTest extends TestCase {
     model.addConstraint(
         new LinearEquation(new double[] { 45, 678, 76, 52, 23 }, Relationship.EQ, 456356));
 
-    ExSimplexSolver solver = new ExSimplexSolver(model, true);
+    SimplexSolver solver = new SimplexSolver(model, true);
     LinearEquation solution = solver.solve();
     assertEquals(2902.92783505155, solution.getCoefficients().getEntry(0), .0000001);
     assertEquals(480.419243986254, solution.getCoefficients().getEntry(1), .0000001);
@@ -196,10 +196,10 @@ public class SimplexSolverTest extends TestCase {
    */
   public void testSomething() throws UnboundedSolutionException, NoFeasibleSolutionException {
     LinearModel model = new LinearModel(
-        new ExLinearObjectiveFunction(new double[] { 1, 1 }, 0, GoalType.MAXIMIZE));
+        new LinearObjectiveFunction(new double[] { 1, 1 }, 0, GoalType.MAXIMIZE));
     model.addConstraint(new LinearEquation(new double[] { 1, 1 }, Relationship.EQ, 0));
 
-    ExSimplexSolver solver = new ExSimplexSolver(model, true);
+    SimplexSolver solver = new SimplexSolver(model, true);
     LinearEquation solution = solver.solve();
     assertEquals(0, solution.getRightHandSide(), .0000001);
   }
@@ -221,7 +221,7 @@ public class SimplexSolverTest extends TestCase {
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
     LinearModel model = new LinearModel(
-        new ExLinearObjectiveFunction(objective, 0, GoalType.MINIMIZE));
+        new LinearObjectiveFunction(objective, 0, GoalType.MINIMIZE));
     model.addConstraint(equationFromString(objective.length, "x0 + x1 + x2 + x3 - x12 = 0"));
     model.addConstraint(
         equationFromString(objective.length, "x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11 - x13 = 0"));
@@ -347,7 +347,7 @@ public class SimplexSolverTest extends TestCase {
     model.addConstraint(equationFromString(objective.length, "x203 - x191 = 0"));
     model.addConstraint(equationFromString(objective.length, "x204 - x192 = 0"));
 
-    ExSimplexSolver solver = new ExSimplexSolver(model, true);
+    SimplexSolver solver = new SimplexSolver(model, true);
     LinearEquation solution = solver.solve();
     assertEquals(7518.0, solution.getRightHandSide(), .0000001);
   }

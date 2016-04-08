@@ -26,7 +26,7 @@ import org.apache.commons.math3.util.Precision;
  * 
  * @author <a href="http://www.benmccann.com">Ben McCann</a>
  */
-public class ExSimplexSolver {
+public class SimplexSolver {
 
   private static final double DEFAULT_EPSILON = 0.0000000001;
   protected final SimplexTable table;
@@ -36,7 +36,7 @@ public class ExSimplexSolver {
    * @param model
    *          the {@link LinearModel} to solve.
    */
-  public ExSimplexSolver(LinearModel model) {
+  public SimplexSolver(LinearModel model) {
     this(model, false);
   }
 
@@ -48,7 +48,7 @@ public class ExSimplexSolver {
    * @param restrictToNonNegative
    *          whether to restrict the variables to non-negative values
    */
-  public ExSimplexSolver(LinearModel model, boolean restrictToNonNegative) {
+  public SimplexSolver(LinearModel model, boolean restrictToNonNegative) {
     this(model, restrictToNonNegative, DEFAULT_EPSILON);
   }
 
@@ -62,7 +62,7 @@ public class ExSimplexSolver {
    * @param epsilon
    *          the amount of error to accept in floating point comparisons
    */
-  public ExSimplexSolver(LinearModel model, boolean restrictToNonNegative, double epsilon) {
+  public SimplexSolver(LinearModel model, boolean restrictToNonNegative, double epsilon) {
     this.table = new SimplexTable(model, restrictToNonNegative);
     this.epsilon = epsilon;
   }

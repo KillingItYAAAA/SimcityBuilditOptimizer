@@ -80,7 +80,7 @@ class SimplexTable {
     }
 
     // initialize the objective function rows
-    ExLinearObjectiveFunction objectiveFunction = model.getObjectiveFunction();
+    LinearObjectiveFunction objectiveFunction = model.getObjectiveFunction();
     if (getNumObjectiveFunctions() == 2) {
       matrix[0][0] = -1;
     }

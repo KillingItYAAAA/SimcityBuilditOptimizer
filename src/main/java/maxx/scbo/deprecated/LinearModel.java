@@ -33,13 +33,13 @@ import java.util.Map;
  */
 public class LinearModel {
 
-  private final ExLinearObjectiveFunction objectiveFunction;
+  private final LinearObjectiveFunction objectiveFunction;
   private final List<LinearEquation> constraints;
 
   /**
    * *** @ param numVariables The number of decision variables in the model.
    */
-  public LinearModel(ExLinearObjectiveFunction objectiveFunction) {
+  public LinearModel(LinearObjectiveFunction objectiveFunction) {
     this.objectiveFunction = objectiveFunction;
     this.constraints = new ArrayList<LinearEquation>();
   }
@@ -91,7 +91,7 @@ public class LinearModel {
         constraint.getRightHandSide());
   }
 
-  public ExLinearObjectiveFunction getObjectiveFunction() {
+  public LinearObjectiveFunction getObjectiveFunction() {
     return objectiveFunction;
   }
 
