@@ -20,38 +20,10 @@
 package maxx.scbo;
 
 /**
- * Types of relationships between two cells in a Solver {@link LinearEquation}.
- * 
- * @author <a href="http://www.benmccann.com">Ben McCann</a>
+ * @author benmccann.com (Ben McCann)
  */
-public enum Relationship {
+public class ExNoFeasibleSolutionException extends Exception {
 
-  EQ("="), LEQ("<="), GEQ(">=");
+  private static final long serialVersionUID = 1L;
 
-  private String stringValue;
-
-  private Relationship(String stringValue) {
-    this.stringValue = stringValue;
-  }
-
-  @Override
-  public String toString() {
-    return stringValue;
-  }
-
-  /**
-   * TODO.
-   * 
-   * @return TODO
-   */
-  public Relationship oppositeRelationship() {
-    switch (this) {
-      case LEQ:
-        return GEQ;
-      case GEQ:
-        return LEQ;
-      default:
-        return EQ;
-    }
-  }
 }

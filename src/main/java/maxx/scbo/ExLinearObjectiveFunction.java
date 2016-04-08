@@ -27,7 +27,7 @@ import org.apache.commons.math3.linear.RealVector;
  * 
  * @author <a href="http://www.benmccann.com">Ben McCann</a>
  */
-public class LinearObjectiveFunction {
+public class ExLinearObjectiveFunction {
 
   private final RealVector coefficients;
   private final ExGoalType exGoalType;
@@ -43,7 +43,7 @@ public class LinearObjectiveFunction {
    * @param exGoalType
    *          The type of optimization to perform
    */
-  public LinearObjectiveFunction(double[] coefficients, double constantTerm, ExGoalType exGoalType) {
+  public ExLinearObjectiveFunction(double[] coefficients, double constantTerm, ExGoalType exGoalType) {
     this(new ArrayRealVector(coefficients), constantTerm, exGoalType);
   }
 
@@ -57,7 +57,7 @@ public class LinearObjectiveFunction {
    * @param exGoalType
    *          The type of optimization to perform
    */
-  public LinearObjectiveFunction(RealVector coefficients, double constantTerm, ExGoalType exGoalType) {
+  public ExLinearObjectiveFunction(RealVector coefficients, double constantTerm, ExGoalType exGoalType) {
     this.coefficients = coefficients;
     this.constantTerm = constantTerm;
     this.exGoalType = exGoalType;

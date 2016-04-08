@@ -26,7 +26,7 @@ import org.apache.commons.math3.util.Precision;
  * 
  * @author <a href="http://www.benmccann.com">Ben McCann</a>
  */
-public class SimplexSolver {
+public class ExSimplexSolver {
 
   private static final double DEFAULT_EPSILON = 0.0000000001;
   protected final SimplexTable table;
@@ -36,7 +36,7 @@ public class SimplexSolver {
    * @param model
    *          the {@link LinearModel} to solve.
    */
-  public SimplexSolver(LinearModel model) {
+  public ExSimplexSolver(LinearModel model) {
     this(model, false);
   }
 
@@ -48,7 +48,7 @@ public class SimplexSolver {
    * @param restrictToNonNegative
    *          whether to restrict the variables to non-negative values
    */
-  public SimplexSolver(LinearModel model, boolean restrictToNonNegative) {
+  public ExSimplexSolver(LinearModel model, boolean restrictToNonNegative) {
     this(model, restrictToNonNegative, DEFAULT_EPSILON);
   }
 
@@ -62,7 +62,7 @@ public class SimplexSolver {
    * @param epsilon
    *          the amount of error to accept in floating point comparisons
    */
-  public SimplexSolver(LinearModel model, boolean restrictToNonNegative, double epsilon) {
+  public ExSimplexSolver(LinearModel model, boolean restrictToNonNegative, double epsilon) {
     this.table = new SimplexTable(model, restrictToNonNegative);
     this.epsilon = epsilon;
   }
@@ -171,10 +171,10 @@ public class SimplexSolver {
    * 
    * @throws UnboundedSolutionException
    *           if the model is found not to have a bounded solution
-   * @throws NoFeasibleSolutionException
+   * @throws ExNoFeasibleSolutionException
    *           if there is no feasible solution
    */
-  protected void solvePhase1() throws UnboundedSolutionException, NoFeasibleSolutionException {
+  protected void solvePhase1() throws UnboundedSolutionException, ExNoFeasibleSolutionException {
     // make sure we're in Phase 1
     if (table.getNumArtificialVariables() == 0) {
       return;
@@ -186,7 +186,7 @@ public class SimplexSolver {
 
     // if W is not zero then we have no feasible solution
     if (Precision.compareTo(table.getEntry(0, table.getRhsOffset()), (double) 0, epsilon) != 0) {
-      throw new NoFeasibleSolutionException();
+      throw new ExNoFeasibleSolutionException();
     }
   }
 
@@ -195,10 +195,10 @@ public class SimplexSolver {
    * 
    * @throws UnboundedSolutionException
    *           if the model is found not to have a bounded solution
-   * @throws NoFeasibleSolutionException
+   * @throws ExNoFeasibleSolutionException
    *           if there is no feasible solution
    */
-  public LinearEquation solve() throws UnboundedSolutionException, NoFeasibleSolutionException {
+  public LinearEquation solve() throws UnboundedSolutionException, ExNoFeasibleSolutionException {
     solvePhase1();
     table.discardArtificialVariables();
     while (!isOptimal()) {

@@ -24,8 +24,8 @@ import junit.framework.TestCase;
 import maxx.scbo.ExGoalType;
 import maxx.scbo.LinearEquation;
 import maxx.scbo.LinearModel;
-import maxx.scbo.LinearObjectiveFunction;
-import maxx.scbo.Relationship;
+import maxx.scbo.ExLinearObjectiveFunction;
+import maxx.scbo.ExRelationship;
 import maxx.scbo.SimplexTable;
 
 /**
@@ -74,12 +74,12 @@ public class SimplexTableTest extends TestCase {
    * TODO.
    */
   public void testTableWithNoArtificialVars() {
-    LinearObjectiveFunction objectiveFunction = new LinearObjectiveFunction(
+    ExLinearObjectiveFunction objectiveFunction = new ExLinearObjectiveFunction(
         new double[] { 15, 10 }, (double) 0, ExGoalType.MAXIMIZE);
     LinearModel model = new LinearModel(objectiveFunction);
-    model.addConstraint(new LinearEquation(new double[] { 1, 0 }, Relationship.LEQ, 2));
-    model.addConstraint(new LinearEquation(new double[] { 0, 1 }, Relationship.LEQ, 3));
-    model.addConstraint(new LinearEquation(new double[] { 1, 1 }, Relationship.LEQ, 4));
+    model.addConstraint(new LinearEquation(new double[] { 1, 0 }, ExRelationship.LEQ, 2));
+    model.addConstraint(new LinearEquation(new double[] { 0, 1 }, ExRelationship.LEQ, 3));
+    model.addConstraint(new LinearEquation(new double[] { 1, 1 }, ExRelationship.LEQ, 4));
     SimplexTable table = new SimplexTable(model);
     double[][] initialTable = { { 1, -15, -10, 25, 0, 0, 0, 0 }, { 0, 1, 0, -1, 1, 0, 0, 2 },
         { 0, 0, 1, -1, 0, 1, 0, 3 }, { 0, 1, 1, -2, 0, 0, 1, 4 } };
@@ -88,10 +88,10 @@ public class SimplexTableTest extends TestCase {
 
   private LinearModel createModel() {
     LinearModel model = new LinearModel(
-        new LinearObjectiveFunction(new double[] { 15, 10 }, (double) 0, ExGoalType.MAXIMIZE));
-    model.addConstraint(new LinearEquation(new double[] { 1, 0 }, Relationship.LEQ, 2));
-    model.addConstraint(new LinearEquation(new double[] { 0, 1 }, Relationship.LEQ, 3));
-    model.addConstraint(new LinearEquation(new double[] { 1, 1 }, Relationship.EQ, 4));
+        new ExLinearObjectiveFunction(new double[] { 15, 10 }, (double) 0, ExGoalType.MAXIMIZE));
+    model.addConstraint(new LinearEquation(new double[] { 1, 0 }, ExRelationship.LEQ, 2));
+    model.addConstraint(new LinearEquation(new double[] { 0, 1 }, ExRelationship.LEQ, 3));
+    model.addConstraint(new LinearEquation(new double[] { 1, 1 }, ExRelationship.EQ, 4));
     return model;
   }
 

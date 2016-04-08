@@ -30,24 +30,24 @@ import org.apache.commons.math3.linear.RealVector;
 public class LinearEquation {
 
   private final ArrayRealVector leftHandSide;
-  private final Relationship relationship;
+  private final ExRelationship exRelationship;
   private final double rightHandSide;
 
-  public LinearEquation(double[] coefficients, Relationship relationship, double rightHandSide) {
-    this(new ArrayRealVector(coefficients), relationship, rightHandSide);
+  public LinearEquation(double[] coefficients, ExRelationship exRelationship, double rightHandSide) {
+    this(new ArrayRealVector(coefficients), exRelationship, rightHandSide);
   }
 
   /**
    * TODO.
    * 
    * @param leftHandSide TODO
-   * @param relationship TODO
+   * @param exRelationship TODO
    * @param rightHandSide TODO
    */
-  public LinearEquation(ArrayRealVector leftHandSide, Relationship relationship,
+  public LinearEquation(ArrayRealVector leftHandSide, ExRelationship exRelationship,
       double rightHandSide) {
     this.leftHandSide = leftHandSide;
-    this.relationship = relationship;
+    this.exRelationship = exRelationship;
     this.rightHandSide = rightHandSide;
   }
 
@@ -55,13 +55,13 @@ public class LinearEquation {
    * TODO.
    * 
    * @param leftHandSide TODO
-   * @param relationship TODO
+   * @param exRelationship TODO
    * @param rightHandSide TODO
    */
-  public LinearEquation(ArrayRealVector leftHandSide, Relationship relationship,
+  public LinearEquation(ArrayRealVector leftHandSide, ExRelationship exRelationship,
       RealVector rightHandSide) {
     this.leftHandSide = leftHandSide.subtract(rightHandSide);
-    this.relationship = relationship;
+    this.exRelationship = exRelationship;
     this.rightHandSide = 0;
   }
 
@@ -69,8 +69,8 @@ public class LinearEquation {
     return leftHandSide;
   }
 
-  public Relationship getRelationship() {
-    return relationship;
+  public ExRelationship getRelationship() {
+    return exRelationship;
   }
 
   public double getRightHandSide() {
