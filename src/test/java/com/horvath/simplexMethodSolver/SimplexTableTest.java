@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package com.horvath.SimplexMethodSolver;
+package com.horvath.simplexMethodSolver;
 
 import com.horvath.simplexMethodSolver.GoalType;
 import com.horvath.simplexMethodSolver.LinearEquation;
