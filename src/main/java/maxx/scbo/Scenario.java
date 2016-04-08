@@ -14,4 +14,6 @@ public class Scenario {
   public void setNFactory(int nFactory) {
     this.nFactory = nFactory;
   }
+  
+  
 }
