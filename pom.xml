@@ -23,7 +23,6 @@
           </configuration>
         </plugin>
       </plugins>
-
     </pluginManagement>
   </build>
   <dependencies>
