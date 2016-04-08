@@ -17,13 +17,41 @@
  * limitations under the License.
  */
 
-package maxx.scbo;
+package maxx.scbo.deprecated;
 
 /**
- * @author benmccann.com (Ben McCann)
+ * Types of relationships between two cells in a Solver {@link LinearEquation}.
+ * 
+ * @author <a href="http://www.benmccann.com">Ben McCann</a>
  */
-public class ExNoFeasibleSolutionException extends Exception {
+public enum ExRelationship {
 
-  private static final long serialVersionUID = 1L;
+  EQ("="), LEQ("<="), GEQ(">=");
 
+  private String stringValue;
+
+  private ExRelationship(String stringValue) {
+    this.stringValue = stringValue;
+  }
+
+  @Override
+  public String toString() {
+    return stringValue;
+  }
+
+  /**
+   * TODO.
+   * 
+   * @return TODO
+   */
+  public ExRelationship oppositeRelationship() {
+    switch (this) {
+      case LEQ:
+        return GEQ;
+      case GEQ:
+        return LEQ;
+      default:
+        return EQ;
+    }
+  }
 }

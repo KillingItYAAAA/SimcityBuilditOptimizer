@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package maxx.scbo;
+package maxx.scbo.deprecated;
 
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealVector;

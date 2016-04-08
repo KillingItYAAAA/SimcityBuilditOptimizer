@@ -17,12 +17,12 @@
  * limitations under the License.
  */
 
-package maxx.scbo;
+package maxx.scbo.deprecated;
 
 /**
- * @author <a href="http://www.benmccann.com">Ben McCann</a>
+ * @author benmccann.com (Ben McCann)
  */
-public class UnboundedSolutionException extends Exception {
+public class ExNoFeasibleSolutionException extends Exception {
 
   private static final long serialVersionUID = 1L;
 
