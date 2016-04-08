@@ -1,5 +1,3 @@
-// Copyright 2009 Google Inc.
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,39 +17,20 @@
 
 package maxx.scbo.deprecated;
 
+import java.io.Serializable;
+
 /**
- * Types of relationships between two cells in a Solver {@link LinearEquation}.
+ * Goal type for an optimization problem. Deprecated in commons.math3, saved
+ * into here only for this project.
  * 
- * @author <a href="http://www.benmccann.com">Ben McCann</a>
+ * @since 2.0
  */
-public enum ExRelationship {
+public enum GoalType implements Serializable {
 
-  EQ("="), LEQ("<="), GEQ(">=");
+  /** Maximization goal. */
+  MAXIMIZE,
 
-  private String stringValue;
+  /** Minimization goal. */
+  MINIMIZE
 
-  private ExRelationship(String stringValue) {
-    this.stringValue = stringValue;
-  }
-
-  @Override
-  public String toString() {
-    return stringValue;
-  }
-
-  /**
-   * TODO.
-   * 
-   * @return TODO
-   */
-  public ExRelationship oppositeRelationship() {
-    switch (this) {
-      case LEQ:
-        return GEQ;
-      case GEQ:
-        return LEQ;
-      default:
-        return EQ;
-    }
-  }
 }

@@ -30,7 +30,7 @@ import org.apache.commons.math3.linear.RealVector;
 public class ExLinearObjectiveFunction {
 
   private final RealVector coefficients;
-  private final ExGoalType exGoalType;
+  private final GoalType goalType;
   private final double constantTerm;
 
   /**
@@ -40,11 +40,11 @@ public class ExLinearObjectiveFunction {
    *          The coefficients for the linear equation being optimized
    * @param constantTerm
    *          The constant term of the linear equation
-   * @param exGoalType
+   * @param goalType
    *          The type of optimization to perform
    */
-  public ExLinearObjectiveFunction(double[] coefficients, double constantTerm, ExGoalType exGoalType) {
-    this(new ArrayRealVector(coefficients), constantTerm, exGoalType);
+  public ExLinearObjectiveFunction(double[] coefficients, double constantTerm, GoalType goalType) {
+    this(new ArrayRealVector(coefficients), constantTerm, goalType);
   }
 
   /**
@@ -54,21 +54,21 @@ public class ExLinearObjectiveFunction {
    *          The coefficients for the linear equation being optimized
    * @param constantTerm
    *          The constant term of the linear equation
-   * @param exGoalType
+   * @param goalType
    *          The type of optimization to perform
    */
-  public ExLinearObjectiveFunction(RealVector coefficients, double constantTerm, ExGoalType exGoalType) {
+  public ExLinearObjectiveFunction(RealVector coefficients, double constantTerm, GoalType goalType) {
     this.coefficients = coefficients;
     this.constantTerm = constantTerm;
-    this.exGoalType = exGoalType;
+    this.goalType = goalType;
   }
 
   public RealVector getCoefficients() {
     return coefficients;
   }
 
-  public ExGoalType getGoalType() {
-    return exGoalType;
+  public GoalType getGoalType() {
+    return goalType;
   }
 
   public double getConstantTerm() {

@@ -22,7 +22,7 @@ package maxx.scbo.deprecated;
 /**
  * @author benmccann.com (Ben McCann)
  */
-public class ExNoFeasibleSolutionException extends Exception {
+public class NoFeasibleSolutionException extends Exception {
 
   private static final long serialVersionUID = 1L;
 

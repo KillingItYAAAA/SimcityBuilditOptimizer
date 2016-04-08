@@ -23,6 +23,15 @@ import junit.framework.TestCase;
 
 import org.apache.commons.math3.linear.ArrayRealVector;
 
+import maxx.scbo.deprecated.GoalType;
+import maxx.scbo.deprecated.ExLinearObjectiveFunction;
+import maxx.scbo.deprecated.NoFeasibleSolutionException;
+import maxx.scbo.deprecated.Relationship;
+import maxx.scbo.deprecated.ExSimplexSolver;
+import maxx.scbo.deprecated.LinearEquation;
+import maxx.scbo.deprecated.LinearModel;
+import maxx.scbo.deprecated.UnboundedSolutionException;
+
 
 /**
  * @author <a href="http://www.benmccann.com">Ben McCann</a>
@@ -33,15 +42,15 @@ public class SimplexSolverTest extends TestCase {
    * TODO.
    * 
    * @throws UnboundedSolutionException TODO
-   * @throws ExNoFeasibleSolutionException TODO
+   * @throws NoFeasibleSolutionException TODO
    */
-  public void testSimplexSolver() throws UnboundedSolutionException, ExNoFeasibleSolutionException {
+  public void testSimplexSolver() throws UnboundedSolutionException, NoFeasibleSolutionException {
 
     LinearModel model = new LinearModel(
-        new ExLinearObjectiveFunction(new double[] { 15, 10 }, 7, ExGoalType.MAXIMIZE));
-    model.addConstraint(new LinearEquation(new double[] { 1, 0 }, ExRelationship.LEQ, 2));
-    model.addConstraint(new LinearEquation(new double[] { 0, 1 }, ExRelationship.LEQ, 3));
-    model.addConstraint(new LinearEquation(new double[] { 1, 1 }, ExRelationship.EQ, 4));
+        new ExLinearObjectiveFunction(new double[] { 15, 10 }, 7, GoalType.MAXIMIZE));
+    model.addConstraint(new LinearEquation(new double[] { 1, 0 }, Relationship.LEQ, 2));
+    model.addConstraint(new LinearEquation(new double[] { 0, 1 }, Relationship.LEQ, 3));
+    model.addConstraint(new LinearEquation(new double[] { 1, 1 }, Relationship.EQ, 4));
 
     ExSimplexSolver solver = new ExSimplexSolver(model);
     LinearEquation solution = solver.solve();
@@ -55,12 +64,12 @@ public class SimplexSolverTest extends TestCase {
    * constraints) we can go straight to Phase 2.
    */
   public void testModelWithNoArtificialVars()
-      throws UnboundedSolutionException, ExNoFeasibleSolutionException {
+      throws UnboundedSolutionException, NoFeasibleSolutionException {
     LinearModel model = new LinearModel(
-        new ExLinearObjectiveFunction(new double[] { 15, 10 }, 0, ExGoalType.MAXIMIZE));
-    model.addConstraint(new LinearEquation(new double[] { 1, 0 }, ExRelationship.LEQ, 2));
-    model.addConstraint(new LinearEquation(new double[] { 0, 1 }, ExRelationship.LEQ, 3));
-    model.addConstraint(new LinearEquation(new double[] { 1, 1 }, ExRelationship.LEQ, 4));
+        new ExLinearObjectiveFunction(new double[] { 15, 10 }, 0, GoalType.MAXIMIZE));
+    model.addConstraint(new LinearEquation(new double[] { 1, 0 }, Relationship.LEQ, 2));
+    model.addConstraint(new LinearEquation(new double[] { 0, 1 }, Relationship.LEQ, 3));
+    model.addConstraint(new LinearEquation(new double[] { 1, 1 }, Relationship.LEQ, 4));
 
     ExSimplexSolver solver = new ExSimplexSolver(model);
     LinearEquation solution = solver.solve();
@@ -73,14 +82,14 @@ public class SimplexSolverTest extends TestCase {
    * TODO.
    * 
    * @throws UnboundedSolutionException TODO
-   * @throws ExNoFeasibleSolutionException TODO
+   * @throws NoFeasibleSolutionException TODO
    */
-  public void testMinimization() throws UnboundedSolutionException, ExNoFeasibleSolutionException {
+  public void testMinimization() throws UnboundedSolutionException, NoFeasibleSolutionException {
     LinearModel model = new LinearModel(
-        new ExLinearObjectiveFunction(new double[] { -2, 1 }, -5, ExGoalType.MINIMIZE));
-    model.addConstraint(new LinearEquation(new double[] { 1, 2 }, ExRelationship.LEQ, 6));
-    model.addConstraint(new LinearEquation(new double[] { 3, 2 }, ExRelationship.LEQ, 12));
-    model.addConstraint(new LinearEquation(new double[] { 0, 1 }, ExRelationship.GEQ, 0));
+        new ExLinearObjectiveFunction(new double[] { -2, 1 }, -5, GoalType.MINIMIZE));
+    model.addConstraint(new LinearEquation(new double[] { 1, 2 }, Relationship.LEQ, 6));
+    model.addConstraint(new LinearEquation(new double[] { 3, 2 }, Relationship.LEQ, 12));
+    model.addConstraint(new LinearEquation(new double[] { 0, 1 }, Relationship.GEQ, 0));
 
     ExSimplexSolver solver = new ExSimplexSolver(model);
     LinearEquation solution = solver.solve();
@@ -93,14 +102,14 @@ public class SimplexSolverTest extends TestCase {
    * TODO.
    * 
    * @throws UnboundedSolutionException TODO
-   * @throws ExNoFeasibleSolutionException TODO
+   * @throws NoFeasibleSolutionException TODO
    */
   public void testSolutionWithNegativeDecisionVariable()
-      throws UnboundedSolutionException, ExNoFeasibleSolutionException {
+      throws UnboundedSolutionException, NoFeasibleSolutionException {
     LinearModel model = new LinearModel(
-        new ExLinearObjectiveFunction(new double[] { -2, 1 }, 0, ExGoalType.MAXIMIZE));
-    model.addConstraint(new LinearEquation(new double[] { 1, 1 }, ExRelationship.GEQ, 6));
-    model.addConstraint(new LinearEquation(new double[] { 1, 2 }, ExRelationship.LEQ, 14));
+        new ExLinearObjectiveFunction(new double[] { -2, 1 }, 0, GoalType.MAXIMIZE));
+    model.addConstraint(new LinearEquation(new double[] { 1, 1 }, Relationship.GEQ, 6));
+    model.addConstraint(new LinearEquation(new double[] { 1, 2 }, Relationship.LEQ, 14));
 
     ExSimplexSolver solver = new ExSimplexSolver(model);
     LinearEquation solution = solver.solve();
@@ -116,15 +125,15 @@ public class SimplexSolverTest extends TestCase {
    */
   public void testInfeasibleSolution() throws UnboundedSolutionException {
     LinearModel model = new LinearModel(
-        new ExLinearObjectiveFunction(new double[] { 15 }, 0, ExGoalType.MAXIMIZE));
-    model.addConstraint(new LinearEquation(new double[] { 1 }, ExRelationship.LEQ, 1));
-    model.addConstraint(new LinearEquation(new double[] { 1 }, ExRelationship.GEQ, 3));
+        new ExLinearObjectiveFunction(new double[] { 15 }, 0, GoalType.MAXIMIZE));
+    model.addConstraint(new LinearEquation(new double[] { 1 }, Relationship.LEQ, 1));
+    model.addConstraint(new LinearEquation(new double[] { 1 }, Relationship.GEQ, 3));
 
     ExSimplexSolver solver = new ExSimplexSolver(model);
     try {
       solver.solve();
       fail("An exception should have been thrown.");
-    } catch (ExNoFeasibleSolutionException exception) {
+    } catch (NoFeasibleSolutionException exception) {
       //
     }
   }
@@ -132,12 +141,12 @@ public class SimplexSolverTest extends TestCase {
   /**
    * TODO.
    * 
-   * @throws ExNoFeasibleSolutionException TODO
+   * @throws NoFeasibleSolutionException TODO
    */
-  public void testUnboundedSolution() throws ExNoFeasibleSolutionException {
+  public void testUnboundedSolution() throws NoFeasibleSolutionException {
     LinearModel model = new LinearModel(
-        new ExLinearObjectiveFunction(new double[] { 15, 10 }, 0, ExGoalType.MAXIMIZE));
-    model.addConstraint(new LinearEquation(new double[] { 1, 0 }, ExRelationship.EQ, 2));
+        new ExLinearObjectiveFunction(new double[] { 15, 10 }, 0, GoalType.MAXIMIZE));
+    model.addConstraint(new LinearEquation(new double[] { 1, 0 }, Relationship.EQ, 2));
 
     ExSimplexSolver solver = new ExSimplexSolver(model);
     try {
@@ -152,22 +161,22 @@ public class SimplexSolverTest extends TestCase {
    * TODO.
    * 
    * @throws UnboundedSolutionException TODO
-   * @throws ExNoFeasibleSolutionException TODO
+   * @throws NoFeasibleSolutionException TODO
    */
   public void testRestrictVariablesToNonNegative()
-      throws UnboundedSolutionException, ExNoFeasibleSolutionException {
+      throws UnboundedSolutionException, NoFeasibleSolutionException {
     LinearModel model = new LinearModel(new ExLinearObjectiveFunction(
-        new double[] { 409, 523, 70, 204, 339 }, 0, ExGoalType.MAXIMIZE));
+        new double[] { 409, 523, 70, 204, 339 }, 0, GoalType.MAXIMIZE));
     model.addConstraint(
-        new LinearEquation(new double[] { 43, 56, 345, 56, 5 }, ExRelationship.LEQ, 4567456));
+        new LinearEquation(new double[] { 43, 56, 345, 56, 5 }, Relationship.LEQ, 4567456));
     model.addConstraint(
-        new LinearEquation(new double[] { 12, 45, 7, 56, 23 }, ExRelationship.LEQ, 56454));
+        new LinearEquation(new double[] { 12, 45, 7, 56, 23 }, Relationship.LEQ, 56454));
     model.addConstraint(
-        new LinearEquation(new double[] { 8, 768, 0, 34, 7456 }, ExRelationship.LEQ, 1923421));
+        new LinearEquation(new double[] { 8, 768, 0, 34, 7456 }, Relationship.LEQ, 1923421));
     model.addConstraint(
-        new LinearEquation(new double[] { 12342, 2342, 34, 678, 2342 }, ExRelationship.GEQ, 4356));
+        new LinearEquation(new double[] { 12342, 2342, 34, 678, 2342 }, Relationship.GEQ, 4356));
     model.addConstraint(
-        new LinearEquation(new double[] { 45, 678, 76, 52, 23 }, ExRelationship.EQ, 456356));
+        new LinearEquation(new double[] { 45, 678, 76, 52, 23 }, Relationship.EQ, 456356));
 
     ExSimplexSolver solver = new ExSimplexSolver(model, true);
     LinearEquation solution = solver.solve();
@@ -183,12 +192,12 @@ public class SimplexSolverTest extends TestCase {
    * TODO.
    * 
    * @throws UnboundedSolutionException TODO
-   * @throws ExNoFeasibleSolutionException TODO
+   * @throws NoFeasibleSolutionException TODO
    */
-  public void testSomething() throws UnboundedSolutionException, ExNoFeasibleSolutionException {
+  public void testSomething() throws UnboundedSolutionException, NoFeasibleSolutionException {
     LinearModel model = new LinearModel(
-        new ExLinearObjectiveFunction(new double[] { 1, 1 }, 0, ExGoalType.MAXIMIZE));
-    model.addConstraint(new LinearEquation(new double[] { 1, 1 }, ExRelationship.EQ, 0));
+        new ExLinearObjectiveFunction(new double[] { 1, 1 }, 0, GoalType.MAXIMIZE));
+    model.addConstraint(new LinearEquation(new double[] { 1, 1 }, Relationship.EQ, 0));
 
     ExSimplexSolver solver = new ExSimplexSolver(model, true);
     LinearEquation solution = solver.solve();
@@ -199,9 +208,9 @@ public class SimplexSolverTest extends TestCase {
    * TODO.
    * 
    * @throws UnboundedSolutionException TODO
-   * @throws ExNoFeasibleSolutionException TODO
+   * @throws NoFeasibleSolutionException TODO
    */
-  public void testLargeModel() throws UnboundedSolutionException, ExNoFeasibleSolutionException {
+  public void testLargeModel() throws UnboundedSolutionException, NoFeasibleSolutionException {
     double[] objective = new double[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 12, 1, 1, 1, 1, 1, 1,
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 12, 1, 1, 1, 1, 1, 1, 1, 1,
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -212,7 +221,7 @@ public class SimplexSolverTest extends TestCase {
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
     LinearModel model = new LinearModel(
-        new ExLinearObjectiveFunction(objective, 0, ExGoalType.MINIMIZE));
+        new ExLinearObjectiveFunction(objective, 0, GoalType.MINIMIZE));
     model.addConstraint(equationFromString(objective.length, "x0 + x1 + x2 + x3 - x12 = 0"));
     model.addConstraint(
         equationFromString(objective.length, "x4 + x5 + x6 + x7 + x8 + x9 + x10 + x11 - x13 = 0"));
@@ -348,13 +357,13 @@ public class SimplexSolverTest extends TestCase {
    * x12 = 0
    */
   private LinearEquation equationFromString(int numCoefficients, String str) {
-    ExRelationship exRelationship;
+    Relationship relationship;
     if (str.contains(">=")) {
-      exRelationship = ExRelationship.GEQ;
+      relationship = Relationship.GEQ;
     } else if (str.contains("<=")) {
-      exRelationship = ExRelationship.LEQ;
+      relationship = Relationship.LEQ;
     } else if (str.contains("=")) {
-      exRelationship = ExRelationship.EQ;
+      relationship = Relationship.EQ;
     } else {
       throw new IllegalArgumentException();
     }
@@ -370,7 +379,7 @@ public class SimplexSolverTest extends TestCase {
       int index = Integer.parseInt(coefficient.replaceFirst("[+|-]", "").trim());
       lhs.setEntry(index, value);
     }
-    return new LinearEquation(lhs, exRelationship, rhs);
+    return new LinearEquation(lhs, relationship, rhs);
   }
 
 }

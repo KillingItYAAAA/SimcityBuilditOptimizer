@@ -59,11 +59,11 @@ class SimplexTable {
   }
 
   SimplexTable(LinearModel model, boolean restrictToNonNegative) {
-    Map<ExRelationship, Integer> counts = model.getConstraintTypeCounts();
+    Map<Relationship, Integer> counts = model.getConstraintTypeCounts();
     this.nonNegative = restrictToNonNegative;
     this.numDecisionVariables = model.getNumVariables() + (nonNegative ? 0 : 1);
-    this.numSlackVariables = counts.get(ExRelationship.LEQ) + counts.get(ExRelationship.GEQ);
-    this.numArtificialVariables = counts.get(ExRelationship.EQ) + counts.get(ExRelationship.GEQ);
+    this.numSlackVariables = counts.get(Relationship.LEQ) + counts.get(Relationship.GEQ);
+    this.numArtificialVariables = counts.get(Relationship.EQ) + counts.get(Relationship.GEQ);
     this.table = new Array2DRowRealMatrix(createTable(model));
     initialize();
   }
@@ -85,7 +85,7 @@ class SimplexTable {
       matrix[0][0] = -1;
     }
     int zindex = getNumObjectiveFunctions() == 1 ? 0 : 1;
-    boolean maximize = objectiveFunction.getGoalType() == ExGoalType.MAXIMIZE;
+    boolean maximize = objectiveFunction.getGoalType() == GoalType.MAXIMIZE;
     matrix[zindex][zindex] = maximize ? 1 : -1;
     ArrayRealVector objectiveCoefficients = maximize
         ? (ArrayRealVector) model.getObjectiveFunction().getCoefficients().mapMultiply(-1)
@@ -120,15 +120,15 @@ class SimplexTable {
       matrix[row][width - 1] = constraint.getRightHandSide();
 
       // slack variables
-      if (constraint.getRelationship() == ExRelationship.LEQ) {
+      if (constraint.getRelationship() == Relationship.LEQ) {
         matrix[row][getSlackVariableOffset() + slackVar++] = 1; // slack
-      } else if (constraint.getRelationship() == ExRelationship.GEQ) {
+      } else if (constraint.getRelationship() == Relationship.GEQ) {
         matrix[row][getSlackVariableOffset() + slackVar++] = -1; // excess
       }
 
       // artificial variables
-      if (constraint.getRelationship() == ExRelationship.EQ
-          || constraint.getRelationship() == ExRelationship.GEQ) {
+      if (constraint.getRelationship() == Relationship.EQ
+          || constraint.getRelationship() == Relationship.GEQ) {
         matrix[0][getArtificialVariableOffset() + artificialVar] = 1;
         matrix[row][getArtificialVariableOffset() + artificialVar++] = 1;
       }
@@ -234,7 +234,7 @@ class SimplexTable {
       coefficients[i] = nonNegative ? getDecisionVariableValue(i)
           : getDecisionVariableValue(i) - mostNegative;
     }
-    return new LinearEquation(coefficients, ExRelationship.EQ,
+    return new LinearEquation(coefficients, Relationship.EQ,
         table.getEntry(0, 0) * table.getEntry(0, getRhsOffset()));
   }
 

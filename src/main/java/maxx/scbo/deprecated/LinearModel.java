@@ -99,10 +99,10 @@ public class LinearModel {
    * Returns a map from constraint type to count of the corresponding constraint
    * type.
    */
-  public Map<ExRelationship, Integer> getConstraintTypeCounts() {
-    Map<ExRelationship, Integer> counts = new HashMap<ExRelationship, Integer>();
-    for (ExRelationship exRelationship : ExRelationship.values()) {
-      counts.put(exRelationship, 0);
+  public Map<Relationship, Integer> getConstraintTypeCounts() {
+    Map<Relationship, Integer> counts = new HashMap<Relationship, Integer>();
+    for (Relationship relationship : Relationship.values()) {
+      counts.put(relationship, 0);
     }
     for (LinearEquation constraint : getConstraints()) {
       counts.put(constraint.getRelationship(), counts.get(constraint.getRelationship()) + 1);

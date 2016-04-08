@@ -171,10 +171,10 @@ public class ExSimplexSolver {
    * 
    * @throws UnboundedSolutionException
    *           if the model is found not to have a bounded solution
-   * @throws ExNoFeasibleSolutionException
+   * @throws NoFeasibleSolutionException
    *           if there is no feasible solution
    */
-  protected void solvePhase1() throws UnboundedSolutionException, ExNoFeasibleSolutionException {
+  protected void solvePhase1() throws UnboundedSolutionException, NoFeasibleSolutionException {
     // make sure we're in Phase 1
     if (table.getNumArtificialVariables() == 0) {
       return;
@@ -186,7 +186,7 @@ public class ExSimplexSolver {
 
     // if W is not zero then we have no feasible solution
     if (Precision.compareTo(table.getEntry(0, table.getRhsOffset()), (double) 0, epsilon) != 0) {
-      throw new ExNoFeasibleSolutionException();
+      throw new NoFeasibleSolutionException();
     }
   }
 
@@ -195,10 +195,10 @@ public class ExSimplexSolver {
    * 
    * @throws UnboundedSolutionException
    *           if the model is found not to have a bounded solution
-   * @throws ExNoFeasibleSolutionException
+   * @throws NoFeasibleSolutionException
    *           if there is no feasible solution
    */
-  public LinearEquation solve() throws UnboundedSolutionException, ExNoFeasibleSolutionException {
+  public LinearEquation solve() throws UnboundedSolutionException, NoFeasibleSolutionException {
     solvePhase1();
     table.discardArtificialVariables();
     while (!isOptimal()) {
