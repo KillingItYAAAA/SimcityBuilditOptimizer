@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package com.horvath;
+package com.horvath.SimplexMethodSolver;
 
 import org.apache.commons.math3.linear.ArrayRealVector;
 

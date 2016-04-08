@@ -1,4 +1,4 @@
-package com.horvath;
+package com.horvath.SimplexMethodSolver;
 
 /**
  * Hello World.

@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package com.horvath;
+package com.horvath.SimplexMethodSolver;
 
 /**
  * @author <a href="http://www.benmccann.com">Ben McCann</a>

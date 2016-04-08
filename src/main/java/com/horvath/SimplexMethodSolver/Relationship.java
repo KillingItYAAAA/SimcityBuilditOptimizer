@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package com.horvath;
+package com.horvath.SimplexMethodSolver;
 
 /**
  * Types of relationships between two cells in a Solver {@link LinearEquation}.

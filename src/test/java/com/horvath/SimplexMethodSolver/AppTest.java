@@ -1,4 +1,4 @@
-package com.horvath;
+package com.horvath.SimplexMethodSolver;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

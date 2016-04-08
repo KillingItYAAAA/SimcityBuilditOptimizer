@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.horvath;
+package com.horvath.SimplexMethodSolver;
 
 import java.io.Serializable;
 
