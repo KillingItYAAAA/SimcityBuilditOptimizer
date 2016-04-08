@@ -21,7 +21,7 @@ package maxx.scbo;
 
 import junit.framework.TestCase;
 
-import maxx.scbo.GoalType;
+import maxx.scbo.ExGoalType;
 import maxx.scbo.LinearEquation;
 import maxx.scbo.LinearModel;
 import maxx.scbo.LinearObjectiveFunction;
@@ -75,7 +75,7 @@ public class SimplexTableTest extends TestCase {
    */
   public void testTableWithNoArtificialVars() {
     LinearObjectiveFunction objectiveFunction = new LinearObjectiveFunction(
-        new double[] { 15, 10 }, (double) 0, GoalType.MAXIMIZE);
+        new double[] { 15, 10 }, (double) 0, ExGoalType.MAXIMIZE);
     LinearModel model = new LinearModel(objectiveFunction);
     model.addConstraint(new LinearEquation(new double[] { 1, 0 }, Relationship.LEQ, 2));
     model.addConstraint(new LinearEquation(new double[] { 0, 1 }, Relationship.LEQ, 3));
@@ -88,7 +88,7 @@ public class SimplexTableTest extends TestCase {
 
   private LinearModel createModel() {
     LinearModel model = new LinearModel(
-        new LinearObjectiveFunction(new double[] { 15, 10 }, (double) 0, GoalType.MAXIMIZE));
+        new LinearObjectiveFunction(new double[] { 15, 10 }, (double) 0, ExGoalType.MAXIMIZE));
     model.addConstraint(new LinearEquation(new double[] { 1, 0 }, Relationship.LEQ, 2));
     model.addConstraint(new LinearEquation(new double[] { 0, 1 }, Relationship.LEQ, 3));
     model.addConstraint(new LinearEquation(new double[] { 1, 1 }, Relationship.EQ, 4));

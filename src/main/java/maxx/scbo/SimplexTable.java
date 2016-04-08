@@ -85,7 +85,7 @@ class SimplexTable {
       matrix[0][0] = -1;
     }
     int zindex = getNumObjectiveFunctions() == 1 ? 0 : 1;
-    boolean maximize = objectiveFunction.getGoalType() == GoalType.MAXIMIZE;
+    boolean maximize = objectiveFunction.getGoalType() == ExGoalType.MAXIMIZE;
     matrix[zindex][zindex] = maximize ? 1 : -1;
     ArrayRealVector objectiveCoefficients = maximize
         ? (ArrayRealVector) model.getObjectiveFunction().getCoefficients().mapMultiply(-1)

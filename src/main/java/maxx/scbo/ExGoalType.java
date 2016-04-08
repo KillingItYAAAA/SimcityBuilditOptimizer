@@ -25,7 +25,7 @@ import java.io.Serializable;
  * 
  * @since 2.0
  */
-public enum GoalType implements Serializable {
+public enum ExGoalType implements Serializable {
 
   /** Maximization goal. */
   MAXIMIZE,
