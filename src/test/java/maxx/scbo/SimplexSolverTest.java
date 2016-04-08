@@ -17,11 +17,20 @@
  * limitations under the License.
  */
 
-package com.horvath.simplexMethodSolver;
+package maxx.scbo;
 
 import junit.framework.TestCase;
 
 import org.apache.commons.math3.linear.ArrayRealVector;
+
+import maxx.scbo.GoalType;
+import maxx.scbo.LinearEquation;
+import maxx.scbo.LinearModel;
+import maxx.scbo.LinearObjectiveFunction;
+import maxx.scbo.NoFeasibleSolutionException;
+import maxx.scbo.Relationship;
+import maxx.scbo.SimplexSolver;
+import maxx.scbo.UnboundedSolutionException;
 
 
 /**

@@ -17,16 +17,16 @@
  * limitations under the License.
  */
 
-package com.horvath.simplexMethodSolver;
-
-import com.horvath.simplexMethodSolver.GoalType;
-import com.horvath.simplexMethodSolver.LinearEquation;
-import com.horvath.simplexMethodSolver.LinearModel;
-import com.horvath.simplexMethodSolver.LinearObjectiveFunction;
-import com.horvath.simplexMethodSolver.Relationship;
-import com.horvath.simplexMethodSolver.SimplexTable;
+package maxx.scbo;
 
 import junit.framework.TestCase;
+
+import maxx.scbo.GoalType;
+import maxx.scbo.LinearEquation;
+import maxx.scbo.LinearModel;
+import maxx.scbo.LinearObjectiveFunction;
+import maxx.scbo.Relationship;
+import maxx.scbo.SimplexTable;
 
 /**
  * @author <a href="http://www.benmccann.com">Ben McCann</a>

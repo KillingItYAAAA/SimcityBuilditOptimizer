@@ -1,3 +1,5 @@
+// Copyright 2009 Google Inc.
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -15,22 +17,13 @@
  * limitations under the License.
  */
 
-package com.horvath.simplexMethodSolver;
-
-import java.io.Serializable;
+package maxx.scbo;
 
 /**
- * Goal type for an optimization problem. Deprecated in commons.math3, saved
- * into here only for this project.
- * 
- * @since 2.0
+ * @author benmccann.com (Ben McCann)
  */
-public enum GoalType implements Serializable {
+public class NoFeasibleSolutionException extends Exception {
 
-  /** Maximization goal. */
-  MAXIMIZE,
-
-  /** Minimization goal. */
-  MINIMIZE
+  private static final long serialVersionUID = 1L;
 
 }

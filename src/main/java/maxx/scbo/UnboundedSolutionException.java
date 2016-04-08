@@ -17,12 +17,12 @@
  * limitations under the License.
  */
 
-package com.horvath.simplexMethodSolver;
+package maxx.scbo;
 
 /**
- * @author benmccann.com (Ben McCann)
+ * @author <a href="http://www.benmccann.com">Ben McCann</a>
  */
-public class NoFeasibleSolutionException extends Exception {
+public class UnboundedSolutionException extends Exception {
 
   private static final long serialVersionUID = 1L;
 

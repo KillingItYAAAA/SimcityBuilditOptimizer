@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package com.horvath.simplexMethodSolver;
+package maxx.scbo;
 
 /**
  * Types of relationships between two cells in a Solver {@link LinearEquation}.

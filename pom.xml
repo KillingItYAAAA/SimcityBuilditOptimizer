@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.horvath.simplexMethodSolver</groupId>
+  <groupId>maxx.scbo</groupId>
   <artifactId>App</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>SimplexMethodSolver</name>
+  <name>SimcityBuilditOptimizer</name>
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -32,7 +32,7 @@
             </descriptorRefs>
             <archive>
               <manifest>
-                <mainClass>com.horvath.simplexMethodSolver.App</mainClass>
+                <mainClass>maxx.scbo.App</mainClass>
               </manifest>
             </archive>
           </configuration>
@@ -49,7 +49,7 @@
             </execution>
           </executions>
           <configuration>
-            <mainClass>com.horvath.simplexMethodSolver.App</mainClass>
+            <mainClass>maxx.scbo.App</mainClass>
           </configuration>
         </plugin>
       </plugins>

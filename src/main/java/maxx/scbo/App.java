@@ -1,4 +1,4 @@
-package com.horvath.simplexMethodSolver;
+package maxx.scbo;
 
 /**
  * Hello World.

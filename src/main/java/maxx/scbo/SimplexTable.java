@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package com.horvath.simplexMethodSolver;
+package maxx.scbo;
 
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.ArrayRealVector;
