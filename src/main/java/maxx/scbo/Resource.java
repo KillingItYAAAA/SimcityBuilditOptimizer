@@ -5,10 +5,19 @@ import org.apache.commons.math3.optim.linear.LinearConstraint;
 import java.util.LinkedList;
 
 public abstract class Resource {
+  private Scenario scenario;
   private String name;
   private double time;
   private int level;
   private double value;
+
+  public Resource(Scenario scenario) {
+    this.scenario = scenario;
+  }
+  
+  public Scenario getScenario() {
+    return scenario;
+  }
   
   public String getName() {
     return name;

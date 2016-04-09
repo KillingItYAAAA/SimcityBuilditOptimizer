@@ -10,16 +10,9 @@ import org.apache.commons.math3.optim.linear.Relationship;
 import org.apache.commons.math3.optim.linear.SimplexSolver;
 import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import org.xml.sax.SAXException;
 
 /**
  * @author phorvath
@@ -44,22 +37,14 @@ public class App {
     System.out.println("Solution:\nValue: "+optSolution.getValue()+" at "+Arrays.toString(optSolution.getKey()));
   }
   
-  private static void resourceLoader() throws SCBOException {
-    ClassLoader classLoader = App.class.getClassLoader();
-    File file = new File(classLoader.getResource("rules.xml").getFile());
-    SAXParserFactory factory = SAXParserFactory.newInstance();
-    SAXParser saxParser;
-    try {
-      saxParser = factory.newSAXParser();
-    } catch (SAXException | ParserConfigurationException e) {
-      throw new SCBOException("rules.xml resource invalid");
-    }
-    
-  }
-  
   public static void main(String[] args) {
+    ConfigLoader configLoader = new ConfigLoader();
+    Scenario scenario = new Scenario();
     try {
-      resourceLoader();
+      configLoader.loadInto(scenario);
+      Factory factory = new Factory();
+      factory.setSlots(50);
+      scenario.addProducer(factory);
     } catch (SCBOException e) {
       System.err.println("Fatal internal error: "+e.getMessage());
     }

@@ -9,6 +9,10 @@ public class FactoryResource extends Resource {
     return ResourceType.STORE;
   }
   
+  FactoryResource(Scenario scenario) {
+    super(scenario);
+  }
+  
   public LinkedList<LinearConstraint> getConstraints() {
     
   }
