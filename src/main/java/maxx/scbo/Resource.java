@@ -3,6 +3,7 @@ package maxx.scbo;
 import org.apache.commons.math3.optim.linear.LinearConstraint;
 
 import java.util.LinkedList;
+import java.util.TreeSet;
 
 public abstract class Resource {
   private Scenario scenario;
@@ -10,6 +11,10 @@ public abstract class Resource {
   private double time;
   private int level;
   private double value;
+  private TreeSet<StoreResource> rawsFor;
+
+  private int idx;
+  private double prodPerMin;
 
   public Resource(Scenario scenario) {
     this.scenario = scenario;
@@ -19,6 +24,22 @@ public abstract class Resource {
     return scenario;
   }
   
+  public int getIdx() {
+    return idx;
+  }
+
+  public void setIdx(int idx) {
+    this.idx = idx;
+  }
+
+  public double getProdPerMin() {
+    return prodPerMin;
+  }
+
+  public void setProdPerMin(double prodPerMin) {
+    this.prodPerMin = prodPerMin;
+  }
+
   public String getName() {
     return name;
   }
