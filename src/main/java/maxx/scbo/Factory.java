@@ -14,6 +14,10 @@ public class Factory extends Producer {
   public void setSlots(int slots) {
     this.slots = slots;
   }
+
+  public Factory(Scenario scenario) {
+    super(scenario);
+  }
   
   public LinkedList<LinearConstraint> getConstraints() {
     

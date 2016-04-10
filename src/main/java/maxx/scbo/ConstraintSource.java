@@ -11,6 +11,7 @@ public abstract class ConstraintSource {
   
   public ConstraintSource(Scenario scenario) {
     this.scenario = scenario;
+    scenario.addConstraintSource(this);
   }
   
   public Scenario getScenario() {

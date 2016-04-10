@@ -15,10 +15,14 @@ public class Store extends Producer {
     this.name = name;
   }
   
-  Store(String name) {
+  Store(Scenario scenario, String name) throws SCBOException {
+    super(scenario);
     setName(name);
+    if (scenario.getStoreByName(name) != null)
+      throw new SCBOException("multiple store in rules.xml: "+name);
+    scenario.addStoreName(this);
   }
-
+  
   public LinkedList<LinearConstraint> getConstraints() {
     
   }

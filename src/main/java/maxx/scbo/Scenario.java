@@ -21,21 +21,20 @@ public class Scenario {
   private ArrayList<Resource> resourceList;
   private LinkedList<Producer> producers;
   private TreeSet<FactoryResource> factoryResources;
+  private TreeSet<ConstraintSource> constraintSources;
   
   private int resourceNo = 0;
 
-  public void addStore(Store store) throws SCBOException {
-    if (stores.get(store.getName()) != null)
-      throw new SCBOException("multiple store in rules.xml: "+store.getName());
-    stores.put(store.getName(), store);
-  }
-  
-  public Store getStore(String name) {
+  public Store getStoreByName(String name) {
     return stores.get(name);
   }
   
-  public void addProducer(Producer producer) {
+  public void addProducer(Producer producer) throws SCBOException {
     producers.add(producer);
+  }
+
+  public void addStoreName(Store store) {
+    stores.put(store.getName(), store);
   }
   
   public void addResource(Resource resource) throws SCBOException {
@@ -50,6 +49,10 @@ public class Scenario {
       factoryResources.add((FactoryResource)resource);
   }
 
+  public void addConstraintSource(ConstraintSource constraintSource) {
+    constraintSources.add(constraintSource);
+  }
+  
   public Resource getResource(String name) {
     return resources.get(name);
   }
