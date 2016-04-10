@@ -22,10 +22,10 @@ package maxx.scbo;
 import junit.framework.TestCase;
 
 import maxx.scbo.deprecated.GoalType;
-import maxx.scbo.deprecated.LinearObjectiveFunction;
-import maxx.scbo.deprecated.Relationship;
 import maxx.scbo.deprecated.LinearEquation;
 import maxx.scbo.deprecated.LinearModel;
+import maxx.scbo.deprecated.LinearObjectiveFunction;
+import maxx.scbo.deprecated.Relationship;
 import maxx.scbo.deprecated.SimplexTable;
 
 /**

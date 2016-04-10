@@ -46,7 +46,7 @@ import java.util.Map;
  * 
  * @author <a href="http://www.benmccann.com">Ben McCann</a>
  */
-class SimplexTable {
+public class SimplexTable {
 
   protected RealMatrix table;
   protected final boolean nonNegative;
@@ -54,11 +54,11 @@ class SimplexTable {
   protected final int numSlackVariables;
   protected int numArtificialVariables;
 
-  SimplexTable(LinearModel model) {
+  public SimplexTable(LinearModel model) {
     this(model, false);
   }
 
-  SimplexTable(LinearModel model, boolean restrictToNonNegative) {
+  public SimplexTable(LinearModel model, boolean restrictToNonNegative) {
     Map<Relationship, Integer> counts = model.getConstraintTypeCounts();
     this.nonNegative = restrictToNonNegative;
     this.numDecisionVariables = model.getNumVariables() + (nonNegative ? 0 : 1);
@@ -68,7 +68,7 @@ class SimplexTable {
     initialize();
   }
 
-  protected double[][] createTable(LinearModel model) {
+  public double[][] createTable(LinearModel model) {
 
     // create a matrix of the correct size
     int width = this.numDecisionVariables + this.numSlackVariables + this.numArtificialVariables
@@ -192,7 +192,7 @@ class SimplexTable {
    * Removes the phase 1 objective function and artificial variables from this
    * table.
    */
-  protected void discardArtificialVariables() {
+  public void discardArtificialVariables() {
     if (numArtificialVariables == 0) {
       return;
     }
@@ -328,7 +328,7 @@ class SimplexTable {
     return numArtificialVariables;
   }
 
-  protected final double[][] getData() {
+  public final double[][] getData() {
     return table.getData();
   }
 
