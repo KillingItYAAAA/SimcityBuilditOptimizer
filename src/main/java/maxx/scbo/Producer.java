@@ -10,6 +10,13 @@ public abstract class Producer extends ConstraintSource {
     scenario.addProducer(this);
   }
   
+  @Override
+  public void checkValid() throws SCBOException {
+    super.checkValid();
+    if (!getScenario().hasProducer(this))
+      throw new SCBOException();
+  }
+  
   public void addResource(Resource resource) {
     resources.add(resource);
   }

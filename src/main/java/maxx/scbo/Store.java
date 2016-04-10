@@ -15,6 +15,13 @@ public class Store extends Producer {
     this.name = name;
   }
   
+  @Override
+  public void checkValid() throws SCBOException {
+    super.checkValid();
+    if (name == null || "".equals(name))
+      throw new SCBOException();
+  }
+  
   Store(Scenario scenario, String name) throws SCBOException {
     super(scenario);
     setName(name);

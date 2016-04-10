@@ -28,13 +28,32 @@ public class StoreResource extends Resource {
     return ResourceType.STORE;
   }
   
+  @Override
+  public void checkValid() throws SCBOException {
+    super.checkValid();
+    if (getScenario().getStoreByName(getName()) == null)
+      throw new SCBOException();
+    for (Resource r : rawMaterials.keySet()) {
+      if (!r.isRawFor(this))
+        throw new SCBOException();
+    }
+  }
+  
   public void addRaw(Resource raw, int number) throws SCBOException {
     if (rawMaterials.get(raw) != null)
       throw new SCBOException("same resource added twice as raw material: "+raw.getName());
     rawMaterials.put(raw, number);
   }
   
+  public boolean hasRaw(Resource r) {
+    return rawMaterials.containsKey(r);
+  }
+  
   public LinkedList<LinearConstraint> getConstraints() {
+    LinkedList<LinearConstraint> lc = super.getConstraints();
+    
+    
+    
     RealVector v = new ArrayRealVector(getScenario().getResourceNo());
     v.setEntry(getIdx(), 1);
     

@@ -16,6 +16,11 @@ public class FactoryResource extends Resource {
     super(scenario);
   }
   
+  @Override
+  public void checkValid() throws SCBOException {
+    super.checkValid();
+  }
+  
   public LinkedList<LinearConstraint> getConstraints() {
     // at least 0 prod / min
     

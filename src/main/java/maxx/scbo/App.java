@@ -42,9 +42,9 @@ public class App {
     Scenario scenario = new Scenario();
     try {
       configLoader.loadInto(scenario);
-      Factory factory = new Factory();
+      Factory factory = new Factory(scenario);
       factory.setSlots(50);
-      scenario.addProducer(factory);
+      scenario.checkValid();
     } catch (SCBOException e) {
       System.err.println("Fatal internal error: "+e.getMessage());
     }

@@ -6,4 +6,8 @@ public class SCBOException extends Exception {
   SCBOException(String message) {
     super(message);
   }
+  
+  SCBOException() {
+    super("");
+  }
 }

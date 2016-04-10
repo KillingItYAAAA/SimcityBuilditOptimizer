@@ -15,7 +15,14 @@ public class Factory extends Producer {
     this.slots = slots;
   }
 
-  public Factory(Scenario scenario) {
+  @Override
+  public void checkValid() throws SCBOException {
+    super.checkValid();
+    if (slots < 1)
+      throw new SCBOException();
+  }
+  
+  public Factory(Scenario scenario) throws SCBOException {
     super(scenario);
   }
   
