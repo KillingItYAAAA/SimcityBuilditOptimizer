@@ -5,8 +5,7 @@ import org.apache.commons.math3.optim.linear.LinearConstraint;
 import java.util.LinkedList;
 import java.util.TreeSet;
 
-public abstract class Resource {
-  private Scenario scenario;
+public abstract class Resource extends ConstraintSource {
   private String name;
   private double time;
   private int level;
@@ -16,14 +15,6 @@ public abstract class Resource {
   private int idx;
   private double prodPerMin;
 
-  public Resource(Scenario scenario) {
-    this.scenario = scenario;
-  }
-  
-  public Scenario getScenario() {
-    return scenario;
-  }
-  
   public int getIdx() {
     return idx;
   }
@@ -72,6 +63,14 @@ public abstract class Resource {
     this.value = value;
   }
 
+  public TreeSet<StoreResource> getRawsFor() {
+    return rawsFor;
+  }
+  
+  public void addRawsFor(StoreResource storeResource) {
+    rawsFor.add(storeResource);
+  }
+  
   public void testValid() throws SCBOException {
     if ((name == null) || (time <= 0) || (level == 0) || (value == 0))
       throw new SCBOException("Resource validation check failed");

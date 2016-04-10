@@ -1,6 +1,7 @@
 package maxx.scbo;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -69,7 +70,9 @@ public class ConfigLoader {
     SAXParser saxParser;
     try {
       saxParser = factory.newSAXParser();
-    } catch (SAXException | ParserConfigurationException e) {
+      ConfigHandler configHandler = new ConfigHandler(scenario);
+      saxParser.parse(file, configHandler);
+    } catch (SAXException | ParserConfigurationException | IOException e) {
       throw new SCBOException("rules.xml resource invalid");
     }
     ConfigHandler configHandler = new ConfigHandler(scenario);

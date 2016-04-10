@@ -2,7 +2,7 @@ package maxx.scbo;
 
 import java.util.LinkedList;
 
-public abstract class Producer {
+public abstract class Producer extends ConstraintSource {
   private LinkedList<Resource> resources;
   
   public void addResource(Resource resource) {

@@ -48,5 +48,7 @@ public class App {
     } catch (SCBOException e) {
       System.err.println("Fatal internal error: "+e.getMessage());
     }
+    PointValuePair solution = scenario.calculate();
+    System.out.println("Solution:\nValue: "+solution.getValue()+" at "+Arrays.toString(solution.getKey()));
   }
 }
