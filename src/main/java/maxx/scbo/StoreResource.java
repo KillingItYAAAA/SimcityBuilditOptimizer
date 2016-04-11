@@ -51,20 +51,8 @@ public class StoreResource extends Resource {
     return rawMaterials.containsKey(r);
   }
   
+  @Override
   public LinkedList<LinearConstraint> getConstraints() {
-    LinkedList<LinearConstraint> lc = super.getConstraints();
-    
-    
-    
-    RealVector v = new ArrayRealVector(getScenario().getResourceNo());
-    v.setEntry(getIdx(), 1);
-    
-    LinearConstraint lc1 = new LinearConstraint(v, Relationship.GEQ, 0);
-    LinkedList<LinearConstraint> list = new LinkedList<LinearConstraint>();
-    list.add(lc1);
-
-    
-    
-    return list;
+    return super.getConstraints();
   }
 }

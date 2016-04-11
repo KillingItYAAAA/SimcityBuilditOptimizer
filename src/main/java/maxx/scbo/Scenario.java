@@ -6,7 +6,6 @@ import org.apache.commons.math3.optim.PointValuePair;
 import org.apache.commons.math3.optim.linear.LinearConstraint;
 import org.apache.commons.math3.optim.linear.LinearConstraintSet;
 import org.apache.commons.math3.optim.linear.LinearObjectiveFunction;
-import org.apache.commons.math3.optim.linear.NonNegativeConstraint;
 import org.apache.commons.math3.optim.linear.SimplexSolver;
 import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
 
@@ -109,6 +108,8 @@ public class Scenario implements Checkable {
 
     // solve the problem
     SimplexSolver solver = new SimplexSolver();
-    solver.optimize(new MaxIter(100), l, new LinearConstraintSet(constraints), GoalType.MAXIMIZE);
+    PointValuePair solution = solver.optimize(new MaxIter(100), l,
+        new LinearConstraintSet(constraints), GoalType.MAXIMIZE);
+    return solution;
   }
 }

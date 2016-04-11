@@ -1,7 +1,5 @@
 package maxx.scbo;
 
-import org.apache.commons.math3.linear.ArrayRealVector;
-import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.optim.linear.LinearConstraint;
 
 import java.util.LinkedList;

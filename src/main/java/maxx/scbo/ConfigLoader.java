@@ -24,9 +24,9 @@ public class ConfigLoader {
     public void startElement(String uri, String localName, String qName, Attributes attributes)
         throws SAXException {
       if (qName.equalsIgnoreCase("store")) {
-        Store store = new Store(attributes.getValue("name"));
         try {
-          scenario.addStore(store);
+          Store store = new Store(scenario, attributes.getValue("name"));
+          scenario.addProducer(store);
         } catch (SCBOException e) {
           throw new SAXException(); // FIXME
         }
@@ -36,7 +36,8 @@ public class ConfigLoader {
           resource = new FactoryResource(scenario);
         } else if (attributes.getValue("type").equalsIgnoreCase("store")) {
           resource = new StoreResource(scenario);
-          ((StoreResource) resource).setStore(scenario.getStore(attributes.getValue("store")));
+          ((StoreResource) resource)
+              .setStore(scenario.getStoreByName(attributes.getValue("store")));
         } else
           throw new SAXException(); // FIXME
         resource.setLevel(Integer.parseInt(attributes.getValue("level")));
@@ -75,6 +76,5 @@ public class ConfigLoader {
     } catch (SAXException | ParserConfigurationException | IOException e) {
       throw new SCBOException("rules.xml resource invalid");
     }
-    ConfigHandler configHandler = new ConfigHandler(scenario);
   }
 }

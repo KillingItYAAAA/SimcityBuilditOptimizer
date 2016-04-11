@@ -14,7 +14,9 @@ public class Store extends Producer {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(String name) throws SCBOException {
+    if (this.name != null)
+      throw new SCBOException();
     this.name = name;
   }
   
