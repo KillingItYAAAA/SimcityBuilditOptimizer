@@ -23,7 +23,8 @@ public class App {
   /**
    * TODO.
    * 
-   * @param args Commabnd line arguments
+   * @param args
+   *          Command line arguments
    */
   public static void mainTest(String[] args) {
     System.out.println("Hello World!");
@@ -48,21 +49,26 @@ public class App {
   /**
    * TODO.
    * 
-   * @param args Command line arguments
+   * @param args
+   *          Command line arguments
    */
   public static void main(String[] args) {
-    ConfigLoader configLoader = new ConfigLoader();
-    Scenario scenario = new Scenario();
     try {
+      ConfigLoader configLoader = new ConfigLoader();
+      Scenario scenario = new Scenario();
+      PointValuePair solution;
+
       configLoader.loadInto(scenario);
       Factory factory = new Factory(scenario);
       factory.setSlots(50);
       scenario.checkValid();
+      solution = scenario.calculate();
+      System.out.println("Solution:\nValue: " + solution.getValue() + " at "
+          + Arrays.toString(solution.getKey()));
+      
     } catch (ScboException exception) {
       System.err.println("Fatal internal error: " + exception.getMessage());
+      throw new RuntimeException(exception);
     }
-    PointValuePair solution = scenario.calculate();
-    System.out.println(
-        "Solution:\nValue: " + solution.getValue() + " at " + Arrays.toString(solution.getKey()));
   }
 }

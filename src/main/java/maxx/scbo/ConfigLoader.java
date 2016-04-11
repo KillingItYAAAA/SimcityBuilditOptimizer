@@ -23,12 +23,14 @@ public class ConfigLoader {
     @Override
     public void startElement(String uri, String localName, String qname, Attributes attributes)
         throws SAXException {
-      if (qname.equalsIgnoreCase("store")) {
+      if (qname.equalsIgnoreCase("resources")) {
+        //
+      } else if (qname.equalsIgnoreCase("store")) {
         try {
           Store store = new Store(scenario, attributes.getValue("name"));
           scenario.addProducer(store);
         } catch (ScboException exception) {
-          throw new SAXException(); // FIXME
+          throw new SAXException("1"); // FIXME
         }
       } else if (qname.equalsIgnoreCase("resource")) {
         Resource resource;
@@ -39,7 +41,7 @@ public class ConfigLoader {
           ((StoreResource) resource)
               .setStore(scenario.getStoreByName(attributes.getValue("store")));
         } else {
-          throw new SAXException(); // FIXME
+          throw new SAXException("2"); // FIXME
         }
         resource.setLevel(Integer.parseInt(attributes.getValue("level")));
         resource.setName(attributes.getValue("name"));
@@ -47,17 +49,18 @@ public class ConfigLoader {
         resource.setValue(Double.parseDouble(attributes.getValue("value")));
       } else if (qname.equalsIgnoreCase("raw")) {
         if (resource == null || resource.getType() != ResourceType.STORE) {
-          throw new SAXException(); // FIXME
+          throw new SAXException("3"); // FIXME
         }
         StoreResource storeResource = (StoreResource) resource;
         Resource rawResource = scenario.getResource(attributes.getValue("name"));
         try {
           storeResource.addRaw(rawResource, Integer.parseInt(attributes.getValue("number")));
         } catch (ScboException exception) {
-          throw new SAXException(); // FIXME
+          throw new SAXException("4"); // FIXME
         }
+      } else {
+        throw new SAXException("rules.xml has bad entity: " + qname);
       }
-      throw new SAXException("rules.xml has bad entity: " + qname);
     }
 
     @Override
@@ -70,7 +73,7 @@ public class ConfigLoader {
    * TODO.
    * 
    * @param scenario
-   *          Th scenario to load the things into.
+   *          The scenario to load the things into.
    * @throws ScboException
    *           In case of core logic exception, including config file loading
    *           and parsing.
