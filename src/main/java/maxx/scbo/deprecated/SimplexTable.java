@@ -58,6 +58,12 @@ public class SimplexTable {
     this(model, false);
   }
 
+  /**
+   * TODO.
+   * 
+   * @param model TODO
+   * @param restrictToNonNegative TODO
+   */
   public SimplexTable(LinearModel model, boolean restrictToNonNegative) {
     Map<Relationship, Integer> counts = model.getConstraintTypeCounts();
     this.nonNegative = restrictToNonNegative;
@@ -68,6 +74,12 @@ public class SimplexTable {
     initialize();
   }
 
+  /**
+   * TODO.
+   * 
+   * @param model TODO
+   * @return TODO
+   */
   public double[][] createTable(LinearModel model) {
 
     // create a matrix of the correct size

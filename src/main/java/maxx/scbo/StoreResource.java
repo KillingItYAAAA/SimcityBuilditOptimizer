@@ -1,9 +1,6 @@
 package maxx.scbo;
 
-import org.apache.commons.math3.linear.ArrayRealVector;
-import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.optim.linear.LinearConstraint;
-import org.apache.commons.math3.optim.linear.Relationship;
 
 import java.util.LinkedList;
 import java.util.TreeMap;
@@ -29,26 +26,37 @@ public class StoreResource extends Resource {
   }
   
   @Override
-  public void checkValid() throws SCBOException {
+  public void checkValid() throws ScboException {
     super.checkValid();
-    if (getScenario().getStoreByName(getName()) == null)
-      throw new SCBOException();
+    if (getScenario().getStoreByName(getName()) == null) {
+      throw new ScboException();
+    }
     for (Resource r : rawMaterials.keySet()) {
-      if (!r.isRawFor(this))
-        throw new SCBOException();
-      if (r.getScenario() != getScenario())
-        throw new SCBOException();
+      if (!r.isRawFor(this)) {
+        throw new ScboException();
+      }
+      if (r.getScenario() != getScenario()) {
+        throw new ScboException();
+      }
     }
   }
   
-  public void addRaw(Resource raw, int number) throws SCBOException {
-    if (rawMaterials.get(raw) != null)
-      throw new SCBOException("same resource added twice as raw material: "+raw.getName());
+  /**
+   * TODO.
+   * 
+   * @param raw TODO
+   * @param number TODO
+   * @throws ScboException TODO
+   */
+  public void addRaw(Resource raw, int number) throws ScboException {
+    if (rawMaterials.get(raw) != null) {
+      throw new ScboException("same resource added twice as raw material: " + raw.getName());
+    }
     rawMaterials.put(raw, number);
   }
   
-  public boolean hasRaw(Resource r) {
-    return rawMaterials.containsKey(r);
+  public boolean hasRaw(Resource resource) {
+    return rawMaterials.containsKey(resource);
   }
   
   @Override

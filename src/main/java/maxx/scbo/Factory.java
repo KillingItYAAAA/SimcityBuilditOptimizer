@@ -19,20 +19,25 @@ public class Factory extends Producer {
   }
 
   @Override
-  public void checkValid() throws SCBOException {
+  public void checkValid() throws ScboException {
     super.checkValid();
-    if (slots < 1)
-      throw new SCBOException();
+    if (slots < 1) {
+      throw new ScboException();
+    }
     for (Resource r : getResources()) {
-      if (r.getType() != ResourceType.FACTORY)
-        throw new SCBOException();
+      if (r.getType() != ResourceType.FACTORY) {
+        throw new ScboException();
+      }
     }
   }
   
-  public Factory(Scenario scenario) throws SCBOException {
+  public Factory(Scenario scenario) throws ScboException {
     super(scenario);
   }
 
+  /**
+   * TODO.
+   */
   public LinkedList<LinearConstraint> getConstraints() {
     LinkedList<LinearConstraint> constraints = new LinkedList<LinearConstraint>();
     

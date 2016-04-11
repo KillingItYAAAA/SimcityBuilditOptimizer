@@ -15,13 +15,20 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
+ * TODO.
+ * 
  * @author phorvath
  */
 public class App {
+  /**
+   * TODO.
+   * 
+   * @param args Commabnd line arguments
+   */
   public static void mainTest(String[] args) {
     System.out.println("Hello World!");
 
-    LinearObjectiveFunction l = new LinearObjectiveFunction(new double[] { 1, 1 }, 0);
+    LinearObjectiveFunction lof = new LinearObjectiveFunction(new double[] { 1, 1 }, 0);
 
     Collection<LinearConstraint> constraints = new ArrayList<LinearConstraint>();
 
@@ -31,12 +38,18 @@ public class App {
     constraints.add(new LinearConstraint(new double[] { 0, 1 }, Relationship.LEQ, 1));
 
     SimplexSolver solver = new SimplexSolver();
-    PointValuePair optSolution = solver.optimize(new MaxIter(100), l, new LinearConstraintSet(constraints),
-        GoalType.MAXIMIZE, new NonNegativeConstraint(true));
-    
-    System.out.println("Solution:\nValue: "+optSolution.getValue()+" at "+Arrays.toString(optSolution.getKey()));
+    PointValuePair optSolution = solver.optimize(new MaxIter(100), lof,
+        new LinearConstraintSet(constraints), GoalType.MAXIMIZE, new NonNegativeConstraint(true));
+
+    System.out.println("Solution:\nValue: " + optSolution.getValue() + " at "
+        + Arrays.toString(optSolution.getKey()));
   }
-  
+
+  /**
+   * TODO.
+   * 
+   * @param args Command line arguments
+   */
   public static void main(String[] args) {
     ConfigLoader configLoader = new ConfigLoader();
     Scenario scenario = new Scenario();
@@ -45,10 +58,11 @@ public class App {
       Factory factory = new Factory(scenario);
       factory.setSlots(50);
       scenario.checkValid();
-    } catch (SCBOException e) {
-      System.err.println("Fatal internal error: "+e.getMessage());
+    } catch (ScboException exception) {
+      System.err.println("Fatal internal error: " + exception.getMessage());
     }
     PointValuePair solution = scenario.calculate();
-    System.out.println("Solution:\nValue: "+solution.getValue()+" at "+Arrays.toString(solution.getKey()));
+    System.out.println(
+        "Solution:\nValue: " + solution.getValue() + " at " + Arrays.toString(solution.getKey()));
   }
 }

@@ -15,6 +15,8 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 /**
+ * TODO.
+ * 
  * @author phorvath
  *
  */
@@ -32,7 +34,7 @@ public class Scenario implements Checkable {
     return stores.get(name);
   }
 
-  public void addProducer(Producer producer) throws SCBOException {
+  public void addProducer(Producer producer) throws ScboException {
     producers.add(producer);
   }
 
@@ -44,9 +46,16 @@ public class Scenario implements Checkable {
     stores.put(store.getName(), store);
   }
 
-  public void addResource(Resource resource) throws SCBOException {
-    if (resources.get(resource.getName()) != null)
-      throw new SCBOException("multiple resources in rules.xml: " + resource.getName());
+  /**
+   * TODO.
+   * 
+   * @param resource the resource to add to the scenario.
+   * @throws ScboException If it doesn't have a name yet
+   */
+  public void addResource(Resource resource) throws ScboException {
+    if (resources.get(resource.getName()) != null) {
+      throw new ScboException("multiple resources in rules.xml: " + resource.getName());
+    }
     resources.put(resource.getName(), resource);
     int idx = resourceNo++;
     resourceList.add(idx, resource);
@@ -73,43 +82,58 @@ public class Scenario implements Checkable {
     return factory;
   }
 
-  public void setFactory(Factory factory) throws SCBOException {
-    if (this.factory != null)
-      throw new SCBOException();
+  /**
+   * TODO.
+   * 
+   * @param factory TODO
+   * @throws ScboException TODO
+   */
+  public void setFactory(Factory factory) throws ScboException {
+    if (this.factory != null) {
+      throw new ScboException();
+    }
     this.factory = factory;
   }
 
   @Override
-  public void checkValid() throws SCBOException {
-    if (factory == null)
-      throw new SCBOException();
+  public void checkValid() throws ScboException {
+    if (factory == null) {
+      throw new ScboException();
+    }
 
-    for (Producer p : producers)
+    for (Producer p : producers) {
       p.checkValid();
+    }
 
-    for (Resource r : resources.values())
+    for (Resource r : resources.values()) {
       r.checkValid();
+    }
   }
 
+  /**
+   * TODO.
+   * 
+   * @return A solution, i.e. maximal money production rate per minute.
+   */
   public PointValuePair calculate() {
     // Calculate objective function
     ArrayRealVector coeffs = new ArrayRealVector(50);
     for (Resource resource : resourceList) {
       coeffs = coeffs.add(resource.getSaleVec());
     }
-    LinearObjectiveFunction l = new LinearObjectiveFunction(coeffs, 0);
+    LinearObjectiveFunction lof = new LinearObjectiveFunction(coeffs, 0);
 
     // calculate constraints
-    LinkedList<LinearConstraint> constraints = new LinkedList<LinearConstraint>();
+    LinkedList<LinearConstraint> allConstraints = new LinkedList<LinearConstraint>();
     for (ConstraintSource constraintSource : constraintSources) {
-      LinkedList<LinearConstraint> c = constraintSource.getConstraints();
-      constraints.addAll(c);
+      LinkedList<LinearConstraint> curConstraints = constraintSource.getConstraints();
+      allConstraints.addAll(curConstraints);
     }
 
     // solve the problem
     SimplexSolver solver = new SimplexSolver();
-    PointValuePair solution = solver.optimize(new MaxIter(100), l,
-        new LinearConstraintSet(constraints), GoalType.MAXIMIZE);
+    PointValuePair solution = solver.optimize(new MaxIter(100), lof,
+        new LinearConstraintSet(allConstraints), GoalType.MAXIMIZE);
     return solution;
   }
 }

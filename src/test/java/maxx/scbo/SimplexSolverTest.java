@@ -21,16 +21,16 @@ package maxx.scbo;
 
 import junit.framework.TestCase;
 
-import org.apache.commons.math3.linear.ArrayRealVector;
-
 import maxx.scbo.deprecated.GoalType;
+import maxx.scbo.deprecated.LinearEquation;
+import maxx.scbo.deprecated.LinearModel;
 import maxx.scbo.deprecated.LinearObjectiveFunction;
 import maxx.scbo.deprecated.NoFeasibleSolutionException;
 import maxx.scbo.deprecated.Relationship;
 import maxx.scbo.deprecated.SimplexSolver;
-import maxx.scbo.deprecated.LinearEquation;
-import maxx.scbo.deprecated.LinearModel;
 import maxx.scbo.deprecated.UnboundedSolutionException;
+
+import org.apache.commons.math3.linear.ArrayRealVector;
 
 
 /**

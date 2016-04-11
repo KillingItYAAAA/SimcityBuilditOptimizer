@@ -15,7 +15,7 @@ public class FactoryResource extends Resource {
   }
   
   @Override
-  public void checkValid() throws SCBOException {
+  public void checkValid() throws ScboException {
     super.checkValid();
   }
   

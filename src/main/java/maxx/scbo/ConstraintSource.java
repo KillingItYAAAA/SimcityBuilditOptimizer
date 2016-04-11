@@ -14,9 +14,13 @@ public abstract class ConstraintSource implements Checkable {
     scenario.addConstraintSource(this);
   }
   
-  public void checkValid() throws SCBOException {
-    if (scenario == null || !scenario.hasConstraintSource(this))
-      throw new SCBOException();
+  /**
+   * TODO.
+   */
+  public void checkValid() throws ScboException {
+    if (scenario == null || !scenario.hasConstraintSource(this)) {
+      throw new ScboException();
+    }
   }
   
   public Scenario getScenario() {

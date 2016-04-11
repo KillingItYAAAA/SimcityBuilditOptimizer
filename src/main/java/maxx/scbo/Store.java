@@ -14,31 +14,44 @@ public class Store extends Producer {
     return name;
   }
 
-  public void setName(String name) throws SCBOException {
-    if (this.name != null)
-      throw new SCBOException();
+  /**
+   * TODO.
+   * 
+   * @param name TODO
+   * @throws ScboException TODO
+   */
+  public void setName(String name) throws ScboException {
+    if (this.name != null) {
+      throw new ScboException();
+    }
     this.name = name;
   }
   
   @Override
-  public void checkValid() throws SCBOException {
+  public void checkValid() throws ScboException {
     super.checkValid();
-    if (name == null || "".equals(name))
-      throw new SCBOException();
+    if (name == null || "".equals(name)) {
+      throw new ScboException();
+    }
     for (Resource r : getResources()) {
-      if (r.getType() != ResourceType.STORE)
-        throw new SCBOException();
+      if (r.getType() != ResourceType.STORE) {
+        throw new ScboException();
+      }
     }
   }
   
-  Store(Scenario scenario, String name) throws SCBOException {
+  Store(Scenario scenario, String name) throws ScboException {
     super(scenario);
     setName(name);
-    if (scenario.getStoreByName(name) != null)
-      throw new SCBOException("multiple store in rules.xml: "+name);
+    if (scenario.getStoreByName(name) != null) {
+      throw new ScboException("multiple store in rules.xml: " + name);
+    }
     scenario.addStoreName(this);
   }
   
+  /**
+   * TODO.
+   */
   public LinkedList<LinearConstraint> getConstraints() {
     LinkedList<LinearConstraint> constraints = new LinkedList<LinearConstraint>();
     
