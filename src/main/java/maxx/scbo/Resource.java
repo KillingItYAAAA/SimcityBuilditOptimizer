@@ -90,17 +90,31 @@ public abstract class Resource extends ConstraintSource {
     for (StoreResource rawFor : rawsFor) {
       if (!rawFor.hasRaw(this))
         throw new SCBOException();
+      if (rawFor.getScenario() != getScenario())
+        throw new SCBOException();
     }
   }
 
   public LinkedList<LinearConstraint> getConstraints() {
+    LinkedList<LinearConstraint> lc = new LinkedList<LinearConstraint>();
+    
+    // at least zero
     RealVector vec = new ArrayRealVector(getScenario().getResourceNo());
     vec.setEntry(getIdx(), 1);
     LinearConstraint atLeastZero = new LinearConstraint(vec, Relationship.GEQ, 0); 
-    LinkedList<LinearConstraint> lc = new LinkedList<LinearConstraint>();
     lc.add(atLeastZero);
+    
     return lc;
   }
   
   public abstract ResourceType getType();
+  
+  public RealVector getSaleVec() {
+    RealVector coeff = new ArrayRealVector(getScenario().getResourceNo());
+    coeff.setEntry(getIdx(), 1);
+    for (Resource r : getRawsFor())
+      coeff.setEntry(r.getIdx(), -1);
+    coeff = coeff.mapMultiply(getValue());
+    return coeff;
+  }
 }

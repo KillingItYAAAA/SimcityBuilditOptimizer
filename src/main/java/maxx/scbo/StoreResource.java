@@ -36,6 +36,8 @@ public class StoreResource extends Resource {
     for (Resource r : rawMaterials.keySet()) {
       if (!r.isRawFor(this))
         throw new SCBOException();
+      if (r.getScenario() != getScenario())
+        throw new SCBOException();
     }
   }
   
