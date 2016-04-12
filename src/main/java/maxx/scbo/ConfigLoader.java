@@ -16,7 +16,6 @@ public class ConfigLoader {
   private class ConfigHandler extends DefaultHandler {
     private Scenario scenario;
     private Resource resource;
-    private TreeSet<String> predeclRes = new TreeSet<String>();
 
     ConfigHandler(Scenario scenario) {
       this.scenario = scenario;
@@ -26,7 +25,6 @@ public class ConfigLoader {
     public void startElement(String uri, String localName, String qname, Attributes attributes)
         throws SAXException {
       try {
-        boolean predecl = false;
         if (qname.equalsIgnoreCase("resources")) {
           //
         } else if (qname.equalsIgnoreCase("store")) {
@@ -34,7 +32,7 @@ public class ConfigLoader {
           scenario.addProducer(store);
         } else if (qname.equalsIgnoreCase("resource")) {
           if (attributes.getValue("type") == null) {
-            resource = new NullResource(scenario);
+            resource = new NullResource(scenario, attributes.getValue("name"));
           } else if (attributes.getValue("type").equalsIgnoreCase("factory")) {
             resource = new FactoryResource(scenario);
           } else if (attributes.getValue("type").equalsIgnoreCase("store")) {
@@ -45,11 +43,7 @@ public class ConfigLoader {
             throw new SAXException("2"); // FIXME
           }
 
-          if (!predecl) {
-            String resName = attributes.getValue("name");
-            if (predeclRes.contains(resName)) {
-              predeclRes.remove(resName);
-            }
+          if (resource.getType() != ResourceType.NULL) {
             resource.setName(attributes.getValue("name"));
             resource.setLevel(Integer.parseInt(attributes.getValue("level")));
             resource.setTime(Double.parseDouble(attributes.getValue("time")));

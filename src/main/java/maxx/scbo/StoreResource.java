@@ -63,6 +63,12 @@ public class StoreResource extends Resource {
     return rawMaterials.get(resource);
   }
   
+  /**
+   * Breaks a raw-resource contact.
+   * 
+   * @param raw TODO.
+   * @throws ScboException TODO.
+   */
   public void removeRaw(Resource raw) throws ScboException {
     if (rawMaterials.get(raw) == null) {
       throw new ScboException("can't remove not registered raw resource");

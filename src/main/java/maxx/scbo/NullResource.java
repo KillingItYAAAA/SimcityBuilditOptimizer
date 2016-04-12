@@ -6,6 +6,12 @@ public class NullResource extends Resource {
     setName(name);
   }
   
+  /**
+   * Cast a (pre-declared), temporary Null-Resource to a real one.
+   * 
+   * @param resource TODO.
+   * @throws ScboException TODO.
+   */
   public void castTo(Resource resource) throws ScboException {
     getScenario().unregisterResource(this);
     getScenario().registerResource(resource);

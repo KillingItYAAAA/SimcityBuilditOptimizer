@@ -60,12 +60,19 @@ public class Scenario implements Checkable {
     resource.setScenarioIdx(getResourceNo());
   }
 
+  /**
+   * Unregisters a resource from a scenario.
+   * 
+   * @param resource TODO.
+   * @throws ScboException TODO.
+   */
   public void unregisterResource(Resource resource) throws ScboException {
     if (resources.get(resource.getName()) == null) {
-      throw new ScboException("can only unregister already registered resource");
+      throw new ScboException("can only unregister an already registered resource");
     }
     resources.remove(resource.getName());
     resource.setScenarioIdx(0);
+    resource.setScenario(null);
   }
   
   public boolean hasResource(String name) {

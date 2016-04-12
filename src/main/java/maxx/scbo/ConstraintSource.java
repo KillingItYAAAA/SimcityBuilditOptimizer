@@ -29,6 +29,10 @@ public abstract class ConstraintSource implements Checkable, Comparable<Constrai
     return scenario;
   }
 
+  public void setScenario(Scenario scenario) {
+    this.scenario = scenario;
+  }
+  
   public Integer getId() {
     return (Integer)id.getId();
   }
