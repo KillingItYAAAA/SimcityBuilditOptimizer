@@ -58,16 +58,7 @@ public abstract class Resource extends ConstraintSource {
     }
 
     this.name = name;
-    
-    if (getScenario().hasResource(name)) {
-      Resource pred = getScenario().getResource(name);
-      if (pred.getType() != ResourceType.NULL) {
-        throw new ScboException("resource " + name + " declared multiple times");
-      }
-      ((NullResource)pred).castTo(this);
-    } else {
-      getScenario().registerResource(this);
-    }
+    getScenario().registerResource(this);
   }
 
   public double getTime() {

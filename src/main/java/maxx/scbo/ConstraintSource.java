@@ -41,5 +41,4 @@ public abstract class ConstraintSource implements Checkable, Comparable<Constrai
   public int compareTo(ConstraintSource constraintSource) {
     return constraintSource.getId().compareTo(getId());
   }
-
 }

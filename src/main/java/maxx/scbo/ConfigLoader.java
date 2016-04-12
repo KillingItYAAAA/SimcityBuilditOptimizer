@@ -13,6 +13,55 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 public class ConfigLoader {
+  private class RawRelation implements Comparable<RawRelation> {
+    private Id id = new Id();
+    
+    private String parent;
+    private String child;
+    private int no;
+
+    RawRelation(String parent, String child, int no) {
+      setParent(parent);
+      setChild(child);
+      setNo(no);
+    }
+
+    public String getParent() {
+      return parent;
+    }
+
+    public void setParent(String parent) {
+      this.parent = parent;
+    }
+
+    public String getChild() {
+      return child;
+    }
+
+    public void setChild(String child) {
+      this.child = child;
+    }
+
+    public int getNo() {
+      return no;
+    }
+
+    public void setNo(int no) {
+      this.no = no;
+    }
+    
+    public Integer getId() {
+      return id.getId();
+    }
+    
+    @Override
+    public int compareTo(RawRelation rawRelation) {
+      return rawRelation.getId().compareTo(getId());
+    }
+  }
+
+  private TreeSet<RawRelation> rawRelations = new TreeSet<RawRelation>();
+
   private class ConfigHandler extends DefaultHandler {
     private Scenario scenario;
     private Resource resource;
@@ -31,9 +80,7 @@ public class ConfigLoader {
           Store store = new Store(scenario, attributes.getValue("name"));
           scenario.addProducer(store);
         } else if (qname.equalsIgnoreCase("resource")) {
-          if (attributes.getValue("type") == null) {
-            resource = new NullResource(scenario, attributes.getValue("name"));
-          } else if (attributes.getValue("type").equalsIgnoreCase("factory")) {
+          if (attributes.getValue("type").equalsIgnoreCase("factory")) {
             resource = new FactoryResource(scenario);
           } else if (attributes.getValue("type").equalsIgnoreCase("store")) {
             resource = new StoreResource(scenario);
@@ -43,21 +90,20 @@ public class ConfigLoader {
             throw new SAXException("2"); // FIXME
           }
 
-          if (! resource.getType().equals(ResourceType.NULL)) {
-            resource.setName(attributes.getValue("name"));
-            resource.setLevel(Integer.parseInt(attributes.getValue("level")));
-            resource.setTime(Double.parseDouble(attributes.getValue("time")));
-            resource.setValue(Double.parseDouble(attributes.getValue("value")));
-          }
+          resource.setName(attributes.getValue("name"));
+          resource.setLevel(Integer.parseInt(attributes.getValue("level")));
+          resource.setTime(Double.parseDouble(attributes.getValue("time")));
+          resource.setValue(Double.parseDouble(attributes.getValue("value")));
+
         } else if (qname.equalsIgnoreCase("raw")) {
-          System.err.println("raw begin: " + attributes.getValue("resource"));
           if (resource == null || !resource.getType().equals(ResourceType.STORE)) {
             throw new SAXException("3"); // FIXME
           }
+          String name = attributes.getValue("resource");
           StoreResource storeResource = (StoreResource) resource;
-          String rawName = attributes.getValue("resource");
-          Resource rawResource = scenario.getResource(rawName);
-          storeResource.addRaw(rawResource, Integer.parseInt(attributes.getValue("number")));
+          int rawNo = Integer.parseInt(attributes.getValue("number"));
+          RawRelation rawRelation = new RawRelation(storeResource.getName(), name, rawNo);
+          rawRelations.add(rawRelation);
         } else {
           throw new ScboException("rules.xml has bad entity: " + qname);
         }
@@ -72,6 +118,20 @@ public class ConfigLoader {
         System.err
             .println("ending resource " + (resource == null ? "ISNULL" : resource.getName()));
         resource = null;
+      }
+    }
+
+    @Override
+    public void endDocument() throws SAXException {
+      for (RawRelation rawRelation : rawRelations) {
+        try {
+          StoreResource parent = (StoreResource) (scenario.getResource(rawRelation.getParent()));
+          Resource child = scenario.getResource(rawRelation.getChild());
+          int no = rawRelation.getNo();
+          parent.addRaw(child, no);
+        } catch (ScboException exception) {
+          throw new RuntimeException(exception);
+        }
       }
     }
   }
