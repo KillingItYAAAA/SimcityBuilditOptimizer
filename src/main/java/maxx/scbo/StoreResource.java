@@ -9,7 +9,7 @@ public class StoreResource extends Resource {
   private Store store;
   private TreeMap<Resource, Integer> rawMaterials;
   
-  StoreResource(Scenario scenario) {
+  StoreResource(Scenario scenario) throws ScboException {
     super(scenario);
   }
   

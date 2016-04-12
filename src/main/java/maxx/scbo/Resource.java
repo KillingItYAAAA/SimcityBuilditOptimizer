@@ -15,21 +15,21 @@ public abstract class Resource extends ConstraintSource {
   private double value;
   private TreeSet<StoreResource> rawsFor;
 
-  private int idx;
+  private int scenarioIdx;
   private double prodPerMin;
 
-  public Resource(Scenario scenario) {
+  public Resource(Scenario scenario) throws ScboException {
     super(scenario);
   }
 
-  public int getIdx() {
-    return idx;
+  public int getScenarioIdx() {
+    return scenarioIdx;
   }
 
-  public void setIdx(int idx) {
-    this.idx = idx;
+  public void setScenarioIdx(int scenarioIdx) {
+    this.scenarioIdx = scenarioIdx;
   }
-
+  
   public double getProdPerMin() {
     return prodPerMin;
   }
@@ -42,8 +42,20 @@ public abstract class Resource extends ConstraintSource {
     return name;
   }
 
-  public void setName(String name) {
+  /**
+   * Sets the name of a resource. It _must_ have one.
+   * Giving name to the resource it also registers it in its scenario (where it is
+   * identified partially by its name).
+   * 
+   * @param name Name of the resource. May be set only once in its lifetime.
+   * @throws ScboException In case of a second name change it will be throw.
+   */
+  public void setName(String name) throws ScboException {
+    if (this.name != null) {
+      throw new ScboException();
+    }
     this.name = name;
+    getScenario().registerResource(this);
   }
 
   public double getTime() {
@@ -106,7 +118,7 @@ public abstract class Resource extends ConstraintSource {
 
     // at least zero
     RealVector vec = new ArrayRealVector(getScenario().getResourceNo());
-    vec.setEntry(getIdx(), 1);
+    vec.setEntry(getScenarioIdx(), 1);
     LinearConstraint atLeastZero = new LinearConstraint(vec, Relationship.GEQ, 0);
     lc.add(atLeastZero);
 
@@ -124,9 +136,9 @@ public abstract class Resource extends ConstraintSource {
    */
   public RealVector getSaleVec() {
     RealVector coeff = new ArrayRealVector(getScenario().getResourceNo());
-    coeff.setEntry(getIdx(), 1);
+    coeff.setEntry(getScenarioIdx(), 1);
     for (Resource r : getRawsFor()) {
-      coeff.setEntry(r.getIdx(), -1);
+      coeff.setEntry(r.getScenarioIdx(), -1);
     }
     coeff = coeff.mapMultiply(getValue());
     return coeff;

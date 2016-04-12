@@ -9,7 +9,6 @@ import org.apache.commons.math3.optim.linear.LinearObjectiveFunction;
 import org.apache.commons.math3.optim.linear.SimplexSolver;
 import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -23,13 +22,10 @@ import java.util.TreeSet;
 public class Scenario implements Checkable {
   private TreeMap<String, Store> stores = new TreeMap<String, Store>();
   private TreeMap<String, Resource> resources = new TreeMap<String, Resource>();
-  private ArrayList<Resource> resourceList;
   private LinkedList<Producer> producers = new LinkedList<Producer>();
   private TreeSet<ConstraintSource> constraintSources = new TreeSet<ConstraintSource>();
   private Factory factory;
-
-  private int resourceNo = 0;
-
+  
   public Store getStoreByName(String name) {
     return stores.get(name);
   }
@@ -46,20 +42,22 @@ public class Scenario implements Checkable {
     stores.put(store.getName(), store);
   }
 
+  public int getResourceNo() {
+    return resources.keySet().size();
+  }
+  
   /**
    * TODO.
    * 
    * @param resource the resource to add to the scenario.
    * @throws ScboException If it doesn't have a name yet
    */
-  public void addResource(Resource resource) throws ScboException {
+  public void registerResource(Resource resource) throws ScboException {
     if (resources.get(resource.getName()) != null) {
       throw new ScboException("multiple resources in rules.xml: " + resource.getName());
     }
     resources.put(resource.getName(), resource);
-    int idx = resourceNo++;
-    resourceList.add(idx, resource);
-    resource.setIdx(idx);
+    resource.setScenarioIdx(getResourceNo());
   }
 
   public void addConstraintSource(ConstraintSource constraintSource) {
@@ -72,10 +70,6 @@ public class Scenario implements Checkable {
 
   public Resource getResource(String name) {
     return resources.get(name);
-  }
-
-  public int getResourceNo() {
-    return resourceNo;
   }
 
   public Factory getFactory() {
@@ -118,7 +112,7 @@ public class Scenario implements Checkable {
   public PointValuePair calculate() {
     // Calculate objective function
     ArrayRealVector coeffs = new ArrayRealVector(50);
-    for (Resource resource : resourceList) {
+    for (Resource resource : resources.values()) {
       coeffs = coeffs.add(resource.getSaleVec());
     }
     LinearObjectiveFunction lof = new LinearObjectiveFunction(coeffs, 0);

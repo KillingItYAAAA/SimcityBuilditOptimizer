@@ -45,7 +45,7 @@ public class Factory extends Producer {
     // sum(prodPerMin * prodTim) <= slot
     RealVector coeff = new ArrayRealVector(getScenario().getResourceNo());
     for (Resource r : getResources()) {
-      coeff.setEntry(r.getIdx(), r.getTime());
+      coeff.setEntry(r.getScenarioIdx(), r.getTime());
     }
     
     LinearConstraint maxSlotConstraint = new LinearConstraint(coeff, Relationship.LEQ, getSlots());

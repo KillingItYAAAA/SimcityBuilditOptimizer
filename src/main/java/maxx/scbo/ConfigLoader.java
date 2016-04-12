@@ -23,42 +23,43 @@ public class ConfigLoader {
     @Override
     public void startElement(String uri, String localName, String qname, Attributes attributes)
         throws SAXException {
-      if (qname.equalsIgnoreCase("resources")) {
-        //
-      } else if (qname.equalsIgnoreCase("store")) {
-        try {
+      try {
+        if (qname.equalsIgnoreCase("resources")) {
+          //
+        } else if (qname.equalsIgnoreCase("store")) {
           Store store = new Store(scenario, attributes.getValue("name"));
           scenario.addProducer(store);
-        } catch (ScboException exception) {
-          throw new SAXException("1"); // FIXME
-        }
-      } else if (qname.equalsIgnoreCase("resource")) {
-        if (attributes.getValue("type").equalsIgnoreCase("factory")) {
-          resource = new FactoryResource(scenario);
-        } else if (attributes.getValue("type").equalsIgnoreCase("store")) {
-          resource = new StoreResource(scenario);
-          ((StoreResource) resource)
-              .setStore(scenario.getStoreByName(attributes.getValue("store")));
+        } else if (qname.equalsIgnoreCase("resource")) {
+          if (attributes.getValue("type").equalsIgnoreCase("factory")) {
+            resource = new FactoryResource(scenario);
+          } else if (attributes.getValue("type").equalsIgnoreCase("store")) {
+            resource = new StoreResource(scenario);
+            ((StoreResource) resource)
+                .setStore(scenario.getStoreByName(attributes.getValue("store")));
+          } else {
+            throw new SAXException("2"); // FIXME
+          }
+          resource.setLevel(Integer.parseInt(attributes.getValue("level")));
+          resource.setName(attributes.getValue("name"));
+          resource.setTime(Double.parseDouble(attributes.getValue("time")));
+          resource.setValue(Double.parseDouble(attributes.getValue("value")));
+        } else if (qname.equalsIgnoreCase("raw")) {
+          if (resource == null || resource.getType() != ResourceType.STORE) {
+            throw new SAXException("3"); // FIXME
+          }
+          StoreResource storeResource = (StoreResource) resource;
+          String rawName = attributes.getValue("resource");
+          Resource rawResource = scenario.getResource(rawName);
+          try {
+            storeResource.addRaw(rawResource, Integer.parseInt(attributes.getValue("number")));
+          } catch (ScboException exception) {
+            throw new SAXException("4"); // FIXME
+          }
         } else {
-          throw new SAXException("2"); // FIXME
+          throw new ScboException("rules.xml has bad entity: " + qname);
         }
-        resource.setLevel(Integer.parseInt(attributes.getValue("level")));
-        resource.setName(attributes.getValue("name"));
-        resource.setTime(Double.parseDouble(attributes.getValue("time")));
-        resource.setValue(Double.parseDouble(attributes.getValue("value")));
-      } else if (qname.equalsIgnoreCase("raw")) {
-        if (resource == null || resource.getType() != ResourceType.STORE) {
-          throw new SAXException("3"); // FIXME
-        }
-        StoreResource storeResource = (StoreResource) resource;
-        Resource rawResource = scenario.getResource(attributes.getValue("name"));
-        try {
-          storeResource.addRaw(rawResource, Integer.parseInt(attributes.getValue("number")));
-        } catch (ScboException exception) {
-          throw new SAXException("4"); // FIXME
-        }
-      } else {
-        throw new SAXException("rules.xml has bad entity: " + qname);
+      } catch (ScboException exception) {
+        throw new SAXException("1"); // FIXME
       }
     }
 
@@ -69,7 +70,7 @@ public class ConfigLoader {
   }
 
   /**
-   TODO.
+   * TODO.
    * 
    * @param scenario
    *          The scenario to load the things into.
