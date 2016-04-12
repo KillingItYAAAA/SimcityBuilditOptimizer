@@ -88,7 +88,7 @@ public class ConfigLoader {
       ConfigHandler configHandler = new ConfigHandler(scenario);
       saxParser.parse(file, configHandler);
     } catch (SAXException | ParserConfigurationException | IOException exception) {
-      throw new ScboException("rules.xml resource invalid");
+      throw new ScboException(exception);
     }
   }
 }
