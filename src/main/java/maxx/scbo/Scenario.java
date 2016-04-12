@@ -26,6 +26,9 @@ public class Scenario implements Checkable {
   private TreeSet<ConstraintSource> constraintSources = new TreeSet<ConstraintSource>();
   private Factory factory;
   
+  private TreeMap<Integer, Resource> resourcesByIdx = new TreeMap<Integer, Resource>();
+  private int resourceNo = 0;
+  
   public Store getStoreByName(String name) {
     return stores.get(name);
   }
@@ -43,7 +46,7 @@ public class Scenario implements Checkable {
   }
 
   public int getResourceNo() {
-    return resources.keySet().size();
+    return this.resourceNo;
   }
   
   /**
@@ -57,7 +60,9 @@ public class Scenario implements Checkable {
       throw new ScboException("multiple resources in rules.xml: " + resource.getName());
     }
     resources.put(resource.getName(), resource);
-    resource.setScenarioIdx(getResourceNo());
+    resource.setScenarioIdx(resourceNo);
+    resourcesByIdx.put(resourceNo, resource);
+    resourceNo++;
   }
 
   /**
@@ -66,6 +71,7 @@ public class Scenario implements Checkable {
    * @param resource TODO.
    * @throws ScboException TODO.
    */
+  @Deprecated
   public void unregisterResource(Resource resource) throws ScboException {
     if (resources.get(resource.getName()) == null) {
       throw new ScboException("can only unregister an already registered resource");
@@ -89,6 +95,10 @@ public class Scenario implements Checkable {
 
   public Resource getResource(String name) {
     return resources.get(name);
+  }
+  
+  public Resource getResourceByIdx(int idx) {
+    return resourcesByIdx.get(idx);
   }
 
   public Factory getFactory() {
@@ -130,8 +140,9 @@ public class Scenario implements Checkable {
    */
   public PointValuePair calculate() {
     // Calculate objective function
-    ArrayRealVector coeffs = new ArrayRealVector(50);
-    for (Resource resource : resources.values()) {
+    ArrayRealVector coeffs = new ArrayRealVector(getResourceNo());
+    for (int idx=0; idx<getResourceNo(); idx++) {
+      Resource resource = getResourceByIdx(idx);
       coeffs = coeffs.add(resource.getSaleVec());
     }
     LinearObjectiveFunction lof = new LinearObjectiveFunction(coeffs, 0);
