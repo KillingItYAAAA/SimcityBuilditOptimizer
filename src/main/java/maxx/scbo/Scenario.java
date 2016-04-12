@@ -21,8 +21,8 @@ import java.util.TreeSet;
  *
  */
 public class Scenario implements Checkable {
-  private TreeMap<String, Store> stores;
-  private TreeMap<String, Resource> resources;
+  private TreeMap<String, Store> stores = new TreeMap<String, Store>();
+  private TreeMap<String, Resource> resources = new TreeMap<String, Resource>();
   private ArrayList<Resource> resourceList;
   private LinkedList<Producer> producers = new LinkedList<Producer>();
   private TreeSet<ConstraintSource> constraintSources = new TreeSet<ConstraintSource>();

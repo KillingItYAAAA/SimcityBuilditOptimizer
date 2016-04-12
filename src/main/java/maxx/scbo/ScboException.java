@@ -5,7 +5,7 @@ public class ScboException extends Exception {
   
   ScboException(String message) {
     super(message);
-    throw new RuntimeException("MaXX: "+message);
+    throw new RuntimeException("MaXX: " + message);
   }
   
   ScboException(Exception exception) {

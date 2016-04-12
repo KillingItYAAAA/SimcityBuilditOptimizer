@@ -7,4 +7,4 @@ public class Id {
   public int getId() {
     return id;
   }
-};
+}

@@ -4,13 +4,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import java.io.File;
-import java.io.InputStream;
 import java.io.IOException;
-
-import java.net.URI;
-import java.net.URL;
-import java.net.URISyntaxException;
+import java.io.InputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -38,7 +33,6 @@ public class ConfigLoader {
           throw new SAXException("1"); // FIXME
         }
       } else if (qname.equalsIgnoreCase("resource")) {
-        Resource resource;
         if (attributes.getValue("type").equalsIgnoreCase("factory")) {
           resource = new FactoryResource(scenario);
         } else if (attributes.getValue("type").equalsIgnoreCase("store")) {
@@ -75,7 +69,7 @@ public class ConfigLoader {
   }
 
   /**
-   * TODO.
+   TODO.
    * 
    * @param scenario
    *          The scenario to load the things into.

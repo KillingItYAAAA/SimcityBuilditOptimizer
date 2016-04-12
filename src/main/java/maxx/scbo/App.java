@@ -56,13 +56,12 @@ public class App {
     try {
       ConfigLoader configLoader = new ConfigLoader();
       Scenario scenario = new Scenario();
-      PointValuePair solution;
-
       Factory factory = new Factory(scenario);
       factory.setSlots(50);
       configLoader.loadInto(scenario);
       scenario.checkValid();
-      solution = scenario.calculate();
+      
+      PointValuePair solution = scenario.calculate();
       System.out.println("Solution:\nValue: " + solution.getValue() + " at "
           + Arrays.toString(solution.getKey()));
       
