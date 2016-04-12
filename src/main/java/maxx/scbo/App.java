@@ -58,9 +58,9 @@ public class App {
       Scenario scenario = new Scenario();
       PointValuePair solution;
 
-      configLoader.loadInto(scenario);
       Factory factory = new Factory(scenario);
       factory.setSlots(50);
+      configLoader.loadInto(scenario);
       scenario.checkValid();
       solution = scenario.calculate();
       System.out.println("Solution:\nValue: " + solution.getValue() + " at "

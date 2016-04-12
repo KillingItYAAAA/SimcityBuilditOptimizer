@@ -3,7 +3,7 @@ package maxx.scbo;
 import java.util.LinkedList;
 
 public abstract class Producer extends ConstraintSource {
-  private LinkedList<Resource> resources;
+  private LinkedList<Resource> resources = new LinkedList<Resource>();
 
   public Producer(Scenario scenario) throws ScboException {
     super(scenario);

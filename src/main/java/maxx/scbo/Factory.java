@@ -33,6 +33,7 @@ public class Factory extends Producer {
   
   public Factory(Scenario scenario) throws ScboException {
     super(scenario);
+    getScenario().setFactory(this);
   }
 
   /**

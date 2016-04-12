@@ -24,8 +24,8 @@ public class Scenario implements Checkable {
   private TreeMap<String, Store> stores;
   private TreeMap<String, Resource> resources;
   private ArrayList<Resource> resourceList;
-  private LinkedList<Producer> producers;
-  private TreeSet<ConstraintSource> constraintSources;
+  private LinkedList<Producer> producers = new LinkedList<Producer>();
+  private TreeSet<ConstraintSource> constraintSources = new TreeSet<ConstraintSource>();
   private Factory factory;
 
   private int resourceNo = 0;
