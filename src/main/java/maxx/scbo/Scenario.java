@@ -25,10 +25,10 @@ public class Scenario implements Checkable {
   private LinkedList<Producer> producers = new LinkedList<Producer>();
   private TreeSet<ConstraintSource> constraintSources = new TreeSet<ConstraintSource>();
   private Factory factory;
-  
+
   private TreeMap<Integer, Resource> resourcesByIdx = new TreeMap<Integer, Resource>();
   private int resourceNo = 0;
-  
+
   public Store getStoreByName(String name) {
     return stores.get(name);
   }
@@ -48,12 +48,14 @@ public class Scenario implements Checkable {
   public int getResourceNo() {
     return this.resourceNo;
   }
-  
+
   /**
    * TODO.
    * 
-   * @param resource the resource to add to the scenario.
-   * @throws ScboException If it doesn't have a name yet
+   * @param resource
+   *          the resource to add to the scenario.
+   * @throws ScboException
+   *           If it doesn't have a name yet
    */
   public void registerResource(Resource resource) throws ScboException {
     if (resources.get(resource.getName()) != null) {
@@ -68,8 +70,10 @@ public class Scenario implements Checkable {
   /**
    * Unregisters a resource from a scenario.
    * 
-   * @param resource TODO.
-   * @throws ScboException TODO.
+   * @param resource
+   *          TODO.
+   * @throws ScboException
+   *           TODO.
    */
   @Deprecated
   public void unregisterResource(Resource resource) throws ScboException {
@@ -80,11 +84,11 @@ public class Scenario implements Checkable {
     resource.setScenarioIdx(0);
     resource.setScenario(null);
   }
-  
+
   public boolean hasResource(String name) {
     return resources.containsKey(name);
   }
-  
+
   public void addConstraintSource(ConstraintSource constraintSource) {
     constraintSources.add(constraintSource);
   }
@@ -96,7 +100,7 @@ public class Scenario implements Checkable {
   public Resource getResource(String name) {
     return resources.get(name);
   }
-  
+
   public Resource getResourceByIdx(int idx) {
     return resourcesByIdx.get(idx);
   }
@@ -108,8 +112,10 @@ public class Scenario implements Checkable {
   /**
    * TODO.
    * 
-   * @param factory TODO
-   * @throws ScboException TODO
+   * @param factory
+   *          TODO
+   * @throws ScboException
+   *           TODO
    */
   public void setFactory(Factory factory) throws ScboException {
     if (this.factory != null) {
@@ -141,7 +147,7 @@ public class Scenario implements Checkable {
   public PointValuePair calculate() {
     // Calculate objective function
     ArrayRealVector coeffs = new ArrayRealVector(getResourceNo());
-    for (int idx=0; idx<getResourceNo(); idx++) {
+    for (int idx = 0; idx < getResourceNo(); idx++) {
       Resource resource = getResourceByIdx(idx);
       coeffs = coeffs.add(resource.getSaleVec());
     }
@@ -156,7 +162,12 @@ public class Scenario implements Checkable {
 
     // solve the problem
     SimplexSolver solver = new SimplexSolver();
-    PointValuePair solution = solver.optimize(new MaxIter(100), lof,
+    for (Object lco : allConstraints.toArray()) {
+      LinearConstraint lc = (LinearConstraint) lco;
+      System.err.println(lc.getCoefficients().toString() + " " + lc.getRelationship().toString()
+          + " " + lc.getValue());
+    }
+    PointValuePair solution = solver.optimize(new MaxIter(10000), lof,
         new LinearConstraintSet(allConstraints), GoalType.MAXIMIZE);
     return solution;
   }

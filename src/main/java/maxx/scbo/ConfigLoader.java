@@ -76,9 +76,6 @@ public class ConfigLoader {
     public void endDocument() throws SAXException {
       for (RawRelation rawRelation : rawRelations) {
         try {
-          System.err.println("rawRelation: " + rawRelation.getParent() + ","
-              + rawRelation.getChild() + "," + rawRelation.getNo());
-
           StoreResource parent = (StoreResource) (scenario.getResource(rawRelation.getParent()));
           Resource child = scenario.getResource(rawRelation.getChild());
           int no = rawRelation.getNo();
