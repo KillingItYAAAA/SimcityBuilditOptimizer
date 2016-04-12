@@ -59,6 +59,17 @@ public class StoreResource extends Resource {
     return rawMaterials.containsKey(resource);
   }
   
+  public int getNumRaws(Resource resource) {
+    return rawMaterials.get(resource);
+  }
+  
+  public void removeRaw(Resource raw) throws ScboException {
+    if (rawMaterials.get(raw) == null) {
+      throw new ScboException("can't remove not registered raw resource");
+    }
+    rawMaterials.remove(raw);
+  }
+  
   @Override
   public LinkedList<LinearConstraint> getConstraints() {
     return super.getConstraints();

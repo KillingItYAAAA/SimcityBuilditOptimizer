@@ -29,7 +29,7 @@ public abstract class Resource extends ConstraintSource {
   public void setScenarioIdx(int scenarioIdx) {
     this.scenarioIdx = scenarioIdx;
   }
-  
+
   public double getProdPerMin() {
     return prodPerMin;
   }
@@ -43,19 +43,31 @@ public abstract class Resource extends ConstraintSource {
   }
 
   /**
-   * Sets the name of a resource. It _must_ have one.
-   * Giving name to the resource it also registers it in its scenario (where it is
-   * identified partially by its name).
+   * Sets the name of a resource. It _must_ have one. Giving name to the
+   * resource it also registers it in its scenario (where it is identified
+   * partially by its name).
    * 
-   * @param name Name of the resource. May be set only once in its lifetime.
-   * @throws ScboException In case of a second name change it will be throw.
+   * @param name
+   *          Name of the resource. May be set only once in its lifetime.
+   * @throws ScboException
+   *           In case of a second name change it will be throw.
    */
   public void setName(String name) throws ScboException {
     if (this.name != null) {
       throw new ScboException();
     }
+
     this.name = name;
-    getScenario().registerResource(this);
+    
+    if (getScenario().hasResource(name)) {
+      Resource pred = getScenario().getResource(name);
+      if (pred.getType() != ResourceType.NULL) {
+        throw new ScboException("resource " + name + " declared multiple times");
+      }
+      ((NullResource)pred).castTo(this);
+    } else {
+      getScenario().registerResource(this);
+    }
   }
 
   public double getTime() {

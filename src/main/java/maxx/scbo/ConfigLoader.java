@@ -6,6 +6,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.TreeSet;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -15,6 +16,7 @@ public class ConfigLoader {
   private class ConfigHandler extends DefaultHandler {
     private Scenario scenario;
     private Resource resource;
+    private TreeSet<String> predeclRes = new TreeSet<String>();
 
     ConfigHandler(Scenario scenario) {
       this.scenario = scenario;
@@ -24,13 +26,16 @@ public class ConfigLoader {
     public void startElement(String uri, String localName, String qname, Attributes attributes)
         throws SAXException {
       try {
+        boolean predecl = false;
         if (qname.equalsIgnoreCase("resources")) {
           //
         } else if (qname.equalsIgnoreCase("store")) {
           Store store = new Store(scenario, attributes.getValue("name"));
           scenario.addProducer(store);
         } else if (qname.equalsIgnoreCase("resource")) {
-          if (attributes.getValue("type").equalsIgnoreCase("factory")) {
+          if (attributes.getValue("type") == null) {
+            resource = new NullResource(scenario);
+          } else if (attributes.getValue("type").equalsIgnoreCase("factory")) {
             resource = new FactoryResource(scenario);
           } else if (attributes.getValue("type").equalsIgnoreCase("store")) {
             resource = new StoreResource(scenario);
@@ -39,23 +44,26 @@ public class ConfigLoader {
           } else {
             throw new SAXException("2"); // FIXME
           }
-          resource.setLevel(Integer.parseInt(attributes.getValue("level")));
-          resource.setName(attributes.getValue("name"));
-          resource.setTime(Double.parseDouble(attributes.getValue("time")));
-          resource.setValue(Double.parseDouble(attributes.getValue("value")));
+
+          if (!predecl) {
+            String resName = attributes.getValue("name");
+            if (predeclRes.contains(resName)) {
+              predeclRes.remove(resName);
+            }
+            resource.setName(attributes.getValue("name"));
+            resource.setLevel(Integer.parseInt(attributes.getValue("level")));
+            resource.setTime(Double.parseDouble(attributes.getValue("time")));
+            resource.setValue(Double.parseDouble(attributes.getValue("value")));
+          }
         } else if (qname.equalsIgnoreCase("raw")) {
-          System.err.println("type =" + resource.getType() + ", should be: " + ResourceType.STORE);
+          System.err.println("raw begin: " + attributes.getValue("resource"));
           if (resource == null || !resource.getType().equals(ResourceType.STORE)) {
             throw new SAXException("3"); // FIXME
           }
           StoreResource storeResource = (StoreResource) resource;
           String rawName = attributes.getValue("resource");
           Resource rawResource = scenario.getResource(rawName);
-          try {
-            storeResource.addRaw(rawResource, Integer.parseInt(attributes.getValue("number")));
-          } catch (ScboException exception) {
-            throw new SAXException("4"); // FIXME
-          }
+          storeResource.addRaw(rawResource, Integer.parseInt(attributes.getValue("number")));
         } else {
           throw new ScboException("rules.xml has bad entity: " + qname);
         }
@@ -66,7 +74,11 @@ public class ConfigLoader {
 
     @Override
     public void endElement(String uri, String localName, String qname) throws SAXException {
-      resource = null;
+      if (qname.equalsIgnoreCase("resource")) {
+        System.err
+            .println("ending resource " + (resource == null ? "ISNULL" : resource.getName()));
+        resource = null;
+      }
     }
   }
 

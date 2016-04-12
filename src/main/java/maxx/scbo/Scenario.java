@@ -60,6 +60,18 @@ public class Scenario implements Checkable {
     resource.setScenarioIdx(getResourceNo());
   }
 
+  public void unregisterResource(Resource resource) throws ScboException {
+    if (resources.get(resource.getName()) == null) {
+      throw new ScboException("can only unregister already registered resource");
+    }
+    resources.remove(resource.getName());
+    resource.setScenarioIdx(0);
+  }
+  
+  public boolean hasResource(String name) {
+    return resources.containsKey(name);
+  }
+  
   public void addConstraintSource(ConstraintSource constraintSource) {
     constraintSources.add(constraintSource);
   }
