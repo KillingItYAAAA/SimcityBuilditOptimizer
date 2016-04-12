@@ -5,7 +5,12 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.File;
+import java.io.InputStream;
 import java.io.IOException;
+
+import java.net.URI;
+import java.net.URL;
+import java.net.URISyntaxException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -80,13 +85,13 @@ public class ConfigLoader {
    */
   public void loadInto(Scenario scenario) throws ScboException {
     ClassLoader classLoader = App.class.getClassLoader();
-    File file = new File(classLoader.getResource("rules.xml").getFile());
-    SAXParserFactory factory = SAXParserFactory.newInstance();
-    SAXParser saxParser;
     try {
+      InputStream rulesStream = classLoader.getResourceAsStream("rules.xml");
+      SAXParserFactory factory = SAXParserFactory.newInstance();
+      SAXParser saxParser;
       saxParser = factory.newSAXParser();
       ConfigHandler configHandler = new ConfigHandler(scenario);
-      saxParser.parse(file, configHandler);
+      saxParser.parse(rulesStream, configHandler);
     } catch (SAXException | ParserConfigurationException | IOException exception) {
       throw new ScboException(exception);
     }
