@@ -167,7 +167,7 @@ public class Scenario implements Checkable {
       System.err.println(lc.getCoefficients().toString() + " " + lc.getRelationship().toString()
           + " " + lc.getValue());
     }
-    PointValuePair solution = solver.optimize(new MaxIter(10000), lof,
+    PointValuePair solution = solver.optimize(new MaxIter(1000000), lof,
         new LinearConstraintSet(allConstraints), GoalType.MAXIMIZE);
     return solution;
   }
