@@ -44,7 +44,8 @@ public class ConfigLoader {
           resource.setTime(Double.parseDouble(attributes.getValue("time")));
           resource.setValue(Double.parseDouble(attributes.getValue("value")));
         } else if (qname.equalsIgnoreCase("raw")) {
-          if (resource == null || resource.getType() != ResourceType.STORE) {
+          System.err.println("type =" + resource.getType() + ", should be: " + ResourceType.STORE);
+          if (resource == null || !resource.getType().equals(ResourceType.STORE)) {
             throw new SAXException("3"); // FIXME
           }
           StoreResource storeResource = (StoreResource) resource;
