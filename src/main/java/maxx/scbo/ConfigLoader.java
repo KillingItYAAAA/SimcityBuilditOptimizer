@@ -68,8 +68,6 @@ public class ConfigLoader {
     @Override
     public void endElement(String uri, String localName, String qname) throws SAXException {
       if (qname.equalsIgnoreCase("resource")) {
-        System.err
-            .println("ending resource " + (resource == null ? "ISNULL" : resource.getName()));
         resource = null;
       }
     }
@@ -78,6 +76,9 @@ public class ConfigLoader {
     public void endDocument() throws SAXException {
       for (RawRelation rawRelation : rawRelations) {
         try {
+          System.err.println("rawRelation: " + rawRelation.getParent() + ","
+              + rawRelation.getChild() + "," + rawRelation.getNo());
+
           StoreResource parent = (StoreResource) (scenario.getResource(rawRelation.getParent()));
           Resource child = scenario.getResource(rawRelation.getChild());
           int no = rawRelation.getNo();

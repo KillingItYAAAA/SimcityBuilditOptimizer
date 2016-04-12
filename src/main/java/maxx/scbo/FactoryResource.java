@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 public class FactoryResource extends Resource {
   public ResourceType getType() {
-    return ResourceType.STORE;
+    return ResourceType.FACTORY;
   }
   
   FactoryResource(Scenario scenario) throws ScboException {

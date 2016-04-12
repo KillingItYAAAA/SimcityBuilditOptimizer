@@ -292,7 +292,7 @@
   <resource name="BBQ Grill" type="store" store="Home Appliances"
     time="165" level="29" value="530">
     <raw resource="Metal" number="3" />
-    <raw resource="Cooking Utensil" number="1" />
+    <raw resource="Cooking Utensils" number="1" />
   </resource>
   <resource name="Refrigerator" type="store" store="Home Appliances"
     time="210" level="35" value="1060">

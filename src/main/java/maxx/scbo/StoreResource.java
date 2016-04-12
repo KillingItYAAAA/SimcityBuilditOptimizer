@@ -28,9 +28,6 @@ public class StoreResource extends Resource {
   @Override
   public void checkValid() throws ScboException {
     super.checkValid();
-    if (getScenario().getStoreByName(getName()) == null) {
-      throw new ScboException();
-    }
     for (Resource r : rawMaterials.keySet()) {
       if (!r.isRawFor(this)) {
         throw new ScboException();

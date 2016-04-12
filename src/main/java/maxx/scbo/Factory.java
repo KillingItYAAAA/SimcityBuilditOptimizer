@@ -25,7 +25,7 @@ public class Factory extends Producer {
       throw new ScboException();
     }
     for (Resource r : getResources()) {
-      if (r.getType() != ResourceType.FACTORY) {
+      if (! r.getType().equals(ResourceType.FACTORY)) {
         throw new ScboException();
       }
     }

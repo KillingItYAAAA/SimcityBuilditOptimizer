@@ -33,6 +33,9 @@ public class Store extends Producer {
     if (name == null || "".equals(name)) {
       throw new ScboException();
     }
+    if (getScenario().getStoreByName(getName()) == null) {
+      throw new ScboException();
+    }
     for (Resource r : getResources()) {
       if (r.getType() != ResourceType.STORE) {
         throw new ScboException();
