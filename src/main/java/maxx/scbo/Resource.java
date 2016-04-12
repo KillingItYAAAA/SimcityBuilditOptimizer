@@ -13,7 +13,7 @@ public abstract class Resource extends ConstraintSource {
   private double time;
   private int level;
   private double value;
-  private TreeSet<StoreResource> rawsFor;
+  private TreeSet<StoreResource> rawsFor = new TreeSet<StoreResource>();
 
   private int scenarioIdx;
   private double prodPerMin;

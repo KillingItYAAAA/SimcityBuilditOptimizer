@@ -43,7 +43,7 @@ public class ConfigLoader {
             throw new SAXException("2"); // FIXME
           }
 
-          if (resource.getType() != ResourceType.NULL) {
+          if (! resource.getType().equals(ResourceType.NULL)) {
             resource.setName(attributes.getValue("name"));
             resource.setLevel(Integer.parseInt(attributes.getValue("level")));
             resource.setTime(Double.parseDouble(attributes.getValue("time")));

@@ -53,6 +53,7 @@ public class StoreResource extends Resource {
       throw new ScboException("same resource added twice as raw material: " + raw.getName());
     }
     rawMaterials.put(raw, number);
+    raw.addRawsFor(this);
   }
   
   public boolean hasRaw(Resource resource) {

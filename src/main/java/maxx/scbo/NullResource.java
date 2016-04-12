@@ -13,10 +13,11 @@ public class NullResource extends Resource {
    * @throws ScboException TODO.
    */
   public void castTo(Resource resource) throws ScboException {
-    getScenario().unregisterResource(this);
-    getScenario().registerResource(resource);
+    Scenario scenario = getScenario();
+    scenario.unregisterResource(this);
+    scenario.registerResource(resource);
     for (StoreResource rawFor : getRawsFor()) {
-      int numRaw = rawFor.getNumRaws(resource);
+      int numRaw = rawFor.getNumRaws(this);
       rawFor.removeRaw(this);
       rawFor.addRaw(resource, numRaw);
     }
