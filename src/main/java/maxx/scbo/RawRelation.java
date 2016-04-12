@@ -1,5 +1,12 @@
 package maxx.scbo;
 
+/**
+ * Intermediate, text-only representation of a raw-resource relationship. Needed to handle
+ * the rawresources in a second pass after the raw config interpretation.
+ * 
+ * @author phorvath
+ *
+ */
 public class RawRelation implements Comparable<RawRelation> {
   private Id id = new Id();
 

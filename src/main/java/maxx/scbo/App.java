@@ -54,11 +54,11 @@ public class App {
    */
   public static void main(String[] args) {
     try {
-      ConfigLoader configLoader = new ConfigLoader();
       Scenario scenario = new Scenario();
+      ConfigLoader configLoader = new ConfigLoader(scenario);
       Factory factory = new Factory(scenario);
       factory.setSlots(50);
-      configLoader.loadInto(scenario);
+      configLoader.loadInto();
       scenario.checkValid();
       
       PointValuePair solution = scenario.calculate();
