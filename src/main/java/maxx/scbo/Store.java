@@ -9,6 +9,8 @@ import java.util.LinkedList;
 
 public class Store extends Producer {
   private String name;
+  private int level = 0;
+  static final double[] levelMultiplier = new double[] {1.0, 0.9, 0.85, 0.8};
 
   public String getName() {
     return name;
@@ -25,6 +27,18 @@ public class Store extends Producer {
       throw new ScboException();
     }
     this.name = name;
+  }
+
+  public int getLevel() {
+    return level;
+  }
+  
+  public void setLevel(int level) {
+    this.level = level;
+  }
+
+  public double getLevelMultiplier() {
+    return levelMultiplier[level];
   }
   
   @Override

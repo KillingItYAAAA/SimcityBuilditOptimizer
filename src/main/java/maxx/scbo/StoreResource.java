@@ -1,9 +1,6 @@
 package maxx.scbo;
 
-import org.apache.commons.math3.linear.ArrayRealVector;
-import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.optim.linear.LinearConstraint;
-import org.apache.commons.math3.optim.linear.Relationship;
 
 import java.util.LinkedList;
 import java.util.TreeMap;
@@ -16,6 +13,12 @@ public class StoreResource extends Resource {
     super(scenario);
   }
 
+  @Override
+  public double getTime() {
+    double levelMultiplier = (store == null ? 1 : store.getLevelMultiplier());
+    return levelMultiplier * super.getTime();
+  }
+  
   public Store getStore() {
     return store;
   }

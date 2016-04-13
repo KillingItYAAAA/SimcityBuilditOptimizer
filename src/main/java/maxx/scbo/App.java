@@ -62,6 +62,15 @@ public class App {
       Factory factory = new Factory(scenario);
       factory.setSlots(50);
       configLoader.loadInto();
+      scenario.getStoreByName("Building Supply").setLevel(3);
+      scenario.getStoreByName("Hardware Store").setLevel(3);
+      scenario.getStoreByName("Farmer's Market").setLevel(3);
+      scenario.getStoreByName("Furniture Store").setLevel(3);
+      scenario.getStoreByName("Gardening Supplies").setLevel(2);
+      scenario.getStoreByName("Donut Shop").setLevel(2);
+      scenario.getStoreByName("Fashion Store").setLevel(1);
+      scenario.getStoreByName("Fast Food Restaurant").setLevel(1);
+      scenario.getStoreByName("Home Appliances").setLevel(1);
       scenario.checkValid();
 
       PointValuePair solution = scenario.calculate();
