@@ -90,18 +90,16 @@ public class StoreResource extends Resource {
   public LinkedList<LinearConstraint> getConstraints() {
     LinkedList<LinearConstraint> lc = super.getConstraints();
 
-    // VERY DEAD CODE
-    if (0 == lc.size()+1) {
-      for (Resource raw : rawMaterials.keySet()) {
-        // every production rate must be smaller as the prod rate of any of its
-        // raw resources
-        RealVector vec = new ArrayRealVector(getScenario().getResourceNo());
-        vec.setEntry(getScenarioIdx(), -1.0 / getTime());
-        vec.setEntry(raw.getScenarioIdx(), 1.0 / raw.getTime() / rawMaterials.get(raw));
-        LinearConstraint needMoreRaw = new LinearConstraint(vec, Relationship.GEQ, 0);
-        lc.add(needMoreRaw);
-      }
-    }
+    // here were a little bit of constraint generation (made unneeded)
+    /*
+     * for (Resource raw : rawMaterials.keySet()) { // every production rate
+     * must be smaller as the prod rate of any of its // raw resources
+     * RealVector vec = new ArrayRealVector(getScenario().getResourceNo());
+     * vec.setEntry(getScenarioIdx(), -1.0 / getTime());
+     * vec.setEntry(raw.getScenarioIdx(), 1.0 / raw.getTime() /
+     * rawMaterials.get(raw)); LinearConstraint needMoreRaw = new
+     * LinearConstraint(vec, Relationship.GEQ, 0); lc.add(needMoreRaw); } }
+     */
 
     return lc;
   }

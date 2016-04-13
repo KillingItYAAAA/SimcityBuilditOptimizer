@@ -70,6 +70,9 @@ public class App {
 
       double[] result = solution.getKey();
       DecimalFormat df = new DecimalFormat("#.#####");
+      
+      double sum = 0;
+      
       for (int i = 0; i < scenario.getResourceNo(); i++) {
         if (Math.abs(result[i]) < 0.0001) {
           continue;
@@ -94,10 +97,14 @@ public class App {
         double sold = left * resource.getValue();
 
         String outText = StringUtils.join(outDesc, ", ");
-        System.err.println(resName + ": " + produced + " " + outText + " left: " + df.format(left)
-            + " (" + df.format(sold) + ")");
+        System.err.println(resName + ": " + produced + " " + outText + " left: "
+            + df.format(left * 1440) + " (" + df.format(sold * 1440) + ")");
+        
+        sum += sold;
       }
 
+      System.err.println("Daily sales: " + df.format(sum * 1440));
+      
     } catch (ScboException exception) {
       System.err.println("Fatal internal error: " + exception.getMessage());
       throw new RuntimeException(exception);

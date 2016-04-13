@@ -162,11 +162,12 @@ public class Scenario implements Checkable {
 
     // solve the problem
     SimplexSolver solver = new SimplexSolver();
-    for (Object lco : allConstraints.toArray()) {
-      LinearConstraint lc = (LinearConstraint) lco;
-      System.err.println(lc.getCoefficients().toString() + " " + lc.getRelationship().toString()
-          + " " + lc.getValue());
-    }
+    /*
+     * for (Object lco : allConstraints.toArray()) { LinearConstraint lc =
+     * (LinearConstraint) lco;
+     * System.err.println(lc.getCoefficients().toString() + " " +
+     * lc.getRelationship().toString() + " " + lc.getValue()); }
+     */
     PointValuePair solution = solver.optimize(new MaxIter(1000000), lof,
         new LinearConstraintSet(allConstraints), GoalType.MAXIMIZE);
     return solution;

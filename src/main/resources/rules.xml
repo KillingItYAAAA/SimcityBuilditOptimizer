@@ -1,15 +1,17 @@
 <?xml version="1.0"?>
 <resources>
-  <!--<resource name="Metal" type="factory" time="1" level="1" value="0" 
-    /> <resource name="Wood" type="factory" time="3" level="2" value="0" />
+  <!--
+  <resource name="Metal" type="factory" time="1" level="1"
+    value="0" />
+  <resource name="Wood" type="factory" time="3" level="2"
+    value="0" />
   <resource name="Plastic" type="factory" time="9" level="5"
     value="0" />
   <resource name="Seeds" type="factory" time="20" level="7"
     value="0" />
   <resource name="Minerals" type="factory" time="30" level="11"
     value="0" />
-  <resource name="Chemicals" type="factory" time="120" level="13"
-    value="0" />-->
+  -->
   <resource name="Metal" type="factory" time="1" level="1"
     value="10" />
   <resource name="Wood" type="factory" time="3" level="2"
