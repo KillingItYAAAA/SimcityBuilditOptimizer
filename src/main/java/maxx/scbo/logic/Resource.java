@@ -1,5 +1,6 @@
 package maxx.scbo.logic;
 
+import maxx.scbo.helper.Id;
 import maxx.scbo.helper.ScboException;
 
 import org.apache.commons.math3.linear.ArrayRealVector;
@@ -17,15 +18,16 @@ public abstract class Resource extends ConstraintSource {
   private double value;
   private TreeSet<StoreResource> rawsFor = new TreeSet<StoreResource>();
 
-  private int scenarioIdx;
+  private Id scenarioIdx;
   private double prodPerMin; // calculated result
 
   public Resource(Scenario scenario) throws ScboException {
     super(scenario);
+    scenarioIdx = scenario.getIdFactory().get();
   }
 
   public int getScenarioIdx() {
-    return scenarioIdx;
+    return scenarioIdx.getId();
   }
 
   public void setScenarioIdx(int scenarioIdx) {

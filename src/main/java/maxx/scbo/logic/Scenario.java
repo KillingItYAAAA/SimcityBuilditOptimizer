@@ -1,6 +1,7 @@
 package maxx.scbo.logic;
 
 import maxx.scbo.helper.Checkable;
+import maxx.scbo.helper.IdFactory;
 import maxx.scbo.helper.ScboException;
 
 import org.apache.commons.math3.linear.ArrayRealVector;
@@ -31,6 +32,12 @@ public class Scenario implements Checkable {
 
   private TreeMap<Integer, Resource> resourcesByIdx = new TreeMap<Integer, Resource>();
   private int resourceNo = 0;
+
+  private IdFactory idFactory = new IdFactory();
+  
+  public IdFactory getIdFactory() {
+    return idFactory;
+  }
 
   public Store getStoreByName(String name) {
     return stores.get(name);
