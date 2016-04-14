@@ -1,7 +1,7 @@
 package maxx.scbo.helper;
 
-public class Id {
-  private int id;
+public class Id implements Comparable<Id> {
+  private Integer id;
 
   public Id(IdFactory idFactory) throws ScboException {
     setId(idFactory.get().getId());
@@ -15,11 +15,16 @@ public class Id {
     setId(id);
   }
   
-  public int getId() {
+  public Integer getId() {
     return id;
   }
   
   private void setId(int id) {
-    this.id = id;
+    this.id = new Integer(id);
+  }
+  
+  @Override
+  public int compareTo(Id id) {
+    return getId().compareTo(id.getId());
   }
 }
