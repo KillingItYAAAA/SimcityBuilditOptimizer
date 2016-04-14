@@ -59,6 +59,13 @@ public class Store extends Producer {
     }
   }
   
+  /**
+   * TODO.
+   * 
+   * @param scenario TODO
+   * @param name TODO
+   * @throws ScboException TODO
+   */
   public Store(Scenario scenario, String name) throws ScboException {
     super(scenario);
     setName(name);

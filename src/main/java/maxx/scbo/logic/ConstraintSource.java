@@ -15,6 +15,12 @@ public abstract class ConstraintSource implements Checkable, Comparable<Constrai
 
   public abstract LinkedList<LinearConstraint> getConstraints();
 
+  /**
+   * TODO.
+   * 
+   * @param scenario TODO.
+   * @throws ScboException TODO.
+   */
   public ConstraintSource(Scenario scenario) throws ScboException {
     id = new Id();
     this.scenario = scenario;

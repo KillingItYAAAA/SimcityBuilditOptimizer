@@ -25,6 +25,12 @@ public class StoreResource extends Resource {
     return store;
   }
 
+  /**
+   * TODO.
+   * 
+   * @param store TODO
+   * @throws ScboException TODO
+   */
   public void setStore(Store store) throws ScboException {
     if (this.store != null) {
       throw new ScboException();
