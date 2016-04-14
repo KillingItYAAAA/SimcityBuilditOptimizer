@@ -30,10 +30,6 @@ public abstract class Resource extends ConstraintSource {
     return scenarioIdx.getId();
   }
 
-  public void setScenarioIdx(int scenarioIdx) {
-    this.scenarioIdx = scenarioIdx;
-  }
-
   public double getProdPerMin() {
     return prodPerMin;
   }
@@ -62,7 +58,7 @@ public abstract class Resource extends ConstraintSource {
     }
 
     this.name = name;
-    getScenario().registerResource(this);
+    getScenario().nameResourceInScenario(this);
   }
 
   public double getTime() {

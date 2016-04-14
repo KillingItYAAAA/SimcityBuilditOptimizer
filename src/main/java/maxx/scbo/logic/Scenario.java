@@ -5,6 +5,7 @@ import maxx.scbo.helper.IdFactory;
 import maxx.scbo.helper.ScboException;
 
 import org.apache.commons.math3.linear.ArrayRealVector;
+import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.optim.MaxIter;
 import org.apache.commons.math3.optim.PointValuePair;
 import org.apache.commons.math3.optim.linear.LinearConstraint;
@@ -31,7 +32,6 @@ public class Scenario implements Checkable {
   private Factory factory;
 
   private TreeMap<Integer, Resource> resourcesByIdx = new TreeMap<Integer, Resource>();
-  private int resourceNo = 0;
 
   private IdFactory idFactory = new IdFactory();
   
@@ -56,7 +56,7 @@ public class Scenario implements Checkable {
   }
 
   public int getResourceNo() {
-    return this.resourceNo;
+    return idFactory.getNextId();
   }
 
   /**
@@ -67,32 +67,12 @@ public class Scenario implements Checkable {
    * @throws ScboException
    *           If it doesn't have a name yet
    */
-  public void registerResource(Resource resource) throws ScboException {
+  public void nameResourceInScenario(Resource resource) throws ScboException {
     if (resources.get(resource.getName()) != null) {
       throw new ScboException("multiple resources in rules.xml: " + resource.getName());
     }
     resources.put(resource.getName(), resource);
-    resource.setScenarioIdx(resourceNo);
-    resourcesByIdx.put(resourceNo, resource);
-    resourceNo++;
-  }
-
-  /**
-   * Unregisters a resource from a scenario.
-   * 
-   * @param resource
-   *          TODO.
-   * @throws ScboException
-   *           TODO.
-   */
-  @Deprecated
-  public void unregisterResource(Resource resource) throws ScboException {
-    if (resources.get(resource.getName()) == null) {
-      throw new ScboException("can only unregister an already registered resource");
-    }
-    resources.remove(resource.getName());
-    resource.setScenarioIdx(0);
-    resource.setScenario(null);
+    resourcesByIdx.put(resource.getScenarioIdx(), resource);
   }
 
   public boolean hasResource(String name) {
@@ -159,7 +139,8 @@ public class Scenario implements Checkable {
     ArrayRealVector coeffs = new ArrayRealVector(getResourceNo());
     for (int idx = 0; idx < getResourceNo(); idx++) {
       Resource resource = getResourceByIdx(idx);
-      coeffs = coeffs.add(resource.getSaleVec());
+      RealVector saleVec = resource.getSaleVec();
+      coeffs = coeffs.add(saleVec);
     }
     LinearObjectiveFunction lof = new LinearObjectiveFunction(coeffs, 0);
 
