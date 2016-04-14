@@ -5,17 +5,18 @@ import org.apache.commons.math3.optim.linear.LinearConstraint;
 import java.util.LinkedList;
 
 public abstract class ConstraintSource implements Checkable, Comparable<ConstraintSource> {
-  private Id id = new Id();
+  private Id id;
 
   private Scenario scenario;
-  
+
   public abstract LinkedList<LinearConstraint> getConstraints();
-  
-  public ConstraintSource(Scenario scenario) {
+
+  public ConstraintSource(Scenario scenario) throws ScboException {
+    id = new Id();
     this.scenario = scenario;
     scenario.addConstraintSource(this);
   }
-  
+
   /**
    * TODO.
    */
@@ -24,7 +25,7 @@ public abstract class ConstraintSource implements Checkable, Comparable<Constrai
       throw new ScboException();
     }
   }
-  
+
   public Scenario getScenario() {
     return scenario;
   }
@@ -32,9 +33,9 @@ public abstract class ConstraintSource implements Checkable, Comparable<Constrai
   public void setScenario(Scenario scenario) {
     this.scenario = scenario;
   }
-  
+
   public Integer getId() {
-    return (Integer)id.getId();
+    return (Integer) id.getId();
   }
 
   @Override

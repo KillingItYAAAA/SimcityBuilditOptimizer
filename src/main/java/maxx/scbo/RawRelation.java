@@ -8,13 +8,14 @@ package maxx.scbo;
  *
  */
 public class RawRelation implements Comparable<RawRelation> {
-  private Id id = new Id();
+  private Id id;
 
   private String parent;
   private String child;
   private int no;
 
-  RawRelation(String parent, String child, int no) {
+  RawRelation(String parent, String child, int no) throws ScboException {
+    id = new Id();
     setParent(parent);
     setChild(child);
     setNo(no);
