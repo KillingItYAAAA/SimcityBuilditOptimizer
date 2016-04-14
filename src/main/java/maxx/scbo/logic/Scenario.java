@@ -128,8 +128,16 @@ public class Scenario implements Checkable {
     return tempomarks.size();
   }
   
+  public Tempomark getTempomarkByIdx(int idx) {
+    return tempomarks.get(idx);
+  }
+  
   public Tempomark getTempomarkByName(String name) {
     return tempomarksByName.get(name);
+  }
+  
+  public int getStoreNo() {
+    return stores.size();
   }
   
   @Override

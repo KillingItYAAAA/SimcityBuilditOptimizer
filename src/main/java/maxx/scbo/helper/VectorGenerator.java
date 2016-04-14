@@ -8,7 +8,7 @@ public class VectorGenerator implements Generator {
   private Generator[] generators;
   private Object[] state;
 
-  public VectorGenerator(Generator... generators) {
+  public VectorGenerator(Generator[] generators) {
     this.generators = new Generator[generators.length];
     this.state = new Object[generators.length];
     for (int i = 0; i < generators.length; i++) {
