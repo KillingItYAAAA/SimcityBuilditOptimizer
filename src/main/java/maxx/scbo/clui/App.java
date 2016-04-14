@@ -1,5 +1,6 @@
 package maxx.scbo.clui;
 
+import maxx.scbo.helper.RepetitionCombinationGenerator;
 import maxx.scbo.helper.ScboException;
 import maxx.scbo.logic.ConfigLoader;
 import maxx.scbo.logic.Factory;

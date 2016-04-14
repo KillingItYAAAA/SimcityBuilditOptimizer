@@ -60,6 +60,11 @@ public class ConfigLoader extends DefaultHandler {
         int rawNo = Integer.parseInt(attributes.getValue("number"));
         RawRelation rawRelation = new RawRelation(storeResource.getName(), name, rawNo);
         rawRelations.add(rawRelation);
+      } else if (qname.equalsIgnoreCase("tempomark")) {
+        String name = attributes.getValue("tempomark");
+        int multiplier = Integer.parseInt(attributes.getValue("multiplier"));
+        Tempomark tempomark = new Tempomark(scenario, name);
+        tempomark.setMultiplier(multiplier);
       } else {
         throw new ScboException("rules.xml has bad entity: " + qname);
       }

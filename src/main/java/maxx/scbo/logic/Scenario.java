@@ -1,6 +1,7 @@
 package maxx.scbo.logic;
 
 import maxx.scbo.helper.Checkable;
+import maxx.scbo.helper.CombinationGenerator;
 import maxx.scbo.helper.IdFactory;
 import maxx.scbo.helper.ScboException;
 
@@ -14,6 +15,8 @@ import org.apache.commons.math3.optim.linear.LinearObjectiveFunction;
 import org.apache.commons.math3.optim.linear.SimplexSolver;
 import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -30,6 +33,8 @@ public class Scenario implements Checkable {
   private LinkedList<Producer> producers = new LinkedList<Producer>();
   private TreeSet<ConstraintSource> constraintSources = new TreeSet<ConstraintSource>();
   private Factory factory;
+  private ArrayList<Tempomark> tempomarks = new ArrayList<Tempomark>();
+  private TreeMap<String, Tempomark> tempomarksByName = new TreeMap<String, Tempomark>();
 
   private TreeMap<Integer, Resource> resourcesByIdx = new TreeMap<Integer, Resource>();
 
@@ -114,6 +119,19 @@ public class Scenario implements Checkable {
     this.factory = factory;
   }
 
+  public void addTempomark(Tempomark tempomark) {
+    tempomarks.add(tempomark);
+    tempomarksByName.put(tempomark.getName(), tempomark);
+  }
+  
+  public int getTempomarkNo() {
+    return tempomarks.size();
+  }
+  
+  public Tempomark getTempomarkByName(String name) {
+    return tempomarksByName.get(name);
+  }
+  
   @Override
   public void checkValid() throws ScboException {
     if (factory == null) {
@@ -134,7 +152,7 @@ public class Scenario implements Checkable {
    * 
    * @return A solution, i.e. maximal money production rate per minute.
    */
-  public PointValuePair calculate() {
+  public PointValuePair calculate() throws ScboException {
     // Calculate objective function
     ArrayRealVector coeffs = new ArrayRealVector(getResourceNo());
     for (int idx = 0; idx < getResourceNo(); idx++) {
@@ -143,6 +161,12 @@ public class Scenario implements Checkable {
       coeffs = coeffs.add(saleVec);
     }
     LinearObjectiveFunction lof = new LinearObjectiveFunction(coeffs, 0);
+
+    RepetitionCombinationGenerator cg = new RepetitionCombinationGenerator(stores.keySet().size());
+    do {
+      System.err.println(Arrays.toString(cg.get()));
+    } while (cg.step());
+    
 
     // calculate constraints
     LinkedList<LinearConstraint> allConstraints = new LinkedList<LinearConstraint>();
@@ -153,12 +177,7 @@ public class Scenario implements Checkable {
 
     // solve the problem
     SimplexSolver solver = new SimplexSolver();
-    /*
-     * for (Object lco : allConstraints.toArray()) { LinearConstraint lc =
-     * (LinearConstraint) lco;
-     * System.err.println(lc.getCoefficients().toString() + " " +
-     * lc.getRelationship().toString() + " " + lc.getValue()); }
-     */
+    
     PointValuePair solution = solver.optimize(new MaxIter(1000000), lof,
         new LinearConstraintSet(allConstraints), GoalType.MAXIMIZE);
     return solution;
