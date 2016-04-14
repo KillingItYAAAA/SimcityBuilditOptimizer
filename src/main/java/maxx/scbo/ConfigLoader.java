@@ -26,7 +26,7 @@ public class ConfigLoader extends DefaultHandler {
 
   private Resource resource;
 
-  ConfigLoader(Scenario scenario) {
+  public ConfigLoader(Scenario scenario) {
     this.scenario = scenario;
   }
 

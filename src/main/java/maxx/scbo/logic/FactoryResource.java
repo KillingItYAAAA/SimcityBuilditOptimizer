@@ -12,7 +12,7 @@ public class FactoryResource extends Resource {
     return ResourceType.FACTORY;
   }
   
-  FactoryResource(Scenario scenario) throws ScboException {
+  public FactoryResource(Scenario scenario) throws ScboException {
     super(scenario);
     scenario.getFactory().addResource(this);
   }

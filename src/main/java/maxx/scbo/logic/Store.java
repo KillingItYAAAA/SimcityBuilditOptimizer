@@ -60,7 +60,7 @@ public class Store extends Producer {
     }
   }
   
-  Store(Scenario scenario, String name) throws ScboException {
+  public Store(Scenario scenario, String name) throws ScboException {
     super(scenario);
     setName(name);
     if (scenario.getStoreByName(name) != null) {
