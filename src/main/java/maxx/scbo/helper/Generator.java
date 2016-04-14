@@ -1,6 +1,7 @@
 /**
  * 
  */
+
 package maxx.scbo.helper;
 
 /**
@@ -10,6 +11,8 @@ package maxx.scbo.helper;
  */
 public interface Generator {
   public boolean step();
+  
   public Object get();
+  
   public void reset();
 }

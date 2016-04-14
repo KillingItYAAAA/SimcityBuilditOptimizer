@@ -1,27 +1,27 @@
 package maxx.scbo.helper;
 
 public class CombinationGenerator implements Generator {
-  private int n;
-  private int k;
+  private int itemno;
+  private int partno;
   private int[] state;
 
   /**
    * TODO.
    * 
-   * @param n
+   * @param itemno
    *          TODO
-   * @param k
+   * @param partno
    *          TODO
    * @throws ScboException
    *           TODO
    */
-  public CombinationGenerator(int n, int k) throws ScboException {
-    if (k > n || n < 1 || k < 1) {
+  public CombinationGenerator(int itemno, int partno) throws ScboException {
+    if (partno > itemno || itemno < 1 || partno < 1) {
       throw new ScboException();
     }
-    this.n = n;
-    this.k = k;
-    state = new int[k];
+    this.itemno = itemno;
+    this.partno = partno;
+    state = new int[partno];
     reset();
   }
 
@@ -30,13 +30,13 @@ public class CombinationGenerator implements Generator {
    */
   public boolean step() {
     int idx;
-    for (idx = k - 1; idx >= 0 && state[idx] == n - k + idx; idx--) {
+    for (idx = partno - 1; idx >= 0 && state[idx] == itemno - partno + idx; idx--) {
     }
     if (idx == -1) {
       return false;
     }
     state[idx]++;
-    for (idx++; idx < k; idx++) {
+    for (idx++; idx < partno; idx++) {
       state[idx] = state[idx - 1] + 1;
     }
     return true;
@@ -50,7 +50,7 @@ public class CombinationGenerator implements Generator {
    * TODO.
    */
   public void reset() {
-    for (int i = 0; i < k; i++) {
+    for (int i = 0; i < partno; i++) {
       state[i] = i;
     }
   }
