@@ -1,9 +1,7 @@
-package maxx.scbo;
+package maxx.scbo.logic;
 
-import maxx.scbo.logic.Factory;
-import maxx.scbo.logic.Producer;
-import maxx.scbo.logic.Resource;
-import maxx.scbo.logic.Store;
+import maxx.scbo.helper.Checkable;
+import maxx.scbo.helper.ScboException;
 
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.optim.MaxIter;

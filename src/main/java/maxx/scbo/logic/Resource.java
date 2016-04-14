@@ -1,8 +1,6 @@
 package maxx.scbo.logic;
 
-import maxx.scbo.ConstraintSource;
-import maxx.scbo.ScboException;
-import maxx.scbo.Scenario;
+import maxx.scbo.helper.ScboException;
 
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealVector;

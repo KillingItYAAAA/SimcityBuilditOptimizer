@@ -1,4 +1,4 @@
-package maxx.scbo;
+package maxx.scbo.helper;
 
 public class ScboException extends Exception {
   static final long serialVersionUID = 0x2b812aa1;

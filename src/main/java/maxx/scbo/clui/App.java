@@ -1,10 +1,10 @@
 package maxx.scbo.clui;
 
-import maxx.scbo.ConfigLoader;
-import maxx.scbo.ScboException;
-import maxx.scbo.Scenario;
+import maxx.scbo.helper.ScboException;
+import maxx.scbo.logic.ConfigLoader;
 import maxx.scbo.logic.Factory;
 import maxx.scbo.logic.Resource;
+import maxx.scbo.logic.Scenario;
 import maxx.scbo.logic.StoreResource;
 
 import org.apache.commons.lang3.StringUtils;

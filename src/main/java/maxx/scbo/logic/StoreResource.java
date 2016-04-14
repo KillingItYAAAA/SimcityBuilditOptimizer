@@ -1,7 +1,6 @@
 package maxx.scbo.logic;
 
-import maxx.scbo.ScboException;
-import maxx.scbo.Scenario;
+import maxx.scbo.helper.ScboException;
 
 import org.apache.commons.math3.optim.linear.LinearConstraint;
 

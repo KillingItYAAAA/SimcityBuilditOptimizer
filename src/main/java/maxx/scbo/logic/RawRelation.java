@@ -1,6 +1,7 @@
-package maxx.scbo;
+package maxx.scbo.logic;
 
 import maxx.scbo.helper.Id;
+import maxx.scbo.helper.ScboException;
 
 /**
  * Intermediate, text-only representation of a raw-resource relationship. Needed to handle
