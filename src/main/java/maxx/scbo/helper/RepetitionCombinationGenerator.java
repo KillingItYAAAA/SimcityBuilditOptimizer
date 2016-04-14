@@ -3,16 +3,26 @@
  */
 package maxx.scbo.helper;
 
-import java.util.Arrays;
-
 /**
+ * TODO.
+ * 
  * @author phorvath
- *
  */
 public class RepetitionCombinationGenerator extends CombinationGenerator {
-  int n, k;
+  int n;
+  int k;
   private int[] state;
 
+  /**
+   * TODO.
+   * 
+   * @param n
+   *          TODO
+   * @param k
+   *          TODO
+   * @throws ScboException
+   *           TODO
+   */
   public RepetitionCombinationGenerator(int n, int k) throws ScboException {
     super(n + k - 1, k - 1);
     state = new int[k];
@@ -20,9 +30,12 @@ public class RepetitionCombinationGenerator extends CombinationGenerator {
     this.k = k;
   }
 
+  /**
+   * TODO.
+   */
   public int[] get() {
     int[] state = super.get();
-    //System.err.println(Arrays.toString(state));
+    // System.err.println(Arrays.toString(state));
     this.state[0] = state[0];
     for (int i = 1; i < k - 1; i++) {
       this.state[i] = state[i] - state[i - 1] - 1;

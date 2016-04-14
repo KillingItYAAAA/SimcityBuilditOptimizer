@@ -1,7 +1,6 @@
 package maxx.scbo.logic;
 
 import maxx.scbo.helper.Checkable;
-import maxx.scbo.helper.CombinationGenerator;
 import maxx.scbo.helper.IdFactory;
 import maxx.scbo.helper.ScboException;
 
@@ -16,7 +15,6 @@ import org.apache.commons.math3.optim.linear.SimplexSolver;
 import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -169,12 +167,6 @@ public class Scenario implements Checkable {
       coeffs = coeffs.add(saleVec);
     }
     LinearObjectiveFunction lof = new LinearObjectiveFunction(coeffs, 0);
-
-    RepetitionCombinationGenerator cg = new RepetitionCombinationGenerator(stores.keySet().size());
-    do {
-      System.err.println(Arrays.toString(cg.get()));
-    } while (cg.step());
-    
 
     // calculate constraints
     LinkedList<LinearConstraint> allConstraints = new LinkedList<LinearConstraint>();

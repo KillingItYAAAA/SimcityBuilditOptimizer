@@ -4,8 +4,9 @@
 package maxx.scbo.helper;
 
 /**
+ * TODO.
+ * 
  * @author phorvath
- *
  */
 public class ProxyGenerator implements Generator {
   private Generator generator;

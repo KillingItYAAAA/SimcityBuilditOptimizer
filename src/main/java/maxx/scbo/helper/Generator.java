@@ -4,8 +4,9 @@
 package maxx.scbo.helper;
 
 /**
+ * TODO.
+ * 
  * @author phorvath
- *
  */
 public interface Generator {
   public boolean step();

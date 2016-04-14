@@ -34,6 +34,12 @@ public class Tempomark {
     this.noPerDay = noPerDay;
   }
 
+  /**
+   * TODO.
+   * 
+   * @param scenario TODO
+   * @param name TODO
+   */
   public Tempomark(Scenario scenario, String name) {
     this.name = name;
     this.scenario = scenario;

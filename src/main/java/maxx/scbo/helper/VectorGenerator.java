@@ -1,13 +1,20 @@
 package maxx.scbo.helper;
 
 /**
+ * TODO.
+ * 
  * @author phorvath
- *
  */
 public class VectorGenerator implements Generator {
   private Generator[] generators;
   private Object[] state;
 
+  /**
+   * TODO.
+   * 
+   * @param generators
+   *          TODO.
+   */
   public VectorGenerator(Generator[] generators) {
     this.generators = new Generator[generators.length];
     this.state = new Object[generators.length];
@@ -16,14 +23,17 @@ public class VectorGenerator implements Generator {
     }
   }
 
+  /**
+   * TODO.
+   */
   public boolean step() {
-    int i;
-    for (i = generators.length - 1; i >= 0; i--) {
-      if (generators[i].step()) {
-        state[i] = generators[i].get();
+    int idx;
+    for (idx = generators.length - 1; idx >= 0; idx--) {
+      if (generators[idx].step()) {
+        state[idx] = generators[idx].get();
         return true;
       }
-      generators[i].reset();
+      generators[idx].reset();
     }
     return false;
   }
@@ -32,6 +42,9 @@ public class VectorGenerator implements Generator {
     return state;
   }
 
+  /**
+   * TODO.
+   */
   public void reset() {
     for (int i = 0; i < generators.length - 1; i++) {
       generators[i].reset();
