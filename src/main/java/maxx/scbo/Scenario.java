@@ -1,5 +1,10 @@
 package maxx.scbo;
 
+import maxx.scbo.logic.Factory;
+import maxx.scbo.logic.Producer;
+import maxx.scbo.logic.Resource;
+import maxx.scbo.logic.Store;
+
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.optim.MaxIter;
 import org.apache.commons.math3.optim.PointValuePair;

@@ -1,4 +1,8 @@
-package maxx.scbo;
+package maxx.scbo.logic;
+
+import maxx.scbo.ConstraintSource;
+import maxx.scbo.ScboException;
+import maxx.scbo.Scenario;
 
 import java.util.LinkedList;
 

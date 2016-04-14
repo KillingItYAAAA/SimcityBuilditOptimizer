@@ -1,4 +1,11 @@
-package maxx.scbo;
+package maxx.scbo.clui;
+
+import maxx.scbo.ConfigLoader;
+import maxx.scbo.ScboException;
+import maxx.scbo.Scenario;
+import maxx.scbo.logic.Factory;
+import maxx.scbo.logic.Resource;
+import maxx.scbo.logic.StoreResource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.optim.MaxIter;

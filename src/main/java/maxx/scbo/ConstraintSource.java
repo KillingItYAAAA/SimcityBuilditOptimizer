@@ -1,5 +1,7 @@
 package maxx.scbo;
 
+import maxx.scbo.helper.Id;
+
 import org.apache.commons.math3.optim.linear.LinearConstraint;
 
 import java.util.LinkedList;

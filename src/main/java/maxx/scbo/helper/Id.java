@@ -1,4 +1,6 @@
-package maxx.scbo;
+package maxx.scbo.helper;
+
+import maxx.scbo.ScboException;
 
 import org.apache.commons.lang3.mutable.MutableInt;
 

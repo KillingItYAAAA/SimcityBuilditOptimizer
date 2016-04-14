@@ -1,4 +1,4 @@
-package maxx.scbo;
+package maxx.scbo.logic;
 
 public enum ResourceType {
   NULL,
