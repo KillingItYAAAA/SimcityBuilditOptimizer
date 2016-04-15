@@ -2,7 +2,6 @@ package maxx.scbo.logic.scenario;
 
 import maxx.scbo.helper.Id;
 import maxx.scbo.helper.ScboException;
-import maxx.scbo.logic.ConstraintSource;
 import maxx.scbo.logic.ResourceType;
 import maxx.scbo.logic.config.ConfigResource;
 

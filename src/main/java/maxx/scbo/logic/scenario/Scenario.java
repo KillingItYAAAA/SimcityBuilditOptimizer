@@ -3,7 +3,6 @@ package maxx.scbo.logic.scenario;
 import maxx.scbo.helper.Checkable;
 import maxx.scbo.helper.IdFactory;
 import maxx.scbo.helper.ScboException;
-import maxx.scbo.logic.ConstraintSource;
 import maxx.scbo.logic.Factory;
 import maxx.scbo.logic.Store;
 import maxx.scbo.logic.Tempomark;

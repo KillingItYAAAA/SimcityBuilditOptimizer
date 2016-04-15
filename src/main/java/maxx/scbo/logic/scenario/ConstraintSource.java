@@ -1,16 +1,14 @@
-package maxx.scbo.logic;
+package maxx.scbo.logic.scenario;
 
 import maxx.scbo.helper.Checkable;
 import maxx.scbo.helper.Id;
 import maxx.scbo.helper.ScboException;
-import maxx.scbo.logic.scenario.Scenario;
 
 import org.apache.commons.math3.optim.linear.LinearConstraint;
 
 import java.util.LinkedList;
 
-public abstract class ConstraintSource extends Id
-    implements Checkable {
+public abstract class ConstraintSource extends Id implements Checkable {
   private Scenario scenario;
 
   public abstract LinkedList<LinearConstraint> getConstraints();
