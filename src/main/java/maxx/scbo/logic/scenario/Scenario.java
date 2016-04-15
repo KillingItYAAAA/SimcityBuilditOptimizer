@@ -5,10 +5,10 @@ import maxx.scbo.helper.IdFactory;
 import maxx.scbo.helper.ScboException;
 import maxx.scbo.logic.ConstraintSource;
 import maxx.scbo.logic.Factory;
-import maxx.scbo.logic.Producer;
 import maxx.scbo.logic.Store;
 import maxx.scbo.logic.Tempomark;
 import maxx.scbo.logic.config.Configuration;
+import maxx.scbo.logic.config.ConfigProducer;
 
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealVector;
@@ -35,17 +35,11 @@ public class Scenario extends Configuration {
   private TreeMap<String, Store> stores = new TreeMap<String, Store>();
   private TreeMap<String, Resource> resources = new TreeMap<String, Resource>();
   private TreeMap<Integer, Resource> resourcesByIdx = new TreeMap<Integer, Resource>();
-  private LinkedList<Producer> producers = new LinkedList<Producer>();
+  private LinkedList<ConfigProducer> configProducers = new LinkedList<ConfigProducer>();
   private TreeSet<ConstraintSource> constraintSources = new TreeSet<ConstraintSource>();
   private Factory factory;
   private ArrayList<Tempomark> tempomarks = new ArrayList<Tempomark>();
   private TreeMap<String, Tempomark> tempomarksByName = new TreeMap<String, Tempomark>();
-
-  private IdFactory idFactory = new IdFactory();
-  
-  public IdFactory getIdFactory() {
-    return idFactory;
-  }
 
   public Store getStoreByName(String name) {
     return stores.get(name);
@@ -55,8 +49,8 @@ public class Scenario extends Configuration {
     producers.add(producer);
   }
 
-  public boolean hasProducer(Producer producer) {
-    return producers.contains(producer);
+  public boolean hasProducer(ConfigProducer configProducer) {
+    return configProducers.contains(configProducer);
   }
 
   public void addStoreName(Store store) {
@@ -149,7 +143,7 @@ public class Scenario extends Configuration {
       throw new ScboException();
     }
 
-    for (Producer p : producers) {
+    for (ConfigProducer p : configProducers) {
       p.checkValid();
     }
 

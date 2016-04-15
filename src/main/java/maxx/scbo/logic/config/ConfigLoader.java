@@ -37,7 +37,7 @@ public class ConfigLoader extends DefaultHandler {
   public void startElement(String uri, String localName, String qname, Attributes attributes)
       throws SAXException {
     try {
-      if (qname.equalsIgnoreCase("resources")) {
+      if (qname.equalsIgnoreCase("configuration")) {
         //
       } else if (qname.equalsIgnoreCase("store")) {
         Store store = new Store(scenario, attributes.getValue("name"));

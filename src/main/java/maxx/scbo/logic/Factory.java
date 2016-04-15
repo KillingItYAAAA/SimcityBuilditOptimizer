@@ -1,6 +1,7 @@
 package maxx.scbo.logic;
 
 import maxx.scbo.helper.ScboException;
+import maxx.scbo.logic.config.ConfigProducer;
 import maxx.scbo.logic.scenario.Resource;
 import maxx.scbo.logic.scenario.Scenario;
 
@@ -11,7 +12,7 @@ import org.apache.commons.math3.optim.linear.Relationship;
 
 import java.util.LinkedList;
 
-public class Factory extends Producer {
+public class Factory extends ConfigProducer {
   private int slots;
 
   public int getSlots() {

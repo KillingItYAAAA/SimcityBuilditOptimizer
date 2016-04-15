@@ -11,7 +11,6 @@ import java.util.TreeMap;
 
 public class StoreResource extends Resource {
   private Store store;
-  private TreeMap<Resource, Integer> rawMaterials = new TreeMap<Resource, Integer>();
 
   public StoreResource(Scenario scenario) throws ScboException {
     super(scenario);

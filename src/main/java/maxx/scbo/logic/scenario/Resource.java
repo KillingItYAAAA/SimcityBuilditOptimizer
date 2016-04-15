@@ -4,6 +4,7 @@ import maxx.scbo.helper.Id;
 import maxx.scbo.helper.ScboException;
 import maxx.scbo.logic.ConstraintSource;
 import maxx.scbo.logic.ResourceType;
+import maxx.scbo.logic.config.ConfigResource;
 
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealVector;
@@ -14,22 +15,24 @@ import java.util.LinkedList;
 import java.util.TreeSet;
 
 public abstract class Resource extends ConstraintSource {
-  private String name;
-  private double time;
-  private int level;
-  private double value;
-  private TreeSet<StoreResource> rawsFor = new TreeSet<StoreResource>();
-
-  private Id scenarioIdx;
+  private ConfigResource configResource;
+  private Producer producer;
+  
   private double prodPerMin; // calculated result
 
-  public Resource(Scenario scenario) throws ScboException {
-    super(scenario);
-    scenarioIdx = scenario.getIdFactory().get();
+  public Resource(ConfigResource cnf, Producer producer) throws ScboException {
+    super(producer.getScenario());
+    this.configResource = configResource;
+    this.producer = producer;
+    producer.addResource(this);
   }
 
-  public int getScenarioIdx() {
-    return scenarioIdx.getId();
+  public ConfigResource getConfigResource() {
+    return configResource;
+  }
+  
+  public int getConfigurationIdx() {
+    return getConfigResource().getConfigurationIdx();
   }
 
   public double getProdPerMin() {
@@ -41,30 +44,11 @@ public abstract class Resource extends ConstraintSource {
   }
 
   public String getName() {
-    return name;
+    return getConfigResource().getName();
   }
 
-  /**
-   * Sets the name of a resource. It _must_ have one. Giving name to the
-   * resource it also registers it in its scenario (where it is identified
-   * partially by its name).
-   * 
-   * @param name
-   *          Name of the resource. May be set only once in its lifetime.
-   * @throws ScboException
-   *           In case of a second name change it will be throw.
-   */
-  public void setName(String name) throws ScboException {
-    if (this.name != null) {
-      throw new ScboException();
-    }
-
-    this.name = name;
-    getScenario().nameResourceInScenario(this);
-  }
-
-  public double getTime() {
-    return time;
+  public double getProdTime() {
+    return getConfigResource().getProdTime() * getProducer().getProdMultiplier();
   }
 
   public void setTime(double time) {
