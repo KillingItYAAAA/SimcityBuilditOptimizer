@@ -1,7 +1,14 @@
-package maxx.scbo.logic;
+package maxx.scbo.logic.config;
 
 import maxx.scbo.clui.App;
 import maxx.scbo.helper.ScboException;
+import maxx.scbo.logic.FactoryResource;
+import maxx.scbo.logic.Resource;
+import maxx.scbo.logic.ResourceType;
+import maxx.scbo.logic.Store;
+import maxx.scbo.logic.StoreResource;
+import maxx.scbo.logic.Tempomark;
+import maxx.scbo.logic.scenario.Scenario;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;

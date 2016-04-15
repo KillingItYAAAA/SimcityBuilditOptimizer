@@ -4,6 +4,7 @@ import maxx.scbo.helper.ProxyGenerator;
 import maxx.scbo.helper.RepetitionCombinationGenerator;
 import maxx.scbo.helper.ScboException;
 import maxx.scbo.helper.VectorGenerator;
+import maxx.scbo.logic.scenario.Scenario;
 
 public class TempomarkCombinationsGenerator extends ProxyGenerator {
   /**

@@ -6,3 +6,4 @@
  *
  */
 package maxx.scbo.logic.scenario;
+

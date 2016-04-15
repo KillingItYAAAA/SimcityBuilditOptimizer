@@ -1,4 +1,4 @@
-package maxx.scbo.logic;
+package maxx.scbo.logic.config;
 
 import maxx.scbo.helper.Id;
 import maxx.scbo.helper.ScboException;

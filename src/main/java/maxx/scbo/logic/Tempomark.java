@@ -1,5 +1,7 @@
 package maxx.scbo.logic;
 
+import maxx.scbo.logic.scenario.Scenario;
+
 public class Tempomark {
   private Scenario scenario;
   private String name;
