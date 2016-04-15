@@ -28,13 +28,12 @@ import java.util.TreeSet;
 public class Scenario implements Checkable {
   private TreeMap<String, Store> stores = new TreeMap<String, Store>();
   private TreeMap<String, Resource> resources = new TreeMap<String, Resource>();
+  private TreeMap<Integer, Resource> resourcesByIdx = new TreeMap<Integer, Resource>();
   private LinkedList<Producer> producers = new LinkedList<Producer>();
   private TreeSet<ConstraintSource> constraintSources = new TreeSet<ConstraintSource>();
   private Factory factory;
   private ArrayList<Tempomark> tempomarks = new ArrayList<Tempomark>();
   private TreeMap<String, Tempomark> tempomarksByName = new TreeMap<String, Tempomark>();
-
-  private TreeMap<Integer, Resource> resourcesByIdx = new TreeMap<Integer, Resource>();
 
   private IdFactory idFactory = new IdFactory();
   
