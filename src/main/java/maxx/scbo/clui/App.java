@@ -2,10 +2,10 @@ package maxx.scbo.clui;
 
 import maxx.scbo.helper.ScboException;
 import maxx.scbo.logic.Factory;
-import maxx.scbo.logic.Resource;
-import maxx.scbo.logic.StoreResource;
 import maxx.scbo.logic.config.ConfigLoader;
+import maxx.scbo.logic.scenario.Resource;
 import maxx.scbo.logic.scenario.Scenario;
+import maxx.scbo.logic.scenario.StoreResource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.optim.MaxIter;

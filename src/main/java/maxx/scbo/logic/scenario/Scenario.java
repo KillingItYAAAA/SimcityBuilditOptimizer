@@ -6,9 +6,9 @@ import maxx.scbo.helper.ScboException;
 import maxx.scbo.logic.ConstraintSource;
 import maxx.scbo.logic.Factory;
 import maxx.scbo.logic.Producer;
-import maxx.scbo.logic.Resource;
 import maxx.scbo.logic.Store;
 import maxx.scbo.logic.Tempomark;
+import maxx.scbo.logic.config.Configuration;
 
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealVector;
@@ -31,7 +31,7 @@ import java.util.TreeSet;
  * @author phorvath
  *
  */
-public class Scenario implements Checkable {
+public class Scenario extends Configuration {
   private TreeMap<String, Store> stores = new TreeMap<String, Store>();
   private TreeMap<String, Resource> resources = new TreeMap<String, Resource>();
   private TreeMap<Integer, Resource> resourcesByIdx = new TreeMap<Integer, Resource>();
