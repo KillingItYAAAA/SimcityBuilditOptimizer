@@ -321,7 +321,7 @@
     <raw resource="Electronic Components" number="1" />
   </resource>
   
-  <tempomark name="bronze" speed="2" />
-  <tempomark name="silver" speed="4" />
-  <tempomark name="gold" speed="12" />
+  <tempomark name="bronze" multiplier="2" />
+  <tempomark name="silver" multiplier="4" />
+  <tempomark name="gold" multiplier="12" />
 </resources>

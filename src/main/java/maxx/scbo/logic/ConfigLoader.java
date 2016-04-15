@@ -61,7 +61,7 @@ public class ConfigLoader extends DefaultHandler {
         RawRelation rawRelation = new RawRelation(storeResource.getName(), name, rawNo);
         rawRelations.add(rawRelation);
       } else if (qname.equalsIgnoreCase("tempomark")) {
-        String name = attributes.getValue("tempomark");
+        String name = attributes.getValue("name");
         int multiplier = Integer.parseInt(attributes.getValue("multiplier"));
         Tempomark tempomark = new Tempomark(scenario, name);
         tempomark.setMultiplier(multiplier);
