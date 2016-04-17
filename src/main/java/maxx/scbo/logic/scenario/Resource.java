@@ -34,6 +34,10 @@ public abstract class Resource extends ConstraintSource {
     return getConfigResource().getConfigurationIdx();
   }
 
+  public Producer getProducer() {
+    return this.producer;
+  }
+  
   public double getProdPerMin() {
     return prodPerMin;
   }

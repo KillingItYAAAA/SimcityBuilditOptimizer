@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<resources>
+<configuration>
   <resource name="Metal" type="factory" time="1" level="1"
     value="10" />
   <resource name="Wood" type="factory" time="3" level="2"
@@ -324,4 +324,4 @@
   <tempomark name="bronze" multiplier="2" />
   <tempomark name="silver" multiplier="4" />
   <tempomark name="gold" multiplier="12" />
-</resources>
+</configuration>

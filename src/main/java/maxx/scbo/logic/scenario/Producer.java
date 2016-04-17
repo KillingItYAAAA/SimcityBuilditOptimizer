@@ -36,4 +36,5 @@ public abstract class Producer extends ConstraintSource {
     return null;
   }
 
+  public abstract double getProdAccel();
 }

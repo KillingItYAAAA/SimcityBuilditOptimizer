@@ -2,7 +2,6 @@ package maxx.scbo.logic.scenario;
 
 import maxx.scbo.helper.ScboException;
 import maxx.scbo.logic.ResourceType;
-import maxx.scbo.logic.Store;
 
 import org.apache.commons.math3.optim.linear.LinearConstraint;
 
@@ -114,5 +113,9 @@ public class StoreResource extends Resource {
      */
 
     return lc;
+  }
+  
+  public double getProdAccel() {
+    
   }
 }

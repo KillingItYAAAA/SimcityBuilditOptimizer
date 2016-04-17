@@ -1,9 +1,8 @@
-package maxx.scbo.logic;
+package maxx.scbo.logic.scenario;
 
 import maxx.scbo.helper.ScboException;
+import maxx.scbo.logic.ResourceType;
 import maxx.scbo.logic.config.ConfigProducer;
-import maxx.scbo.logic.scenario.Resource;
-import maxx.scbo.logic.scenario.Scenario;
 
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealVector;

@@ -48,4 +48,8 @@ public class ConfigResource {
   public int getConfigurationIdx() {
     return configurationIdx.getId();
   }
+  
+  public double getProdTime() {
+    return this.prodTime;
+  }
 }

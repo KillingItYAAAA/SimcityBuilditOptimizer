@@ -1,8 +1,8 @@
 package maxx.scbo.clui;
 
 import maxx.scbo.helper.ScboException;
-import maxx.scbo.logic.Factory;
 import maxx.scbo.logic.config.ConfigLoader;
+import maxx.scbo.logic.scenario.Factory;
 import maxx.scbo.logic.scenario.Resource;
 import maxx.scbo.logic.scenario.Scenario;
 import maxx.scbo.logic.scenario.StoreResource;

@@ -3,11 +3,11 @@ package maxx.scbo.logic.config;
 import maxx.scbo.clui.App;
 import maxx.scbo.helper.ScboException;
 import maxx.scbo.logic.ResourceType;
-import maxx.scbo.logic.Store;
 import maxx.scbo.logic.Tempomark;
 import maxx.scbo.logic.scenario.FactoryResource;
 import maxx.scbo.logic.scenario.Resource;
 import maxx.scbo.logic.scenario.Scenario;
+import maxx.scbo.logic.scenario.Store;
 import maxx.scbo.logic.scenario.StoreResource;
 
 import org.xml.sax.Attributes;
