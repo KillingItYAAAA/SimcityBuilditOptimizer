@@ -21,7 +21,7 @@ public abstract class ConstraintSource extends Id implements Checkable {
    * @throws ScboException
    *           TODO.
    */
-  public ConstraintSource(Scenario scenario) throws ScboException {
+  public ConstraintSource(Scenario scenario) {
     this.scenario = scenario;
     scenario.addConstraintSource(this);
   }

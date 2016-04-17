@@ -5,12 +5,12 @@ import maxx.scbo.helper.ScboException;
 import maxx.scbo.logic.scenario.Resource;
 
 import java.util.LinkedList;
-import java.util.TreeMap;
+import java.util.TreeSet;
 
 public abstract class ConfigProducer implements Checkable {
   private Configuration configuration;
   
-  private TreeMap<Integer, ConfigResource> configResources = new TreeMap<Integer, ConfigResource>();
+  private TreeSet<ConfigResource> configResources = new TreeSet<ConfigResource>();
 
   public ConfigProducer(Configuration configuration) throws ScboException {
     this.configuration = configuration;
@@ -27,7 +27,7 @@ public abstract class ConfigProducer implements Checkable {
   }
   
   public void addConfigResource(ConfigResource configResource) {
-    configResources.put(configResource.getConfigurationIdx(), configResource);
+    configResources.add(configResource);
   }
   
   public LinkedList<Resource> getResources() {

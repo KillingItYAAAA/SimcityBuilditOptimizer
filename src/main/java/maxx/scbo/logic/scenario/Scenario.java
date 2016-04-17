@@ -34,7 +34,7 @@ public class Scenario extends Configuration {
   private TreeMap<String, Store> stores = new TreeMap<String, Store>();
   private TreeMap<String, Resource> resources = new TreeMap<String, Resource>();
   private TreeMap<Integer, Resource> resourcesByIdx = new TreeMap<Integer, Resource>();
-  private LinkedList<ConfigProducer> configProducers = new LinkedList<ConfigProducer>();
+  private TreeMap<ConfigProducer, Producer> producers = new TreeMap<ConfigProducer, Producer>();
   private TreeSet<ConstraintSource> constraintSources = new TreeSet<ConstraintSource>();
   private Factory factory;
   private ArrayList<Tempomark> tempomarks = new ArrayList<Tempomark>();
@@ -44,8 +44,8 @@ public class Scenario extends Configuration {
     return stores.get(name);
   }
 
-  public void addProducer(Producer producer) throws ScboException {
-    producers.add(producer);
+  public void addProducer(Producer producer) {
+    producers.put(producer.getConfigProducer(), producer);
   }
 
   public boolean hasProducer(ConfigProducer configProducer) {

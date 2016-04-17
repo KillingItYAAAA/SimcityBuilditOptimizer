@@ -47,7 +47,7 @@ public abstract class Resource extends ConstraintSource {
   }
 
   public double getProdTime() {
-    return getConfigResource().getProdTime() * getProducer().getProdMultiplier();
+    return getConfigResource().getProdTime() * getProducer().getProdAccel();
   }
 
   public void setTime(double time) {
