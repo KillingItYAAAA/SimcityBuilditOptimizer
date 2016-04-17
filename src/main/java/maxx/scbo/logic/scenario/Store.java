@@ -11,7 +11,7 @@ import org.apache.commons.math3.optim.linear.Relationship;
 
 import java.util.LinkedList;
 
-public class Store extends ConfigProducer {
+public class Store extends Producer {
   private String name;
   private int level = 0;
   static final double[] levelMultiplier = new double[] {1.0, 0.9, 0.85, 0.8};
@@ -27,9 +27,7 @@ public class Store extends ConfigProducer {
    * @throws ScboException TODO
    */
   public void setName(String name) throws ScboException {
-    if (this.name != null) {
-      throw new ScboException();
-    }
+    assert (this.name != null);
     this.name = name;
   }
 
@@ -95,5 +93,9 @@ public class Store extends ConfigProducer {
     
     return constraints;
     
+  }
+  
+  public double getProdAccel() {
+    return getConfiguration().getAccelForLevel(getLevel())*(24+getDailyTempomark())/24;
   }
 }

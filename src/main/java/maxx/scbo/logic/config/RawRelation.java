@@ -17,7 +17,7 @@ public class RawRelation implements Comparable<RawRelation> {
   private String child;
   private int no;
 
-  RawRelation(String parent, String child, int no) throws ScboException {
+  RawRelation(String parent, String child, int no) {
     id = new Id();
     setParent(parent);
     setChild(child);

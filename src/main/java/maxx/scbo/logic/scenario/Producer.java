@@ -2,6 +2,7 @@ package maxx.scbo.logic.scenario;
 
 import maxx.scbo.logic.config.ConfigProducer;
 import maxx.scbo.logic.config.ConfigResource;
+import maxx.scbo.logic.config.Configuration;
 
 import org.apache.commons.math3.optim.linear.LinearConstraint;
 
@@ -22,6 +23,10 @@ public abstract class Producer extends ConstraintSource {
 
   public ConfigProducer getConfigProducer() {
     return configProducer;
+  }
+  
+  public Configuration getConfiguration() {
+    return getConfigProducer().getConfiguration();
   }
   
   public void addResource(Resource resource) {

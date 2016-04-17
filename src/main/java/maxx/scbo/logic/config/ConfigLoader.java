@@ -6,8 +6,6 @@ import maxx.scbo.logic.ResourceType;
 import maxx.scbo.logic.Tempomark;
 import maxx.scbo.logic.scenario.FactoryResource;
 import maxx.scbo.logic.scenario.Resource;
-import maxx.scbo.logic.scenario.Scenario;
-import maxx.scbo.logic.scenario.Store;
 import maxx.scbo.logic.scenario.StoreResource;
 
 import org.xml.sax.Attributes;
@@ -16,6 +14,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.LinkedList;
 import java.util.TreeSet;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -23,60 +22,85 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 public class ConfigLoader extends DefaultHandler {
-  private Scenario scenario;
-  
-  private TreeSet<RawRelation> rawRelations = new TreeSet<RawRelation>();
+  private Configuration configuration;
+
+  private LinkedList<RawRelation> rawRelations = new LinkedList<RawRelation>();
 
   private Resource resource;
 
-  public ConfigLoader(Scenario scenario) {
-    this.scenario = scenario;
+  public ConfigLoader(Configuration configuration) {
+    this.configuration = configuration;
   }
 
+  private void elementStore(Attributes attributes) {
+    new ConfigStore(configuration, attributes.getValue("name"));
+  }
+
+  private void elementResource(Attributes attributes) {
+    if (attributes.getValue("type").equalsIgnoreCase("factory")) {
+      resource = new FactoryResource(configuration);
+    } else if (attributes.getValue("type").equalsIgnoreCase("store")) {
+      resource = new StoreResource(scenario);
+      ((StoreResource) resource).setStore(scenario.getStoreByName(attributes.getValue("store")));
+    } else {
+      throw new SAXException("2"); // FIXME
+    }
+
+    resource.setName(attributes.getValue("name"));
+    resource.setLevel(Integer.parseInt(attributes.getValue("level")));
+    resource.setTime(Double.parseDouble(attributes.getValue("time")));
+    resource.setValue(Double.parseDouble(attributes.getValue("value")));
+
+  }
+
+  private void elementRaw(Attributes attributes) {
+    assert resource != null;
+    assert !resource.getType().equals(ResourceType.STORE);
+
+    String name = attributes.getValue("resource");
+    StoreResource storeResource = (StoreResource) resource;
+    int rawNo = Integer.parseInt(attributes.getValue("number"));
+
+    RawRelation rawRelation = new RawRelation(storeResource.getName(), name, rawNo);
+    rawRelations.add(rawRelation);
+  }
+
+  private void elementTempomark(Attributes attributes) {
+    String name = attributes.getValue("name");
+    int multiplier = Integer.parseInt(attributes.getValue("multiplier"));
+    Tempomark tempomark = new Tempomark(scenario, name);
+    tempomark.setMultiplier(multiplier);
+  }
+
+  private void elementImprovement(Attributes attributes) {
+    int level = Integer.parseInt(attributes.getValue("level"));
+    double acceleration = Double.parseDouble(attributes.getValue("acceleration"));
+    configuration.addStoreImprovement(level, acceleration);
+  }
+  
   @Override
   public void startElement(String uri, String localName, String qname, Attributes attributes)
       throws SAXException {
-    try {
-      if (qname.equalsIgnoreCase("configuration")) {
-        //
-      } else if (qname.equalsIgnoreCase("store")) {
-        Store store = new Store(scenario, attributes.getValue("name"));
-        scenario.addProducer(store);
-      } else if (qname.equalsIgnoreCase("resource")) {
-        if (attributes.getValue("type").equalsIgnoreCase("factory")) {
-          resource = new FactoryResource(scenario);
-        } else if (attributes.getValue("type").equalsIgnoreCase("store")) {
-          resource = new StoreResource(scenario);
-          ((StoreResource) resource)
-              .setStore(scenario.getStoreByName(attributes.getValue("store")));
-        } else {
-          throw new SAXException("2"); // FIXME
-        }
-
-        resource.setName(attributes.getValue("name"));
-        resource.setLevel(Integer.parseInt(attributes.getValue("level")));
-        resource.setTime(Double.parseDouble(attributes.getValue("time")));
-        resource.setValue(Double.parseDouble(attributes.getValue("value")));
-
-      } else if (qname.equalsIgnoreCase("raw")) {
-        if (resource == null || !resource.getType().equals(ResourceType.STORE)) {
-          throw new SAXException("3"); // FIXME
-        }
-        String name = attributes.getValue("resource");
-        StoreResource storeResource = (StoreResource) resource;
-        int rawNo = Integer.parseInt(attributes.getValue("number"));
-        RawRelation rawRelation = new RawRelation(storeResource.getName(), name, rawNo);
-        rawRelations.add(rawRelation);
-      } else if (qname.equalsIgnoreCase("tempomark")) {
-        String name = attributes.getValue("name");
-        int multiplier = Integer.parseInt(attributes.getValue("multiplier"));
-        Tempomark tempomark = new Tempomark(scenario, name);
-        tempomark.setMultiplier(multiplier);
-      } else {
-        throw new ScboException("rules.xml has bad entity: " + qname);
-      }
-    } catch (ScboException exception) {
-      throw new SAXException("1"); // FIXME
+    switch (qname) {
+    case "configuration":
+      break;
+    case "store":
+      elementStore(attributes);
+      break;
+    case "resource":
+      elementResource(attributes);
+      break;
+    case "raw":
+      elementRaw(attributes);
+      break;
+    case "tempomark":
+      elementTempomark(attributes);
+      break;
+    case "improvement":
+      elementImprovement(attributes);
+      break;
+    default:
+      throw new IllegalArgumentException();
     }
   }
 

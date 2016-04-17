@@ -7,7 +7,7 @@ public class Id implements Comparable<Id> {
     setId(idFactory.get().getId());
   }
   
-  public Id() throws ScboException {
+  public Id() {
     setId(IdFactory.getGlobalId().getId());
   }
 

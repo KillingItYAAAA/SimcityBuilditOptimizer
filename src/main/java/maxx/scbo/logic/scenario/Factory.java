@@ -12,16 +12,6 @@ import org.apache.commons.math3.optim.linear.Relationship;
 import java.util.LinkedList;
 
 public class Factory extends ConfigProducer {
-  private int slots;
-
-  public int getSlots() {
-    return slots;
-  }
-
-  public void setSlots(int slots) {
-    this.slots = slots;
-  }
-
   @Override
   public void checkValid() throws ScboException {
     super.checkValid();

@@ -4,11 +4,11 @@ public class IdFactory {
   private static IdFactory globalIdFactory = new IdFactory();
   private int nextId = 0;
 
-  public static Id getGlobalId() throws ScboException {
+  public static Id getGlobalId() {
     return globalIdFactory.get();
   }
   
-  public Id get() throws ScboException {
+  public Id get() {
     Id id = new Id(nextId++);
     return id;
   }

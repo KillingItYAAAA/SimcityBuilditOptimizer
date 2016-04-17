@@ -29,7 +29,7 @@ public class Configuration implements Checkable {
   private Factory factory;
   private ArrayList<Tempomark> tempomarks = new ArrayList<Tempomark>();
   private TreeMap<String, Tempomark> tempomarksByName = new TreeMap<String, Tempomark>();
-  private TreeMap<Integer, Double> StoreLevels = new TreeMap<Integer, Double>();
+  private TreeMap<Integer, Double> storeImprovements = new TreeMap<Integer, Double>();
 
   private IdFactory resourceIdFactory = new IdFactory();
 
@@ -37,7 +37,7 @@ public class Configuration implements Checkable {
     return resourceIdFactory;
   }
 
-  public void addConfigProducer(ConfigProducer configProducer) throws ScboException {
+  public void addConfigProducer(ConfigProducer configProducer) {
     configProducers.add(configProducer);
   }
 
@@ -48,6 +48,10 @@ public class Configuration implements Checkable {
   public ConfigResource getConfigResourceByName(String name) {
     assert configResourcesByName.containsKey(name);
     return configResourcesByName.get(name);
+  }
+  
+  public void addStoreImprovement(int level, double acceleration) {
+    storeImprovements.put(level, acceleration);
   }
   
   /* (non-Javadoc)

@@ -12,7 +12,7 @@ public abstract class ConfigProducer implements Checkable {
   
   private TreeSet<ConfigResource> configResources = new TreeSet<ConfigResource>();
 
-  public ConfigProducer(Configuration configuration) throws ScboException {
+  public ConfigProducer(Configuration configuration) {
     this.configuration = configuration;
     configuration.addConfigProducer(this);
   }
@@ -30,7 +30,7 @@ public abstract class ConfigProducer implements Checkable {
     configResources.add(configResource);
   }
   
-  public LinkedList<Resource> getResources() {
-    return resources;
+  public TreeSet<ConfigResource> getConfigResources() {
+    return configResources;
   }
 }
