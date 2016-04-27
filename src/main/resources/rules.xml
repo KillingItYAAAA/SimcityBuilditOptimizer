@@ -1,55 +1,45 @@
 <?xml version="1.0"?>
 <configuration>
-  <producer name="factory">
-    <resource name="Metal" type="factory" time="1" level="1"
-      value="10" />
-    <resource name="Wood" type="factory" time="3" level="2"
-      value="20" />
-    <resource name="Plastic" type="factory" time="9" level="5"
-      value="25" />
-    <resource name="Seeds" type="factory" time="20" level="7"
-      value="30" />
-    <resource name="Minerals" type="factory" time="30" level="11"
-      value="40" />
-    <resource name="Chemicals" type="factory" time="120" level="13"
-      value="60" />
-    <resource name="Textiles" type="factory" time="180" level="15"
-      value="90" />
-    <resource name="Sugar" type="factory" time="240" level="17"
-      value="110" />
-    <resource name="Glass" type="factory" time="300" level="19"
-      value="120" />
-    <resource name="Animal Feed" type="factory" time="360"
-      level="23" value="140" />
-    <resource name="Electronic Components" type="factory"
-      level="29" time="420" value="160" />
+  <producer type="factory">
+    <resource name="Metal" time="1" level="1" value="10" />
+    <resource name="Wood" time="3" level="2" value="20" />
+    <resource name="Plastic" time="9" level="5" value="25" />
+    <resource name="Seeds" time="20" level="7" value="30" />
+    <resource name="Minerals" time="30" level="11" value="40" />
+    <resource name="Chemicals" time="120" level="13" value="60" />
+    <resource name="Textiles" time="180" level="15" value="90" />
+    <resource name="Sugar" time="240" level="17" value="110" />
+    <resource name="Glass" time="300" level="19" value="120" />
+    <resource name="Animal Feed" time="360" level="23" value="140" />
+    <resource name="Electronic Components" level="29" time="420"
+      value="160" />
   </producer>
 
   <producer name="Building Supply">
-    <resource name="Nails" type="store" store="Building Supply"
-      time="5" level="1" value="80">
+    <resource name="Nails" store="Building Supply" time="5"
+      level="1" value="80">
       <raw resource="Metal" number="2" />
     </resource>
-    <resource name="Planks" type="store" store="Building Supply"
-      time="30" level="3" value="120">
+    <resource name="Planks" store="Building Supply" time="30"
+      level="3" value="120">
       <raw resource="Wood" number="2" />
     </resource>
-    <resource name="Bricks" type="store" store="Building Supply"
-      time="20" level="13" value="190">
+    <resource name="Bricks" store="Building Supply" time="20"
+      level="13" value="190">
       <raw resource="Minerals" number="2" />
     </resource>
-    <resource name="Cement" type="store" store="Building Supply"
-      time="50" level="14" value="440">
+    <resource name="Cement" store="Building Supply" time="50"
+      level="14" value="440">
       <raw resource="Minerals" number="2" />
       <raw resource="Chemicals" number="1" />
     </resource>
-    <resource name="Glue" type="store" store="Building Supply"
-      time="60" level="15" value="440">
+    <resource name="Glue" store="Building Supply" time="60"
+      level="15" value="440">
       <raw resource="Plastic" number="1" />
       <raw resource="Chemicals" number="2" />
     </resource>
-    <resource name="Paint" type="store" store="Building Supply"
-      time="60" level="16" value="320">
+    <resource name="Paint" store="Building Supply" time="60"
+      level="16" value="320">
       <raw resource="Metal" number="2" />
       <raw resource="Minerals" number="1" />
       <raw resource="Chemicals" number="2" />
@@ -57,272 +47,272 @@
   </producer>
 
   <producer name="Hardware Store">
-    <resource name="Hammer" type="store" store="Hardware Store"
-      time="14" level="4" value="90">
+    <resource name="Hammer" store="Hardware Store" time="14"
+      level="4" value="90">
       <raw resource="Metal" number="1" />
       <raw resource="Wood" number="1" />
     </resource>
-    <resource name="Measuring Tape" type="store" store="Hardware Store"
+    <resource name="Measuring Tape" store="Hardware Store"
       time="20" level="6" value="110">
       <raw resource="Metal" number="1" />
       <raw resource="Plastic" number="1" />
     </resource>
-    <resource name="Shovel" type="store" store="Hardware Store"
-      time="30" level="9" value="150">
+    <resource name="Shovel" store="Hardware Store" time="30"
+      level="9" value="150">
       <raw resource="Metal" number="1" />
       <raw resource="Wood" number="1" />
       <raw resource="Plastic" number="1" />
     </resource>
-    <resource name="Cooking Utensils" type="store" store="Hardware Store"
+    <resource name="Cooking Utensils" store="Hardware Store"
       time="45" level="17" value="250">
       <raw resource="Metal" number="2" />
       <raw resource="Wood" number="2" />
       <raw resource="Plastic" number="2" />
     </resource>
-    <resource name="Ladder" type="store" store="Hardware Store"
-      time="60" level="20" value="420">
+    <resource name="Ladder" store="Hardware Store" time="60"
+      level="20" value="420">
       <raw resource="Metal" number="2" />
       <raw resource="Planks" number="2" />
     </resource>
-    <resource name="Drill" type="store" store="Hardware Store"
-      time="120" level="30" value="590">
+    <resource name="Drill" store="Hardware Store" time="120"
+      level="30" value="590">
       <raw resource="Metal" number="2" />
       <raw resource="Plastic" number="2" />
       <raw resource="Electronic Components" number="1" />
     </resource>
   </producer>
   <producer name="Farmer's Market">
-    <resource name="Vegetables" type="store" store="Farmer's Market"
-      time="20" level="8" value="160">
+    <resource name="Vegetables" store="Farmer's Market" time="20"
+      level="8" value="160">
       <raw resource="Seeds" number="2" />
     </resource>
-    <resource name="Flour Bag" type="store" store="Farmer's Market"
-      time="30" level="17" value="570">
+    <resource name="Flour Bag" store="Farmer's Market" time="30"
+      level="17" value="570">
       <raw resource="Seeds" number="2" />
       <raw resource="Textiles" number="2" />
     </resource>
-    <resource name="Fruit &amp; Berries" type="store" store="Farmer's Market"
+    <resource name="Fruit &amp; Berries" store="Farmer's Market"
       time="90" level="18" value="730">
       <raw resource="Seeds" number="2" />
       <raw resource="Shovel" number="1" />
     </resource>
-    <resource name="Cream" type="store" store="Farmer's Market"
-      time="75" level="23" value="440">
+    <resource name="Cream" store="Farmer's Market" time="75"
+      level="23" value="440">
       <raw resource="Animal Feed" number="1" />
     </resource>
-    <resource name="Corn" type="store" store="Farmer's Market"
-      time="60" level="24" value="280">
+    <resource name="Corn" store="Farmer's Market" time="60"
+      level="24" value="280">
       <raw resource="Seeds" number="4" />
       <raw resource="Minerals" number="1" />
     </resource>
-    <resource name="Cheese" type="store" store="Farmer's Market"
-      time="105" level="26" value="660">
+    <resource name="Cheese" store="Farmer's Market" time="105"
+      level="26" value="660">
       <raw resource="Animal Feed" number="2" />
     </resource>
-    <resource name="Beef" type="store" store="Farmer's Market"
-      time="150" level="27" value="860">
+    <resource name="Beef" store="Farmer's Market" time="150"
+      level="27" value="860">
       <raw resource="Animal Feed" number="3" />
     </resource>
   </producer>
   <producer name="Furniture Store">
-    <resource name="Chairs" type="store" store="Furniture Store"
-      time="20" level="10" value="300">
+    <resource name="Chairs" store="Furniture Store" time="20"
+      level="10" value="300">
       <raw resource="Wood" number="1" />
       <raw resource="Nails" number="2" />
       <raw resource="Hammer" number="1" />
     </resource>
-    <resource name="Tables" type="store" store="Furniture Store"
-      time="30" level="16" value="500">
+    <resource name="Tables" store="Furniture Store" time="30"
+      level="16" value="500">
       <raw resource="Nails" number="2" />
       <raw resource="Planks" number="1" />
       <raw resource="Hammer" number="1" />
     </resource>
-    <resource name="Home Textiles" type="store" store="Furniture Store"
+    <resource name="Home Textiles" store="Furniture Store"
       time="75" level="25" value="610">
       <raw resource="Textiles" number="2" />
       <raw resource="Measuring Tape" number="1" />
     </resource>
-    <resource name="Cupboard" type="store" store="Furniture Store"
-      time="45" level="26" value="900">
+    <resource name="Cupboard" store="Furniture Store" time="45"
+      level="26" value="900">
       <raw resource="Glass" number="2" />
       <raw resource="Planks" number="2" />
       <raw resource="Paint" number="1" />
     </resource>
-    <resource name="Couch" type="store" store="Furniture Store"
-      time="150" level="33" value="1810">
+    <resource name="Couch" store="Furniture Store" time="150"
+      level="33" value="1810">
       <raw resource="Textiles" number="3" />
       <raw resource="Glue" number="1" />
       <raw resource="Drill" number="1" />
     </resource>
   </producer>
   <producer name="Gardening Supplies">
-    <resource name="Grass" type="store" store="Gardening Supplies"
-      time="45" level="14" value="310">
+    <resource name="Grass" store="Gardening Supplies" time="45"
+      level="14" value="310">
       <raw resource="Seeds" number="1" />
       <raw resource="Shovel" number="1" />
     </resource>
-    <resource name="Tree Saplings" type="store" store="Gardening Supplies"
+    <resource name="Tree Saplings" store="Gardening Supplies"
       time="90" level="16" value="420">
       <raw resource="Seeds" number="2" />
       <raw resource="Shovel" number="1" />
     </resource>
-    <resource name="Garden Furniture" type="store" store="Gardening Supplies"
+    <resource name="Garden Furniture" store="Gardening Supplies"
       time="135" level="21" value="820">
       <raw resource="Plastic" number="2" />
       <raw resource="Textiles" number="2" />
       <raw resource="Planks" number="2" />
     </resource>
-    <resource name="Fire Pit" type="store" store="Gardening Supplies"
-      time="240" level="28" value="1740">
+    <resource name="Fire Pit" store="Gardening Supplies" time="240"
+      level="28" value="1740">
       <raw resource="Bricks" number="2" />
       <raw resource="Cement" number="2" />
       <raw resource="Shovel" number="1" />
     </resource>
-    <resource name="Lawn Mower" type="store" store="Gardening Supplies"
+    <resource name="Lawn Mower" store="Gardening Supplies"
       time="120" level="30" value="840">
       <raw resource="Metal" number="3" />
       <raw resource="Electronic Components" number="1" />
       <raw resource="Paint" number="1" />
     </resource>
-    <resource name="Garden Gnomes" type="store" store="Gardening Supplies"
+    <resource name="Garden Gnomes" store="Gardening Supplies"
       time="90" level="34" value="1600">
       <raw resource="Cement" number="2" />
       <raw resource="Glue" number="1" />
     </resource>
   </producer>
   <producer name="Donut Shop">
-    <resource name="Donuts" type="store" store="Donut Shop"
-      time="45" level="18" value="950">
+    <resource name="Donuts" store="Donut Shop" time="45" level="18"
+      value="950">
       <raw resource="Sugar" number="1" />
       <raw resource="Flour Bag" number="1" />
     </resource>
-    <resource name="Green Smoothie" type="store" store="Donut Shop"
-      time="30" level="20" value="1150">
+    <resource name="Green Smoothie" store="Donut Shop" time="30"
+      level="20" value="1150">
       <raw resource="Vegetables" number="1" />
       <raw resource="Fruit &amp; Berries" number="1" />
     </resource>
-    <resource name="Bread Roll" type="store" store="Donut Shop"
-      time="60" level="24" value="1840">
+    <resource name="Bread Roll" store="Donut Shop" time="60"
+      level="24" value="1840">
       <raw resource="Flour Bag" number="2" />
       <raw resource="Cream" number="1" />
     </resource>
-    <resource name="Cherry Cheesecake" type="store" store="Donut Shop"
-      time="90" level="27" value="2240">
+    <resource name="Cherry Cheesecake" store="Donut Shop" time="90"
+      level="27" value="2240">
       <raw resource="Flour Bag" number="1" />
       <raw resource="Fruit &amp; Berries" number="1" />
       <raw resource="Cheese" number="1" />
     </resource>
-    <resource name="Frozen Yoghurt" type="store" store="Donut Shop"
-      time="240" level="28" value="1750">
+    <resource name="Frozen Yoghurt" store="Donut Shop" time="240"
+      level="28" value="1750">
       <raw resource="Sugar" number="1" />
       <raw resource="Fruit &amp; Berries" number="1" />
       <raw resource="Cream" number="1" />
     </resource>
-    <resource name="Cafee" type="store" store="Donut Shop"
-      time="60" level="33" value="750">
+    <resource name="Cafee" store="Donut Shop" time="60" level="33"
+      value="750">
       <raw resource="Seeds" number="2" />
       <raw resource="Sugar" number="1" />
       <raw resource="Cream" number="1" />
     </resource>
   </producer>
   <producer name="Fashion Store">
-    <resource name="Cap" type="store" store="Fashion Store"
-      time="60" level="19" value="600">
+    <resource name="Cap" store="Fashion Store" time="60" level="19"
+      value="600">
       <raw resource="Textiles" number="2" />
       <raw resource="Measuring Tape" number="1" />
     </resource>
-    <resource name="Shoes" type="store" store="Fashion Store"
-      time="75" level="21" value="980">
+    <resource name="Shoes" store="Fashion Store" time="75"
+      level="21" value="980">
       <raw resource="Plastic" number="2" />
       <raw resource="Textiles" number="2" />
       <raw resource="Glue" number="1" />
     </resource>
-    <resource name="Watch" type="store" store="Fashion Store"
-      time="90" level="22" value="580">
+    <resource name="Watch" store="Fashion Store" time="90"
+      level="22" value="580">
       <raw resource="Plastic" number="2" />
       <raw resource="Chemicals" number="1" />
       <raw resource="Glass" number="1" />
     </resource>
-    <resource name="Business Suits" type="store" store="Fashion Store"
-      time="210" level="32" value="1170">
+    <resource name="Business Suits" store="Fashion Store" time="210"
+      level="32" value="1170">
       <raw resource="Textiles" number="3" />
       <raw resource="Glass" number="1" />
       <raw resource="Measuring Tape" number="1" />
     </resource>
-    <resource name="Backpack" type="store" store="Fashion Store"
-      time="150" level="34" value="430">
+    <resource name="Backpack" store="Fashion Store" time="150"
+      level="34" value="430">
       <raw resource="Plastic" number="2" />
       <raw resource="Textiles" number="2" />
       <raw resource="Measuring Tape" number="1" />
     </resource>
   </producer>
   <producer name="Fast Food Restaurant">
-    <resource name="Ice Cream Sandwich" type="store"
-      store="Fast Food Restaurant" time="14" level="25" value="2560">
+    <resource name="Ice Cream Sandwich" store="Fast Food Restaurant"
+      time="14" level="25" value="2560">
       <raw resource="Cream" number="1" />
       <raw resource="Bread Roll" number="1" />
     </resource>
-    <resource name="Pizza" type="store" store="Fast Food Restaurant"
-      time="24" level="28" value="2560">
+    <resource name="Pizza" store="Fast Food Restaurant" time="24"
+      level="28" value="2560">
       <raw resource="Flour Bag" number="1" />
       <raw resource="Cheese" number="1" />
       <raw resource="Beef" number="1" />
     </resource>
-    <resource name="Burgers" type="store" store="Fast Food Restaurant"
-      time="35" level="31" value="3620">
+    <resource name="Burgers" store="Fast Food Restaurant" time="35"
+      level="31" value="3620">
       <raw resource="Beef" number="1" />
       <raw resource="Bread Roll" number="1" />
       <raw resource="BBQ Grill" number="1" />
     </resource>
-    <resource name="Cheese Fries" type="store" store="Fast Food Restaurant"
+    <resource name="Cheese Fries" store="Fast Food Restaurant"
       time="90" level="33" value="1050">
       <raw resource="Vegetables" number="1" />
       <raw resource="Cheese" number="1" />
     </resource>
-    <resource name="Lemonade Bottle" type="store"
-      store="Fast Food Restaurant" time="60" level="37" value="1690">
+    <resource name="Lemonade Bottle" store="Fast Food Restaurant"
+      time="60" level="37" value="1690">
       <raw resource="Sugar" number="2" />
       <raw resource="Glass" number="2" />
       <raw resource="Fruit &amp; Berries" number="1" />
     </resource>
-    <resource name="Popcorn" type="store" store="Fast Food Restaurant"
-      time="30" level="43" value="1250">
+    <resource name="Popcorn" store="Fast Food Restaurant" time="30"
+      level="43" value="1250">
       <raw resource="Corn" number="2" />
       <raw resource="Microwave Oven" number="1" />
     </resource>
   </producer>
   <producer name="Home Appliances">
-    <resource name="BBQ Grill" type="store" store="Home Appliances"
-      time="165" level="29" value="530">
+    <resource name="BBQ Grill" store="Home Appliances" time="165"
+      level="29" value="530">
       <raw resource="Metal" number="3" />
       <raw resource="Cooking Utensils" number="1" />
     </resource>
-    <resource name="Refrigerator" type="store" store="Home Appliances"
-      time="210" level="35" value="1060">
+    <resource name="Refrigerator" store="Home Appliances" time="210"
+      level="35" value="1060">
       <raw resource="Plastic" number="2" />
       <raw resource="Chemicals" number="2" />
       <raw resource="Electronic Components" number="2" />
     </resource>
-    <resource name="Lighting System" type="store" store="Home Appliances"
+    <resource name="Lighting System" store="Home Appliances"
       time="105" level="36" value="890">
       <raw resource="Chemicals" number="1" />
       <raw resource="Glass" number="1" />
       <raw resource="Electronic Components" number="1" />
     </resource>
-    <resource name="Television" type="store" store="Home Appliances"
-      time="150" level="38" value="1280">
+    <resource name="Television" store="Home Appliances" time="150"
+      level="38" value="1280">
       <raw resource="Plastic" number="2" />
       <raw resource="Glass" number="2" />
       <raw resource="Electronic Components" number="2" />
     </resource>
-    <resource name="Microwave Oven" type="store" store="Home Appliances"
+    <resource name="Microwave Oven" store="Home Appliances"
       time="120" level="42" value="480">
       <raw resource="Metal" number="4" />
       <raw resource="Glass" number="1" />
       <raw resource="Electronic Components" number="1" />
     </resource>
   </producer>
-  
+
   <tempomark name="bronze" multiplier="2" />
   <tempomark name="silver" multiplier="4" />
   <tempomark name="gold" multiplier="12" />

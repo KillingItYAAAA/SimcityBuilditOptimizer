@@ -1,7 +1,6 @@
 package maxx.scbo.logic.config;
 
 import maxx.scbo.helper.Id;
-import maxx.scbo.helper.ScboException;
 import maxx.scbo.logic.scenario.Resource;
 
 import java.util.TreeMap;
@@ -22,7 +21,7 @@ public class ConfigResource {
   }
 
   public ConfigResource(ConfigProducer configProducer, String name, double prodTime, int minLevel,
-      double value) throws ScboException {
+      double value) {
     this.configProducer = configProducer;
     
     assert name != null;

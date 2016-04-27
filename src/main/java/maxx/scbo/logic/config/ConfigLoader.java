@@ -27,46 +27,78 @@ public class ConfigLoader extends DefaultHandler {
   private LinkedList<RawRelation> rawRelations = new LinkedList<RawRelation>();
 
   private ConfigResource configResource;
+  private ConfigProducer configProducer;
+
+  private abstract class ConfigElement {
+    private Configuration configuration;
+
+    public ConfigElement(Configuration configuration) {
+      this.configuration = configuration;
+    }
+
+    public abstract void start(Attributes attributes);
+
+    public abstract void end();
+  }
 
   public ConfigLoader(Configuration configuration) {
     this.configuration = configuration;
   }
 
-  private void elementStore(Attributes attributes) {
-    new ConfigStore(configuration, attributes.getValue("name"));
-  }
-
-  private void elementResource(Attributes attributes) {
-    assert configResource == null;
-    
-    
-    configResource = new ConfigResource(configuration);
-    if (attributes.getValue("type").equalsIgnoreCase("factory")) {
-      resource = new FactoryResource(configuration);
-    } else if (attributes.getValue("type").equalsIgnoreCase("store")) {
-      resource = new StoreResource(scenario);
-      ((StoreResource) resource).setStore(scenario.getStoreByName(attributes.getValue("store")));
-    } else {
-      throw new SAXException("2"); // FIXME
+  private class ConfigElementProducer extends ConfigElement {
+    public ConfigElementProducer(Configuration configuration) {
+      super(configuration);
     }
 
-    resource.setName(attributes.getValue("name"));
-    resource.setLevel(Integer.parseInt(attributes.getValue("level")));
-    resource.setTime(Double.parseDouble(attributes.getValue("time")));
-    resource.setValue(Double.parseDouble(attributes.getValue("value")));
+    public void start(Attributes attributes) {
+      new ConfigStore(configuration, attributes.getValue("name"));
+    }
 
+    public void end() {
+      configProducer = null;
+    }
   }
 
-  private void elementRaw(Attributes attributes) {
-    assert resource != null;
-    assert !resource.getType().equals(ResourceType.STORE);
+  private class ConfigElementResource extends ConfigElement {
+    public ConfigElementResource(Configuration configuration) {
+      super(configuration);
+    }
 
-    String name = attributes.getValue("resource");
-    StoreResource storeResource = (StoreResource) resource;
-    int rawNo = Integer.parseInt(attributes.getValue("number"));
+    public void start(Attributes attributes) {
+      assert configResource == null;
+      assert configProducer != null;
 
-    RawRelation rawRelation = new RawRelation(storeResource.getName(), name, rawNo);
-    rawRelations.add(rawRelation);
+      String name = attributes.getValue("name");
+      Integer level = Integer.parseInt(attributes.getValue("level"));
+      Double time = Double.parseDouble(attributes.getValue("time"));
+      Double value = Double.parseDouble(attributes.getValue("value"));
+
+      configResource = new ConfigResource(configProducer, name, time, level, value);
+    }
+
+    public void end() {
+      configResource = null;
+    }
+  }
+
+  private class ConfigElementRaw extends ConfigElement {
+    public ConfigElementRaw(Configuration configuration) {
+      super(configuration);
+    }
+
+    public void start(Attributes attributes) {
+      assert configResource != null;
+
+      String name = attributes.getValue("resource");
+      int rawNo = Integer.parseInt(attributes.getValue("number"));
+
+      RawRelation rawRelation = new RawRelation(configResource.getName(), name, rawNo);
+      rawRelations.add(rawRelation);
+    }
+
+    public void end() {
+
+    }
   }
 
   private void elementTempomark(Attributes attributes) {
@@ -81,27 +113,27 @@ public class ConfigLoader extends DefaultHandler {
     double acceleration = Double.parseDouble(attributes.getValue("acceleration"));
     configuration.addStoreImprovement(level, acceleration);
   }
-  
+
   @Override
   public void startElement(String uri, String localName, String qname, Attributes attributes)
       throws SAXException {
     switch (qname) {
     case "configuration":
       break;
-    case "store":
-      elementStore(attributes);
+    case "producer":
+      elementProducerStart(attributes);
       break;
     case "resource":
-      elementResource(attributes);
+      elementResourceStart(attributes);
       break;
     case "raw":
-      elementRaw(attributes);
+      elementRawStart(attributes);
       break;
     case "tempomark":
-      elementTempomark(attributes);
+      elementTempomarkStart(attributes);
       break;
     case "improvement":
-      elementImprovement(attributes);
+      elementImprovementStart(attributes);
       break;
     default:
       throw new IllegalArgumentException();
@@ -110,9 +142,6 @@ public class ConfigLoader extends DefaultHandler {
 
   @Override
   public void endElement(String uri, String localName, String qname) throws SAXException {
-    if (qname.equalsIgnoreCase("resource")) {
-      resource = null;
-    }
   }
 
   @Override

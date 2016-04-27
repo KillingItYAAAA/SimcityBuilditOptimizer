@@ -1,7 +1,6 @@
 package maxx.scbo.logic;
 
 import maxx.scbo.logic.config.Configuration;
-import maxx.scbo.logic.scenario.Scenario;
 
 public class TempomarkType {
   private Configuration configuration;
