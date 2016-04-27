@@ -3,7 +3,7 @@ package maxx.scbo.logic.scenario;
 import maxx.scbo.helper.Checkable;
 import maxx.scbo.helper.IdFactory;
 import maxx.scbo.helper.ScboException;
-import maxx.scbo.logic.Tempomark;
+import maxx.scbo.logic.TempomarkType;
 import maxx.scbo.logic.config.Configuration;
 import maxx.scbo.logic.config.ConfigProducer;
 
@@ -35,8 +35,8 @@ public class Scenario extends Configuration {
   private TreeMap<ConfigProducer, Producer> producers = new TreeMap<ConfigProducer, Producer>();
   private TreeSet<ConstraintSource> constraintSources = new TreeSet<ConstraintSource>();
   private Factory factory;
-  private ArrayList<Tempomark> tempomarks = new ArrayList<Tempomark>();
-  private TreeMap<String, Tempomark> tempomarksByName = new TreeMap<String, Tempomark>();
+  private ArrayList<TempomarkType> tempomarkTypes = new ArrayList<TempomarkType>();
+  private TreeMap<String, TempomarkType> tempomarksByName = new TreeMap<String, TempomarkType>();
 
   public Store getStoreByName(String name) {
     return stores.get(name);
@@ -113,20 +113,20 @@ public class Scenario extends Configuration {
     this.factory = factory;
   }
 
-  public void addTempomark(Tempomark tempomark) {
-    tempomarks.add(tempomark);
-    tempomarksByName.put(tempomark.getName(), tempomark);
+  public void addTempomark(TempomarkType tempomarkType) {
+    tempomarkTypes.add(tempomarkType);
+    tempomarksByName.put(tempomarkType.getName(), tempomarkType);
   }
   
   public int getTempomarkNo() {
-    return tempomarks.size();
+    return tempomarkTypes.size();
   }
   
-  public Tempomark getTempomarkByIdx(int idx) {
-    return tempomarks.get(idx);
+  public TempomarkType getTempomarkByIdx(int idx) {
+    return tempomarkTypes.get(idx);
   }
   
-  public Tempomark getTempomarkByName(String name) {
+  public TempomarkType getTempomarkByName(String name) {
     return tempomarksByName.get(name);
   }
   

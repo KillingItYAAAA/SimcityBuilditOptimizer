@@ -13,15 +13,11 @@ import java.util.LinkedList;
 
 public class Factory extends ConfigProducer {
   @Override
-  public void checkValid() throws ScboException {
+  public void checkValid() {
     super.checkValid();
-    if (slots < 1) {
-      throw new ScboException();
-    }
+    assert slots >= 1;
     for (Resource r : getResources()) {
-      if (! r.getType().equals(ResourceType.FACTORY)) {
-        throw new ScboException();
-      }
+      assert r.getType().equals(ResourceType.FACTORY);
     }
   }
   

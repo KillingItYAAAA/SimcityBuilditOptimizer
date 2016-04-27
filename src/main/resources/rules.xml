@@ -324,4 +324,9 @@
   <tempomark name="bronze" multiplier="2" />
   <tempomark name="silver" multiplier="4" />
   <tempomark name="gold" multiplier="12" />
+  
+  <improvement level="0" acceleration="1" />
+  <improvement level="1" acceleration="0.90" />
+  <improvement level="2" acceleration="0.85" />
+  <improvement level="3" acceleration="0.8" />
 </configuration>

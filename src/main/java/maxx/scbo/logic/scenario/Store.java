@@ -14,7 +14,7 @@ import java.util.LinkedList;
 public class Store extends Producer {
   private String name;
   private int level = 0;
-  static final double[] levelMultiplier = new double[] {1.0, 0.9, 0.85, 0.8};
+  static final double[] levelMultiplier = new double[] { 1.0, 0.9, 0.85, 0.8 };
 
   public String getName() {
     return name;
@@ -23,8 +23,10 @@ public class Store extends Producer {
   /**
    * TODO.
    * 
-   * @param name TODO
-   * @throws ScboException TODO
+   * @param name
+   *          TODO
+   * @throws ScboException
+   *           TODO
    */
   public void setName(String name) throws ScboException {
     assert (this.name != null);
@@ -34,7 +36,7 @@ public class Store extends Producer {
   public int getLevel() {
     return level;
   }
-  
+
   public void setLevel(int level) {
     this.level = level;
   }
@@ -42,29 +44,30 @@ public class Store extends Producer {
   public double getLevelMultiplier() {
     return levelMultiplier[level];
   }
-  
+
   @Override
-  public void checkValid() throws ScboException {
+  public void checkValid() {
     super.checkValid();
-    if (name == null || "".equals(name)) {
-      throw new ScboException();
-    }
-    if (getScenario().getStoreByName(getName()) == null) {
-      throw new ScboException();
-    }
+
+    assert name != null;
+    assert !name.equals("");
+
+    assert getScenario().getStoreByName(getName()) != null;
+
     for (Resource r : getResources()) {
-      if (r.getType() != ResourceType.STORE) {
-        throw new ScboException();
-      }
+      assert r.getType() == ResourceType.STORE;
     }
   }
-  
+
   /**
    * TODO.
    * 
-   * @param scenario TODO
-   * @param name TODO
-   * @throws ScboException TODO
+   * @param scenario
+   *          TODO
+   * @param name
+   *          TODO
+   * @throws ScboException
+   *           TODO
    */
   public Store(Scenario scenario, String name) throws ScboException {
     super(scenario);
@@ -74,28 +77,28 @@ public class Store extends Producer {
     }
     scenario.addStoreName(this);
   }
-  
+
   /**
    * TODO.
    */
   public LinkedList<LinearConstraint> getConstraints() {
     LinkedList<LinearConstraint> constraints = new LinkedList<LinearConstraint>();
-    
+
     // sum(prodPerMin * prodTim) <= 1
     RealVector coeff = new ArrayRealVector(getScenario().getResourceNo());
     for (Resource r : getResources()) {
       coeff.setEntry(r.getScenarioIdx(), r.getTime());
     }
-    
+
     LinearConstraint maxSlotConstraint = new LinearConstraint(coeff, Relationship.LEQ, 1);
-    
+
     constraints.add(maxSlotConstraint);
-    
+
     return constraints;
-    
+
   }
-  
+
   public double getProdAccel() {
-    return getConfiguration().getAccelForLevel(getLevel())*(24+getDailyTempomark())/24;
+    return getConfiguration().getAccelForLevel(getLevel()) * (24 + getDailyTempomark()) / 24;
   }
 }

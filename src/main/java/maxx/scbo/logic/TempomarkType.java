@@ -1,19 +1,20 @@
 package maxx.scbo.logic;
 
+import maxx.scbo.logic.config.Configuration;
 import maxx.scbo.logic.scenario.Scenario;
 
-public class Tempomark {
-  private Scenario scenario;
+public class TempomarkType {
+  private Configuration configuration;
   private String name;
   private int multiplier;
   private int noPerDay;
   
-  public Scenario getScenario() {
-    return scenario;
+  public Configuration getConfiguration() {
+    return configuration;
   }
 
-  public void setScenario(Scenario scenario) {
-    this.scenario = scenario;
+  public void setConfiguration(Configuration configuration) {
+    this.configuration = configuration;
   }
 
   public String getName() {
@@ -42,9 +43,9 @@ public class Tempomark {
    * @param scenario TODO
    * @param name TODO
    */
-  public Tempomark(Scenario scenario, String name) {
+  public TempomarkType(Configuration configuration, String name) {
     this.name = name;
-    this.scenario = scenario;
-    scenario.addTempomark(this);
+    this.configuration = configuration;
+    configuration.addTempomarkType(this);
   }
 }

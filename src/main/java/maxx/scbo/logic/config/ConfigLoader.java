@@ -3,7 +3,7 @@ package maxx.scbo.logic.config;
 import maxx.scbo.clui.App;
 import maxx.scbo.helper.ScboException;
 import maxx.scbo.logic.ResourceType;
-import maxx.scbo.logic.Tempomark;
+import maxx.scbo.logic.TempomarkType;
 import maxx.scbo.logic.scenario.FactoryResource;
 import maxx.scbo.logic.scenario.Resource;
 import maxx.scbo.logic.scenario.StoreResource;
@@ -26,7 +26,7 @@ public class ConfigLoader extends DefaultHandler {
 
   private LinkedList<RawRelation> rawRelations = new LinkedList<RawRelation>();
 
-  private Resource resource;
+  private ConfigResource configResource;
 
   public ConfigLoader(Configuration configuration) {
     this.configuration = configuration;
@@ -37,6 +37,10 @@ public class ConfigLoader extends DefaultHandler {
   }
 
   private void elementResource(Attributes attributes) {
+    assert configResource == null;
+    
+    
+    configResource = new ConfigResource(configuration);
     if (attributes.getValue("type").equalsIgnoreCase("factory")) {
       resource = new FactoryResource(configuration);
     } else if (attributes.getValue("type").equalsIgnoreCase("store")) {
@@ -68,8 +72,8 @@ public class ConfigLoader extends DefaultHandler {
   private void elementTempomark(Attributes attributes) {
     String name = attributes.getValue("name");
     int multiplier = Integer.parseInt(attributes.getValue("multiplier"));
-    Tempomark tempomark = new Tempomark(scenario, name);
-    tempomark.setMultiplier(multiplier);
+    TempomarkType tempomarkType = new TempomarkType(scenario, name);
+    tempomarkType.setMultiplier(multiplier);
   }
 
   private void elementImprovement(Attributes attributes) {
