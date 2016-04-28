@@ -48,6 +48,18 @@ public class ConfigLoader extends DefaultHandler {
     return this.configResource;
   }
   
+  public void setConfigResource(ConfigResource configResource) {
+    this.configResource = configResource;
+  }
+  
+  public ConfigProducer getConfigProducer() {
+    return this.configProducer;
+  }
+  
+  public void addRawRelation(RawRelation rawRelation) {
+    rawRelations.add(rawRelation);
+  }
+  
   private void elementTempomark(Attributes attributes) {
     String name = attributes.getValue("name");
     int multiplier = Integer.parseInt(attributes.getValue("multiplier"));

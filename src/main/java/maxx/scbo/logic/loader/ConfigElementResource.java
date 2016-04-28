@@ -6,29 +6,23 @@ import maxx.scbo.logic.config.Configuration;
 import org.xml.sax.Attributes;
 
 class ConfigElementResource extends ConfigElement {
-  /**
-   * 
-   */
-  private final ConfigLoader configLoader;
-
-  public ConfigElementResource(ConfigLoader configLoader, Configuration configuration) {
-    super(configuration);
-    this.configLoader = configLoader;
+  public ConfigElementResource(ConfigLoader configLoader) {
+    super(configLoader);
   }
 
   public void start(Attributes attributes) {
-    assert this.configLoader.configResource == null;
-    assert this.configLoader.configProducer != null;
+    assert getConfigLoader().getConfigResource() == null;
+    assert getConfigLoader().getConfigProducer() != null;
 
     String name = attributes.getValue("name");
     Integer level = Integer.parseInt(attributes.getValue("level"));
     Double time = Double.parseDouble(attributes.getValue("time"));
     Double value = Double.parseDouble(attributes.getValue("value"));
 
-    this.configLoader.configResource = new ConfigResource(this.configLoader.configProducer, name, time, level, value);
+    new ConfigResource(getConfigLoader().getConfigProducer(), name, time, level, value);
   }
 
   public void end() {
-    this.configLoader.configResource = null;
+    getConfigLoader().setConfigResource(null);
   }
 }

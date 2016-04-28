@@ -15,10 +15,10 @@ class ConfigElementRaw extends ConfigElement {
 
     RawRelation rawRelation = new RawRelation(getConfigLoader().getConfigResource().getName(),
         name, rawNo);
-    this.configLoader.rawRelations.add(rawRelation);
+    this.getConfigLoader().addRawRelation(rawRelation);
   }
 
   public void end() {
-
+    //
   }
 }
