@@ -1,9 +1,14 @@
-package maxx.scbo.logic.config;
+package maxx.scbo.logic.loader;
 
 import maxx.scbo.clui.App;
 import maxx.scbo.helper.ScboException;
 import maxx.scbo.logic.ResourceType;
 import maxx.scbo.logic.TempomarkType;
+import maxx.scbo.logic.config.ConfigProducer;
+import maxx.scbo.logic.config.ConfigResource;
+import maxx.scbo.logic.config.ConfigStore;
+import maxx.scbo.logic.config.Configuration;
+import maxx.scbo.logic.config.RawRelation;
 import maxx.scbo.logic.scenario.FactoryResource;
 import maxx.scbo.logic.scenario.Resource;
 import maxx.scbo.logic.scenario.StoreResource;
