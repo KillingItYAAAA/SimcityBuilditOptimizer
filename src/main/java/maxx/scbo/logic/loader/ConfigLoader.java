@@ -6,7 +6,6 @@ import maxx.scbo.logic.ResourceType;
 import maxx.scbo.logic.TempomarkType;
 import maxx.scbo.logic.config.ConfigProducer;
 import maxx.scbo.logic.config.ConfigResource;
-import maxx.scbo.logic.config.ConfigStore;
 import maxx.scbo.logic.config.Configuration;
 import maxx.scbo.logic.config.RawRelation;
 import maxx.scbo.logic.scenario.FactoryResource;
@@ -27,83 +26,15 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 public class ConfigLoader extends DefaultHandler {
-  private Configuration configuration;
+  Configuration configuration;
 
-  private LinkedList<RawRelation> rawRelations = new LinkedList<RawRelation>();
+  LinkedList<RawRelation> rawRelations = new LinkedList<RawRelation>();
 
-  private ConfigResource configResource;
-  private ConfigProducer configProducer;
-
-  private abstract class ConfigElement {
-    private Configuration configuration;
-
-    public ConfigElement(Configuration configuration) {
-      this.configuration = configuration;
-    }
-
-    public abstract void start(Attributes attributes);
-
-    public abstract void end();
-  }
+  ConfigResource configResource;
+  ConfigProducer configProducer;
 
   public ConfigLoader(Configuration configuration) {
     this.configuration = configuration;
-  }
-
-  private class ConfigElementProducer extends ConfigElement {
-    public ConfigElementProducer(Configuration configuration) {
-      super(configuration);
-    }
-
-    public void start(Attributes attributes) {
-      new ConfigStore(configuration, attributes.getValue("name"));
-    }
-
-    public void end() {
-      configProducer = null;
-    }
-  }
-
-  private class ConfigElementResource extends ConfigElement {
-    public ConfigElementResource(Configuration configuration) {
-      super(configuration);
-    }
-
-    public void start(Attributes attributes) {
-      assert configResource == null;
-      assert configProducer != null;
-
-      String name = attributes.getValue("name");
-      Integer level = Integer.parseInt(attributes.getValue("level"));
-      Double time = Double.parseDouble(attributes.getValue("time"));
-      Double value = Double.parseDouble(attributes.getValue("value"));
-
-      configResource = new ConfigResource(configProducer, name, time, level, value);
-    }
-
-    public void end() {
-      configResource = null;
-    }
-  }
-
-  private class ConfigElementRaw extends ConfigElement {
-    public ConfigElementRaw(Configuration configuration) {
-      super(configuration);
-    }
-
-    public void start(Attributes attributes) {
-      assert configResource != null;
-
-      String name = attributes.getValue("resource");
-      int rawNo = Integer.parseInt(attributes.getValue("number"));
-
-      RawRelation rawRelation = new RawRelation(configResource.getName(), name, rawNo);
-      rawRelations.add(rawRelation);
-    }
-
-    public void end() {
-
-    }
   }
 
   private void elementTempomark(Attributes attributes) {
