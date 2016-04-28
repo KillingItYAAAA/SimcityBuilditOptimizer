@@ -1,5 +1,17 @@
 package maxx.scbo.logic.loader;
 
-public class ConfigElementImprovement {
+import org.xml.sax.Attributes;
 
+public class ConfigElementImprovement extends ConfigElement {
+  ConfigElementImprovement(ConfigLoader configLoader) {
+    super(configLoader);
+  }
+  
+  public void start(Attributes attributes) {
+    //
+  }
+
+  public void end() {
+    //
+  }
 }

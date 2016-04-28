@@ -7,7 +7,6 @@ import maxx.scbo.logic.TempomarkType;
 import maxx.scbo.logic.config.ConfigProducer;
 import maxx.scbo.logic.config.ConfigResource;
 import maxx.scbo.logic.config.Configuration;
-import maxx.scbo.logic.config.RawRelation;
 import maxx.scbo.logic.scenario.FactoryResource;
 import maxx.scbo.logic.scenario.Resource;
 import maxx.scbo.logic.scenario.StoreResource;
@@ -26,17 +25,29 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 public class ConfigLoader extends DefaultHandler {
-  Configuration configuration;
+  private Configuration configuration;
 
-  LinkedList<RawRelation> rawRelations = new LinkedList<RawRelation>();
+  private LinkedList<RawRelation> rawRelations = new LinkedList<RawRelation>();
 
-  ConfigResource configResource;
-  ConfigProducer configProducer;
+  private ConfigResource configResource;
+  private ConfigProducer configProducer;
 
   public ConfigLoader(Configuration configuration) {
     this.configuration = configuration;
   }
 
+  public Configuration getConfiguration() {
+    return configuration;
+  }
+  
+  public void setConfigProducer(ConfigProducer configProducer) {
+    this.configProducer = configProducer;
+  }
+  
+  public ConfigResource getConfigResource() {
+    return this.configResource;
+  }
+  
   private void elementTempomark(Attributes attributes) {
     String name = attributes.getValue("name");
     int multiplier = Integer.parseInt(attributes.getValue("multiplier"));

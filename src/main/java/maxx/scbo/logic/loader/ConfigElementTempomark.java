@@ -1,5 +1,5 @@
 package maxx.scbo.logic.loader;
 
-public class ConfigElementTempomark {
+public class ConfigElementTempomark extends ConfigElement {
 
 }
