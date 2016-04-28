@@ -4,7 +4,7 @@ import maxx.scbo.logic.config.Configuration;
 
 import org.xml.sax.Attributes;
 
-abstract class ConfigElement {
+public abstract class ConfigElement {
   private Configuration configuration;
 
   public ConfigElement(Configuration configuration) {
